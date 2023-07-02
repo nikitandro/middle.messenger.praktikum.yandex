@@ -1,0 +1,28 @@
+@import "../../vars";
+
+.sign-in {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 30px 30px 30px;
+    width: 340px;
+    background: $secondary-surface-color;
+    border-radius: $surface-border-radius;
+    box-shadow: $box-shadow;
+  }
+  &__form-title {
+    color: $primary-text-color;
+    font-size: 20px;
+    font-weight: 500;
+  }
+  &__form-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 52px;
+  }
+}

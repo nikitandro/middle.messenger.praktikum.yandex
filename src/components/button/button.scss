@@ -1,0 +1,22 @@
+@import "../../vars";
+
+.button {
+  text-align: center;
+  vertical-align: center;
+  color: $on-primary-color;
+  background: $primary-color;
+  width: 280px;
+  height: 37px;
+  border: none;
+  border-radius: $button-border-radius;
+  font-weight: 500;
+  font-size: 13px;
+
+  &_secondary {
+    color: $primary-color;
+    background: none;
+    width: fit-content;
+    height: fit-content;
+    font-size: 11px;
+  }
+}

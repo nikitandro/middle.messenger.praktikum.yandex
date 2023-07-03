@@ -4,25 +4,37 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  &__form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 50px 30px 30px 30px;
-    width: 340px;
-    background: $secondary-surface-color;
-    border-radius: $surface-border-radius;
-    box-shadow: $box-shadow;
-  }
-  &__form-title {
+  height: 100vh;
+}
+
+.sign-in-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px 30px 30px 30px;
+  width: 340px;
+  background: $secondary-surface-color;
+  border-radius: $surface-border-radius;
+  box-shadow: $box-shadow;
+
+  &__title {
     color: $primary-text-color;
     font-size: 20px;
     font-weight: 500;
   }
-  &__form-inputs {
+
+  &__inputs {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 25px;
     margin-top: 52px;
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    margin-top: 62px;
   }
 }

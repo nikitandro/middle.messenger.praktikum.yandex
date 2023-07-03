@@ -1,0 +1,12 @@
+@import "../../vars";
+
+.link {
+  color: $primary-color;
+  font-size: 12px;
+  text-decoration: none;
+  line-height: 16px;
+
+  &_underlined {
+    text-decoration: underline;
+  }
+}

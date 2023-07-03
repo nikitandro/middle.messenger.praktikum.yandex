@@ -12,7 +12,7 @@ export default `
                 ${input('password', 'Пароль', 'password')}
             </div>
             <div class="sign-in-form__buttons">
-                ${button('Авторизоваться', 'primary')}
+                ${button('Авторизоваться')}
                 ${link('Нет аккаунта?', '/sign-up')}
             </div>
         </form>

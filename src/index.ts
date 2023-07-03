@@ -1,6 +1,8 @@
 import './style.scss';
 import signInPage from './pages/sign-in-page';
 import signUpPage from './pages/sign-up-page';
+import profilePage from './pages/profile-page';
+import errorPage from './pages/error-page';
 
 document.addEventListener('DOMContentLoaded', () => {
     const root = document.querySelector<HTMLDivElement>('#app')!;
@@ -14,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     switch (window.location.pathname) {
         case '/':
-            window.location.assign('/sign-in')
+            window.location.assign('/sign-in');
             break;
         case '/sign-in':
             template = signInPage();
@@ -22,8 +24,15 @@ document.addEventListener('DOMContentLoaded', () => {
         case '/sign-up':
             template = signUpPage();
             break;
+        case '/profile':
+            template = profilePage();
+            break;
+        case '/500':
+            template = errorPage(500, 'Мы уже фиксим', 'Назад к чатам', '/chats');
+            break;
         default:
-            console.log('404')
+            template = errorPage(404, 'Не туда попали', 'Назад к чатам', '/chats');
+            break;
     }
 
     root.innerHTML = template;

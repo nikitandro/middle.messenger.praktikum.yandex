@@ -3,6 +3,7 @@ import signInPage from './pages/sign-in-page';
 import signUpPage from './pages/sign-up-page';
 import profilePage from './pages/profile-page';
 import errorPage from './pages/error-page';
+import chatsPage from './pages/chats-page';
 
 document.addEventListener('DOMContentLoaded', () => {
     const root = document.querySelector<HTMLDivElement>('#app')!;
@@ -29,6 +30,9 @@ document.addEventListener('DOMContentLoaded', () => {
             break;
         case '/500':
             template = errorPage(500, 'Мы уже фиксим', 'Назад к чатам', '/chats');
+            break;
+        case '/chats':
+            template = chatsPage();
             break;
         default:
             template = errorPage(404, 'Не туда попали', 'Назад к чатам', '/chats');

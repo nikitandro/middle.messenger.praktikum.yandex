@@ -24,7 +24,7 @@ export default `
                         <li class="profile-list-item">
                             <h2 class="profile-list-item__title">Имя</h2>
                             <input class="profile-list-item__value profile-list-item__input"
-                                   value="{{profile.first_name}}" name="display_name">
+                                   value="{{profile.first_name}}" name="first_name">
                         </li>
                         <li class="profile-list-item">
                             <h2 class="profile-list-item__title">Фамилия</h2>
@@ -34,7 +34,7 @@ export default `
                         <li class="profile-list-item">
                             <h2 class="profile-list-item__title">Имя в чате</h2>
                             <input class="profile-list-item__value profile-list-item__input"
-                                   value="{{profile.first_name}}" name="first_name">
+                                   value="{{profile.first_name}}" name="display_name">
                         </li>
                         <li class="profile-list-item">
                             <h2 class="profile-list-item__title">Телефон</h2>

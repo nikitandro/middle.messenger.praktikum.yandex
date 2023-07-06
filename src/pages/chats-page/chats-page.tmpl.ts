@@ -8,9 +8,9 @@ export default `
             <div class="side-menu__profile-link-container">
                 <a href="/profile" class="side-menu__profile-link">Профиль</a>
             </div>
-            <div class="search">
-                <input type="text" class="search__input" placeholder="Поиск">
-            </div>
+            <form class="search">
+                <input type="text" class="search__input" placeholder="Поиск" name="search">
+            </form>
             <ul class="chat-list">
                 <li class="chat-list-item">
                     <div class="chat-list-item__left-part">
@@ -121,11 +121,11 @@ export default `
                     </li>
                 </ul>
             </div>
-            <div class="chat-input">
+            <form class="chat-input">
                 <button class="chat-input__clip-button"><img src="${clipIcon}" alt=""/></button>
                 <input class="chat-input__input" placeholder="Сообщение" name="message">
                 <button class="chat-input__send-button"><img src="${arrowInCircleRight}" alt=""></button>
-            </div>
+            </form>
         </div>
     </main>
 `;

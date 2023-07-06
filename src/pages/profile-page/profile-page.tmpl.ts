@@ -5,7 +5,7 @@ export default `
         <div class="profile-page">
             <div class="profile-page__go-back-area"><img src="${leftArrowIcon}" alt=""></div>
             <div class="profile-page__profile">
-                <div class="profile">
+                <form class="profile">
                     <input type="file" class="profile__avatar">
                     <h1 class="profile__first-name">{{profile.first_name}}</h1>
                     <ul class="profile__data profile-list">
@@ -39,7 +39,7 @@ export default `
                         <li class="profile-list-item"><a href="/profile-edit-password" class="link">Изменить пароль</a></li>
                         <li class="profile-list-item"><a href="/" class="link link_warning">Выйти</a></li>
                     </ul>
-                </div>
+                </form>
             </div>
         </div>
     </main>

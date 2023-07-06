@@ -8,7 +8,7 @@ export default `
         <div class="profile-page">
             <div class="profile-page__go-back-area"><img src="${leftArrowIcon}" alt=""></div>
             <div class="profile-page__profile">
-                <div class="profile">
+                <form class="profile">
                     <div class="profile__avatar"></div>
                     <h1 class="profile__first-name">{{profile.first_name}}</h1>
                     <ul class="profile__data profile-list">
@@ -29,7 +29,7 @@ export default `
                         </li>
                     </ul>
                     ${button('Сохранить')}
-                </div>
+                </form>
             </div>
         </div>
     </main>`;

@@ -1,0 +1,14 @@
+.pages-list-page {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pages-list {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  list-style: none;
+  gap: 5px;
+}

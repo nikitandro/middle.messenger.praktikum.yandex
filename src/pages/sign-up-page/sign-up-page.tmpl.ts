@@ -4,7 +4,8 @@ import link from '../../components/link';
 
 
 // language=handlebars
-export default `<div class="sign-in">
+export default `
+    <div class="sign-in">
         <form action="" class="sign-in-form">
             <h1 class="sign-in-form__title">Регистрация</h1>
             <div class="sign-in-form__inputs">

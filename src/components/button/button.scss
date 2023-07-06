@@ -1,15 +1,14 @@
 @import "../../vars";
 
 .button {
+  font-family: $font-family;
   text-align: center;
-  vertical-align: center;
   color: $on-primary-color;
   background: $primary-color;
   width: 280px;
   height: 37px;
   border: none;
   border-radius: $button-border-radius;
-  font-weight: 500;
   font-size: 13px;
 
   &_secondary {

@@ -1,9 +1,23 @@
 import './profile-page.scss';
 import profilePageTmpl from './profile-page.tmpl.ts';
 import Handlebars from 'handlebars';
+import editProfilePageTmpl from './edit-profile-page.tmpl.ts';
+import editPasswordProfilePageTmpl from './edit-password-profile-page.tmpl.ts';
 
-export default function () {
-    const template = Handlebars.compile(profilePageTmpl);
+export default function (type: 'profile' | 'edit-data' | 'edit-password') {
+    let template;
+
+    switch (type) {
+        case 'profile':
+            template = Handlebars.compile(profilePageTmpl);
+            break;
+        case 'edit-data':
+            template = Handlebars.compile(editProfilePageTmpl);
+            break;
+        case 'edit-password':
+            template = Handlebars.compile(editPasswordProfilePageTmpl);
+            break;
+    }
 
     const profile: {
         first_name: string,

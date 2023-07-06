@@ -26,7 +26,13 @@ document.addEventListener('DOMContentLoaded', () => {
             template = signUpPage();
             break;
         case '/profile':
-            template = profilePage();
+            template = profilePage('profile');
+            break;
+        case '/profile-edit':
+            template = profilePage('edit-data');
+            break;
+        case '/profile-edit-password':
+            template = profilePage('edit-password');
             break;
         case '/500':
             template = errorPage(500, 'Мы уже фиксим', 'Назад к чатам', '/chats');

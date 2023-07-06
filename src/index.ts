@@ -8,7 +8,7 @@ import pagesListPage from './pages/pages-list-page';
 
 document.addEventListener('DOMContentLoaded', () => {
     const root = document.querySelector<HTMLDivElement>('#app')!;
-    let template: string = '';
+    let template: string;
 
     switch (window.location.pathname) {
         case '/':

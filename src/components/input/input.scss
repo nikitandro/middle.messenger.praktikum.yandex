@@ -1,0 +1,18 @@
+@import "../../vars";
+
+.input {
+  color: $primary-text-color;
+  background: none;
+  border: none;
+  width: 280px;
+  padding: 6px 0;
+  font-size: 13px;
+  outline: none;
+  border-bottom: 1px solid #3369F3;
+
+  &::placeholder {
+    font-weight: 500;
+    font-size: 13px;
+    color: $secondary-text-color;
+  }
+}

@@ -1,5 +1,5 @@
 // language=handlebars
-export default `
+export default /*hbs*/ `
     <main>
         <div class="pages-list-page">
             <nav>

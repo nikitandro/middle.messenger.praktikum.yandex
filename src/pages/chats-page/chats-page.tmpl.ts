@@ -1,8 +1,8 @@
-import clipIcon from '../../assets/icons/clip-icon.svg';
-import arrowInCircleRight from '../../assets/icons/arrow-in-circle-right.svg';
+import clipIcon from "../../assets/icons/clip-icon.svg";
+import arrowInCircleRight from "../../assets/icons/arrow-in-circle-right.svg";
 
 // language=handlebars
-export default `
+export default /*hbs*/ `
     <aside>
         <div class="side-menu">
             <div class="side-menu__profile-link-container">

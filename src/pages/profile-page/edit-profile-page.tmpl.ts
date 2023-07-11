@@ -1,8 +1,8 @@
-import button from '../../components/button';
-import leftArrowIcon from '../../assets/icons/arrow-in-circle-left.svg';
+import button from "../../components/button";
+import leftArrowIcon from "../../assets/icons/arrow-in-circle-left.svg";
 // language=handlebars
 
-export default `
+export default /*hbs*/ `
     <main>
         <div class="profile-page">
             <div class="profile-page__go-back-area"><img src="${leftArrowIcon}" alt=""></div>
@@ -42,7 +42,7 @@ export default `
                                    name="phone">
                         </li>
                     </ul>
-                    ${button('Сохранить')}
+                    ${button("Сохранить")}
                 </form>
             </div>
         </div>

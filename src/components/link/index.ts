@@ -1,1 +1,1 @@
-export { default } from './link.ts';
+export {default} from './link.ts';

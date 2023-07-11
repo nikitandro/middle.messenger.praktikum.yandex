@@ -1,1 +1,1 @@
-export { default } from './chats-page.ts';
+export {default} from './chats-page.ts';

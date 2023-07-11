@@ -1,5 +1,5 @@
-import button from "../../components/button";
-import leftArrowIcon from "../../assets/icons/arrow-in-circle-left.svg";
+import button from '../../components/button';
+import leftArrowIcon from '../../assets/icons/arrow-in-circle-left.svg';
 // language=handlebars
 
 export default /*hbs*/ `
@@ -42,7 +42,7 @@ export default /*hbs*/ `
                                    name="phone">
                         </li>
                     </ul>
-                    ${button("Сохранить")}
+                    ${button('Сохранить')}
                 </form>
             </div>
         </div>

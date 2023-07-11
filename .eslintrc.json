@@ -1,0 +1,10 @@
+{
+  "extends": "eslint-config-google",
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "rules": {
+    "spaced-comment": "off",
+    "require-jsdoc": "off",
+    "max-len": ["error", { "code": 100, "ignoreTemplateLiterals": true }]
+  }
+}

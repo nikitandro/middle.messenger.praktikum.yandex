@@ -1,5 +1,5 @@
-import button from "../../components/button";
-import leftArrowIcon from "../../assets/icons/arrow-in-circle-left.svg";
+import button from '../../components/button';
+import leftArrowIcon from '../../assets/icons/arrow-in-circle-left.svg';
 
 // language=handlebars
 
@@ -14,21 +14,24 @@ export default /*hbs*/ `
                     <ul class="profile__data profile-list">
                         <li class="profile-list-item">
                             <h2 class="profile-list-item__title">Старый пароль</h2>
-                            <input class="profile-list-item__value profile-list-item__input" type="password"
+                            <input class="profile-list-item__value profile-list-item__input" 
+                                   type="password"
                                    name="oldPassword">
                         </li>
                         <li class="profile-list-item">
                             <h2 class="profile-list-item__title">Новый пароль</h2>
-                            <input class="profile-list-item__value profile-list-item__input" type="password"
+                            <input class="profile-list-item__value profile-list-item__input" 
+                                   type="password"
                                    name="newPassword">
                         </li>
                         <li class="profile-list-item">
                             <h2 class="profile-list-item__title">Повторите новый пароль</h2>
-                            <input class="profile-list-item__value profile-list-item__input" type="password"
+                            <input class="profile-list-item__value profile-list-item__input" 
+                                   type="password"
                                    name="newPassword">
                         </li>
                     </ul>
-                    ${button("Сохранить")}
+                    ${button('Сохранить')}
                 </form>
             </div>
         </div>

@@ -1,4 +1,4 @@
-import leftArrowIcon from "../../assets/icons/arrow-in-circle-left.svg";
+import leftArrowIcon from '../../assets/icons/arrow-in-circle-left.svg';
 // language=handlebars
 export default /*hbs*/ `
     <main>
@@ -35,9 +35,15 @@ export default /*hbs*/ `
                         </li>
                     </ul>
                     <ul class="profile__actions profile-list">
-                        <li class="profile-list-item"><a href="/profile-edit" class="link">Изменить данные</a></li>
-                        <li class="profile-list-item"><a href="/profile-edit-password" class="link">Изменить пароль</a></li>
-                        <li class="profile-list-item"><a href="/" class="link link_warning">Выйти</a></li>
+                        <li class="profile-list-item">
+                            <a href="/profile-edit" class="link">Изменить данные</a>
+                        </li>
+                        <li class="profile-list-item">
+                            <a href="/profile-edit-password" class="link">Изменить пароль</a>
+                        </li>
+                        <li class="profile-list-item">
+                            <a href="/" class="link link_warning">Выйти</a>
+                        </li>
                     </ul>
                 </form>
             </div>

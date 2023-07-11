@@ -1,1 +1,1 @@
-export { default } from './sign-up-page.ts';
+export {default} from './sign-up-page.ts';

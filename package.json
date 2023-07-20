@@ -16,6 +16,9 @@
     "eslint": "^8.44.0",
     "eslint-config-google": "^0.14.0",
     "sass": "^1.63.6",
+    "stylelint": "^15.10.2",
+    "stylelint-config-standard-scss": "^10.0.0",
+    "stylelint-scss": "^5.0.1",
     "typescript": "^5.0.2",
     "vite": "^4.3.9"
   },

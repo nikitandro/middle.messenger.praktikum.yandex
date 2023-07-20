@@ -34,7 +34,6 @@
 }
 
 .search {
-
   &__input {
     width: 100%;
     border: none;
@@ -143,6 +142,13 @@
   height: 100vh;
 }
 
+.chat-image {
+  height: 47px;
+  width: 47px;
+  border-radius: 47px;
+  background: $chat-list-item-image-placeholder-color;
+}
+
 .chat-header {
   position: fixed;
   display: flex;
@@ -222,12 +228,7 @@
   }
 }
 
-.chat-image {
-  height: 47px;
-  width: 47px;
-  border-radius: 47px;
-  background: $chat-list-item-image-placeholder-color;
-}
+
 
 .message-list {
   list-style: none;
@@ -239,6 +240,11 @@
 
 .message-list-item {
   color: $primary-text-color;
+
+  &__text-container {
+    max-width: 402px;
+    padding: 11px;
+  }
 
   &_incoming {
     align-self: flex-start;
@@ -260,11 +266,6 @@
       border-top-right-radius: 12px;
       border-bottom-left-radius: 12px;
     }
-  }
-
-  &__text-container {
-    max-width: 402px;
-    padding: 11px;
   }
 
   &__text {

@@ -7,37 +7,37 @@ import chatsPage from './pages/chats-page';
 import pagesListPage from './pages/pages-list-page';
 
 document.addEventListener('DOMContentLoaded', () => {
-  const root = document.querySelector<HTMLDivElement>('#app')!;
-  let template: string;
+    const root = document.querySelector<HTMLDivElement>('#app')!;
+    let template: string;
 
-  switch (window.location.pathname) {
+    switch (window.location.pathname) {
     case '/':
-      template = pagesListPage();
-      break;
+        template = pagesListPage();
+        break;
     case '/sign-in':
-      template = signInPage();
-      break;
+        template = signInPage();
+        break;
     case '/sign-up':
-      template = signUpPage();
-      break;
+        template = signUpPage();
+        break;
     case '/profile':
-      template = profilePage('profile');
-      break;
+        template = profilePage('profile');
+        break;
     case '/profile-edit':
-      template = profilePage('edit-data');
-      break;
+        template = profilePage('edit-data');
+        break;
     case '/profile-edit-password':
-      template = profilePage('edit-password');
-      break;
+        template = profilePage('edit-password');
+        break;
     case '/500':
-      template = errorPage(500, 'Мы уже фиксим', 'Назад к чатам', '/chats');
-      break;
+        template = errorPage(500, 'Мы уже фиксим', 'Назад к чатам', '/chats');
+        break;
     case '/chats':
-      template = chatsPage();
-      break;
+        template = chatsPage();
+        break;
     default:
-      template = errorPage(404, 'Не туда попали', 'Назад к чатам', '/chats');
-      break;
-  }
-  root.innerHTML = template;
+        template = errorPage(404, 'Не туда попали', 'Назад к чатам', '/chats');
+        break;
+    }
+    root.innerHTML = template;
 });

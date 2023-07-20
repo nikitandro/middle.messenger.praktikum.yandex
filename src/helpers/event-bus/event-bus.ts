@@ -1,37 +1,37 @@
 import { IEventBusListener, IEventBusListeners } from './types';
 
 export class EventBus {
-  private listeners: IEventBusListeners;
+    private listeners: IEventBusListeners;
 
-  constructor() {
-    this.listeners = {};
-  }
-
-  on(event: string, callback: (...args: any[]) => void) {
-    if (!this.listeners[event]) {
-      this.listeners[event] = [];
+    constructor() {
+        this.listeners = {};
     }
 
-    this.listeners[event].push(callback);
-  }
+    on(event: string, callback: (...args: any[]) => void) {
+        if (!this.listeners[event]) {
+            this.listeners[event] = [];
+        }
 
-  off(event: string, callback: IEventBusListener) {
-    if (!this.listeners[event]) {
-      throw new Error(`Нет события: ${event}`);
+        this.listeners[event].push(callback);
     }
 
-    this.listeners[event] = this.listeners[event].filter(
-        (listener) => listener !== callback
-    );
-  }
+    off(event: string, callback: IEventBusListener) {
+        if (!this.listeners[event]) {
+            throw new Error(`Нет события: ${event}`);
+        }
 
-  emit(event: string, ...args: any[]) {
-    if (!this.listeners[event]) {
-      throw new Error(`Нет события: ${event}`);
+        this.listeners[event] = this.listeners[event].filter(
+            (listener) => listener !== callback
+        );
     }
 
-    this.listeners[event].forEach(function(listener) {
-      listener(...args);
-    });
-  }
+    emit(event: string, ...args: any[]) {
+        if (!this.listeners[event]) {
+            throw new Error(`Нет события: ${event}`);
+        }
+
+        this.listeners[event].forEach(function(listener) {
+            listener(...args);
+        });
+    }
 }

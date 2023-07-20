@@ -7,12 +7,6 @@ export class Block<TProps extends Record<string, any>> {
   props: TProps;
   eventBus: () => EventBus;
 
-  /** JSDoc
-     * @param {string} tagName
-     * @param {Object} props
-     *
-     * @return {void}
-     */
   constructor(tagName: string = 'div', props: TProps = {} as TProps) {
     const eventBus = new EventBus();
     this._meta = {

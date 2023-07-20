@@ -1,1 +1,1 @@
-export {default} from './profile-page.ts';
+export { default } from './profile-page.ts';

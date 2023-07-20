@@ -1,4 +1,4 @@
-import {BlockLifeCycleEvents, IBlockMetaData} from './types';
+import { BlockLifeCycleEvents, IBlockMetaData } from './types';
 import EventBus from '../../helpers/event-bus';
 
 export class Block<TProps extends Record<string, any>> {
@@ -38,7 +38,7 @@ export class Block<TProps extends Record<string, any>> {
   }
 
   _createResources() {
-    const {tagName} = this._meta;
+    const { tagName } = this._meta;
     this._element = this._createDocumentElement(tagName);
   }
 
@@ -116,7 +116,7 @@ export class Block<TProps extends Record<string, any>> {
         const oldProps = self.props;
         const result = Reflect.set(target, prop, value, receiver);
         if (result) {
-          self.eventBus().emit(BlockLifeCycleEvents.FLOW_CDU, {...oldProps}, self.props);
+          self.eventBus().emit(BlockLifeCycleEvents.FLOW_CDU, { ...oldProps }, self.props);
         }
         return result;
       },

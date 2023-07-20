@@ -20,11 +20,11 @@ export default function(type: 'profile' | 'edit-data' | 'edit-password') {
   }
 
   const profile: {
-        first_name: string,
-        second_name: string,
-        email: string,
-        phone: string,
-        login: string
+        first_name: string;
+        second_name: string;
+        email: string;
+        phone: string;
+        login: string;
     } = {
       first_name: 'Никита',
       email: 'nik.vish.93@mail.ru',
@@ -33,5 +33,5 @@ export default function(type: 'profile' | 'edit-data' | 'edit-password') {
       second_name: 'Вишняков',
     };
 
-  return template({profile});
+  return template({ profile });
 }

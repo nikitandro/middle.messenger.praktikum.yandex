@@ -1,1 +1,1 @@
-export {default} from './pages-list-page.ts';
+export { default } from './pages-list-page.ts';

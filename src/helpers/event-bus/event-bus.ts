@@ -1,4 +1,4 @@
-import {IEventBusListener, IEventBusListeners} from './types';
+import { IEventBusListener, IEventBusListeners } from './types';
 
 export class EventBus {
   private listeners: IEventBusListeners;

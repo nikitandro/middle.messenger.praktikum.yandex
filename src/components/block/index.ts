@@ -1,3 +1,1 @@
-import { Block } from './block';
-
-export default Block;
+export { default } from './block';

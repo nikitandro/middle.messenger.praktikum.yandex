@@ -1,3 +1,5 @@
+import Block from './';
+
 export enum BlockLifeCycleEvents {
     INIT = 'init',
     FLOW_CDM = 'flow:component-did-mount',
@@ -6,6 +8,7 @@ export enum BlockLifeCycleEvents {
 }
 
 export type IBlockMetaData = {
-    tagName: string;
+    tagName: keyof HTMLElementTagNameMap;
     props: object;
+    children: Record<string, Block<any>>;
 }

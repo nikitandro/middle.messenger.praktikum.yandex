@@ -2,3 +2,4 @@
 export default /*hbs*/ `
     <button class="button clickable">{{text}}</button>
     `;
+

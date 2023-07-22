@@ -1,14 +1,15 @@
 import { BlockLifeCycleEvents, IBlockMetaData } from './types';
 import EventBus from '../../helpers/event-bus';
 import { v4 as makeUUID } from 'uuid';
+import Handlebars from 'handlebars';
 
 export default class Block<IBlockPropsAndChildren extends Record<string, any>> {
-    public props: Record<string, any>;
-    public children: Record<string, Block<any>>;
+    protected _props: Record<string, any>;
+    protected _children: Record<string, Block<any>>;
     public id: string;
-    private _element: HTMLElement;
-    private _meta: IBlockMetaData;
-    private _setUpdate: boolean;
+    protected _element: HTMLElement;
+    protected _meta: IBlockMetaData;
+    protected _setUpdate: boolean;
 
     public eventBus: () => EventBus;
 
@@ -18,21 +19,17 @@ export default class Block<IBlockPropsAndChildren extends Record<string, any>> {
 
         const { children, props } = this._getChildren(propsAndChildren);
 
-        this.children = this._makePropsProxy(children);
-
-        this._setUpdate = false;
-
-        this.id = makeUUID();
-
         this._meta = {
             tagName,
             props: props,
             children: children,
         };
 
-        this.props = this._makePropsProxy(props);
-
+        this._props = this._makePropsProxy(props);
+        this._children = this._makePropsProxy(children);
         this.eventBus = () => eventBus;
+        this._setUpdate = false;
+        this.id = makeUUID();
 
         this._element = document.createElement(tagName);
 
@@ -63,25 +60,37 @@ export default class Block<IBlockPropsAndChildren extends Record<string, any>> {
     }
 
     private _addEvents() {
-        const { events = {} } = this.props;
+        const { events = {} } = this._props;
 
         Object.keys(events).forEach((event) => {
             this._element.addEventListener(event, events[event]);
         });
     }
 
-    private createResources() {
+    private _removeEvents() {
+        const { events = {} } = this._props;
+
+        Object.keys(events).forEach((event) => {
+            this._element.addEventListener(event, events[event]);
+        });
+    }
+
+    private _createResources() {
         const { tagName } = this._meta;
         this._element = this._createDocumentElement(tagName);
     }
 
     public init() {
-        this.createResources();
-        this._render();
+        this._createResources();
+        this.eventBus().emit(BlockLifeCycleEvents.FLOW_RENDER);
     }
 
     private _componentDidMount(oldProps: IBlockPropsAndChildren) {
         this.componentDidMount(oldProps);
+
+        Object.values(this._children).forEach((child) => {
+            child.dispatchComponentDidMount();
+        });
     }
 
     // Может переопределять пользователь, необязательно трогать
@@ -104,8 +113,9 @@ export default class Block<IBlockPropsAndChildren extends Record<string, any>> {
     }
 
     // Может переопределять пользователь, необязательно трогать
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    public componentDidUpdate(oldProps: IBlockPropsAndChildren, newProps: IBlockPropsAndChildren) {
+    protected componentDidUpdate(
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        oldProps: IBlockPropsAndChildren, newProps: IBlockPropsAndChildren) {
         return true;
     }
 
@@ -115,20 +125,20 @@ export default class Block<IBlockPropsAndChildren extends Record<string, any>> {
         }
 
         this._setUpdate = false;
-        const oldValue = { ...this.props };
+        const oldValue = { ...this._props };
 
         const { children, props } = this._getChildren(newProps);
 
         if (Object.values(children).length) {
-            Object.assign(this.children, children);
+            Object.assign(this._children, children);
         }
 
         if (Object.values(props).length) {
-            Object.assign(this.props, props);
+            Object.assign(this._props, props);
         }
 
         if (this._setUpdate) {
-            this.eventBus().emit(BlockLifeCycleEvents.FLOW_CDU, oldValue, this.props);
+            this.eventBus().emit(BlockLifeCycleEvents.FLOW_CDU, oldValue, this._props);
             this._setUpdate = false;
         }
     };
@@ -140,20 +150,20 @@ export default class Block<IBlockPropsAndChildren extends Record<string, any>> {
     public compile(template: string, props: IBlockPropsAndChildren) {
         const propsAndStubs: Record<string, any> = { ...props };
 
-        Object.entries(this.children).forEach(([key, child]) => {
+        Object.entries(this._children).forEach(([key, child]) => {
             propsAndStubs[key] = `<div data-id="${child.id}"></div>`;
         });
 
         const fragment = this._createDocumentElement('template');
         fragment.innerHTML = Handlebars.compile(template)(propsAndStubs);
 
-        Object.values(this.children).forEach((child) => {
+        Object.values(this._children).forEach((child) => {
             const stub = fragment.content.querySelector(`[data-id="${child.id}"]`);
 
             stub?.replaceWith(child.getContent());
         });
 
-        return Handlebars.compile(template, propsAndStubs);
+        return fragment.content;
     }
 
     private _render() {
@@ -162,21 +172,23 @@ export default class Block<IBlockPropsAndChildren extends Record<string, any>> {
         // Используйте шаблонизатор из npm или напишите свой безопасный
         // Нужно не в строку компилировать (или делать это правильно),
         // либо сразу в DOM-элементы возвращать из compile DOM-ноду
-        this._element.innerHTML = block;
 
+        this._removeEvents();
+        this._element.innerHTML = '';
+        this._element.appendChild(block);
         this._addEvents();
     }
 
     // Может переопределять пользователь, необязательно трогать
-    public render() {
-        return '';
+    protected render(): Node {
+        return document.createElement('template');
     }
 
     public getContent() {
         return this.element;
     }
 
-    private _makePropsProxy(props: Record<string, any>) {
+    private _makePropsProxy<T extends Record<string, any>>(props: T) {
     // Можно и так передать this
     // Такой способ больше не применяется с приходом ES6+
         const self = this;
@@ -200,9 +212,11 @@ export default class Block<IBlockPropsAndChildren extends Record<string, any>> {
         });
     }
 
-    private _createDocumentElement<K extends keyof HTMLElementTagNameMap>(tagName: K) {
-    // Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
-        return document.createElement(tagName);
+    private _createDocumentElement<T extends keyof HTMLElementTagNameMap>(tagName: T) {
+        const element = document.createElement(tagName);
+        element.setAttribute('data-id', this.id);
+        // Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
+        return element;
     }
 
     public show() {

@@ -12,15 +12,12 @@ export default function(text: string) {
     });
 }
 
-class Button extends Block<IButtonProps> {
+export class Button extends Block<IButtonProps> {
     constructor(props: IButtonProps) {
         super('button', props);
     }
 
-    public render(): string {
-        const template = Handlebars.compile(buttonTmpl);
-
-
-        return '';
+    public render() {
+        return this.compile(buttonTmpl, { ...this._props, ...this._children } as IButtonProps);
     }
 }

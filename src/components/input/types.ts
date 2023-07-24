@@ -19,4 +19,5 @@ export type IInputType =
     | 'image'
     | 'hidden'
     | 'file'
-    | 'datetime-local';
+    | 'datetime-local'
+    | 'email';

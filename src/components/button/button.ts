@@ -1,18 +1,9 @@
-import Handlebars from 'handlebars';
 import buttonTmpl from './button.tmpl.ts';
 import Block from '../block';
 import './button.scss';
 import { IButtonProps, IButtonPropsAndAttrs } from './types.ts';
 
-export default function(text: string) {
-    const template = Handlebars.compile(buttonTmpl);
-
-    return template({
-        text,
-    });
-}
-
-export class Button extends Block<IButtonProps, Record<string, string>> {
+export default class Button extends Block<IButtonProps, Record<string, string>> {
     constructor({ props, attrs, events }: IButtonPropsAndAttrs) {
         super(
             'button',
@@ -24,7 +15,6 @@ export class Button extends Block<IButtonProps, Record<string, string>> {
                 },
                 events: events,
             } );
-        console.log(props);
     }
 
     public render() {

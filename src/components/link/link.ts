@@ -1,16 +1,9 @@
-import Handlebars from 'handlebars';
 import linkTmpl from './link.tmpl.ts';
 import './link.scss';
 import Block from '../block';
 import { ILinkPropsAndAttrs } from './types.ts';
 
-export default function(text: string, href: string, underlined: boolean = false) {
-    const template = Handlebars.compile(linkTmpl);
-
-    return template({ text, href, underlined });
-}
-
-export class Link extends Block {
+export default class Link extends Block {
     constructor(propsAndAttrs: ILinkPropsAndAttrs) {
         const { props, attrs, events } = propsAndAttrs;
         super('a', { props, events, attrs: {

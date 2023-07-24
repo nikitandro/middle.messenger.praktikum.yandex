@@ -2,7 +2,7 @@ import { IBlockPropsAndAttrs } from '../block/types.ts';
 
 export type ILinkProps = {
     text: string;
-    isUnderlined: boolean;
+    isUnderlined?: boolean;
 }
 
 export type ILinkPropsAndAttrs = IBlockPropsAndAttrs<ILinkProps>;

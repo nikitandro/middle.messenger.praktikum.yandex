@@ -42,8 +42,10 @@ document.addEventListener('DOMContentLoaded', () => {
     //     break;
     // }
 
-    const debugPage = new DebugPage();
 
-    render('#app', debugPage );
     // root.appendChild(template);
 });
+
+const debugPage = new DebugPage();
+
+render('#app', debugPage );

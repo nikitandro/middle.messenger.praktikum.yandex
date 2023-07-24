@@ -1,32 +1,50 @@
-import { BlockLifeCycleEvents, IBlockMetaData } from './types';
+import {
+    BlockLifeCycleEvents,
+    IBlockAttributes, IBlockEvents,
+    IBlockMetaData,
+    IBlockPropsAndAttrs,
+} from './types';
 import EventBus from '../../helpers/event-bus';
 import { v4 as makeUUID } from 'uuid';
 import Handlebars from 'handlebars';
 
-export default class Block<IBlockPropsAndChildren extends Record<string, any>> {
+export default class Block<
+    TProps extends Record<string, any> = Record<string, any>,
+    TAttrs extends IBlockAttributes = IBlockAttributes
+> {
     protected _props: Record<string, any>;
-    protected _children: Record<string, Block<any>>;
+    protected _children: Record<string, Block<any, any>>;
     public id: string;
     protected _element: HTMLElement;
     protected _meta: IBlockMetaData;
     protected _setUpdate: boolean;
+    protected _attrs: TAttrs | Record<string, string | number | boolean>;
+    protected _events: IBlockEvents;
 
     public eventBus: () => EventBus;
 
-    constructor(tagName: keyof HTMLElementTagNameMap = 'div',
-        propsAndChildren: IBlockPropsAndChildren = {} as IBlockPropsAndChildren) {
+    constructor(
+        tagName: keyof HTMLElementTagNameMap = 'div',
+        propsAndChildren:
+        IBlockPropsAndAttrs<TProps, TAttrs> = {}) {
         const eventBus = new EventBus();
 
-        const { children, props } = this._getChildren(propsAndChildren);
+        const { children, props } = this._getChildren(propsAndChildren.props ?? {});
+        const attrs = propsAndChildren.attrs;
+        const events = propsAndChildren.events;
 
         this._meta = {
             tagName,
             props: props,
             children: children,
+            attrs: propsAndChildren.attrs,
+            events: events,
         };
 
         this._props = this._makePropsProxy(props);
         this._children = this._makePropsProxy(children);
+        this._attrs = this._makePropsProxy(attrs ?? {});
+        this._events = this._makePropsProxy(events ?? {});
         this.eventBus = () => eventBus;
         this._setUpdate = false;
         this.id = makeUUID();
@@ -44,8 +62,8 @@ export default class Block<IBlockPropsAndChildren extends Record<string, any>> {
         eventBus.on(BlockLifeCycleEvents.FLOW_RENDER, this._render.bind(this));
     }
 
-    private _getChildren(propsAndChildren: IBlockPropsAndChildren) {
-        const children: Record<string, Block<any>> = {};
+    private _getChildren(propsAndChildren: TProps | {}) {
+        const children: Record<string, Block<any, any>> = {};
         const props: Record<string, any> = {};
 
         Object.entries(propsAndChildren).forEach(([key, value]) => {
@@ -60,7 +78,7 @@ export default class Block<IBlockPropsAndChildren extends Record<string, any>> {
     }
 
     private _addEvents() {
-        const { events = {} } = this._props;
+        const events = this._events;
 
         Object.keys(events).forEach((event) => {
             this._element.addEventListener(event, events[event]);
@@ -68,7 +86,11 @@ export default class Block<IBlockPropsAndChildren extends Record<string, any>> {
     }
 
     private _removeEvents() {
-        const { events = {} } = this._props;
+        const events = this._events;
+
+        if (!events) {
+            return;
+        }
 
         Object.keys(events).forEach((event) => {
             this._element.addEventListener(event, events[event]);
@@ -85,7 +107,7 @@ export default class Block<IBlockPropsAndChildren extends Record<string, any>> {
         this.eventBus().emit(BlockLifeCycleEvents.FLOW_RENDER);
     }
 
-    private _componentDidMount(oldProps: IBlockPropsAndChildren) {
+    private _componentDidMount(oldProps: IBlockPropsAndAttrs<TProps, TAttrs>) {
         this.componentDidMount(oldProps);
 
         Object.values(this._children).forEach((child) => {
@@ -94,16 +116,15 @@ export default class Block<IBlockPropsAndChildren extends Record<string, any>> {
     }
 
     // Может переопределять пользователь, необязательно трогать
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    public componentDidMount(oldProps: IBlockPropsAndChildren) {}
+    public componentDidMount(oldProps: IBlockPropsAndAttrs<TProps, TAttrs>) {}
 
     public dispatchComponentDidMount() {
         this.eventBus().emit(BlockLifeCycleEvents.FLOW_CDM);
     }
 
     private _componentDidUpdate(
-        oldProps: IBlockPropsAndChildren,
-        newProps: IBlockPropsAndChildren
+        oldProps: IBlockPropsAndAttrs<TProps, TAttrs>,
+        newProps: IBlockPropsAndAttrs<TProps, TAttrs>
     ) {
         const response = this.componentDidUpdate(oldProps, newProps);
         if (!response) {
@@ -115,11 +136,14 @@ export default class Block<IBlockPropsAndChildren extends Record<string, any>> {
     // Может переопределять пользователь, необязательно трогать
     protected componentDidUpdate(
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        oldProps: IBlockPropsAndChildren, newProps: IBlockPropsAndChildren) {
+        oldProps: IBlockPropsAndAttrs<TProps, TAttrs>,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        newProps: IBlockPropsAndAttrs<TProps, TAttrs>
+    ) {
         return true;
     }
 
-    public setProps = (newProps: IBlockPropsAndChildren) => {
+    public setProps = (newProps: IBlockPropsAndAttrs<TProps, TAttrs>) => {
         if (!newProps) {
             return;
         }
@@ -127,7 +151,8 @@ export default class Block<IBlockPropsAndChildren extends Record<string, any>> {
         this._setUpdate = false;
         const oldValue = { ...this._props };
 
-        const { children, props } = this._getChildren(newProps);
+        const { children, props } = this._getChildren(newProps.props ?? {});
+        const attrs = newProps.attrs;
 
         if (Object.values(children).length) {
             Object.assign(this._children, children);
@@ -135,6 +160,10 @@ export default class Block<IBlockPropsAndChildren extends Record<string, any>> {
 
         if (Object.values(props).length) {
             Object.assign(this._props, props);
+        }
+
+        if (attrs && Object.values(attrs).length) {
+            Object.assign(this._attrs, attrs);
         }
 
         if (this._setUpdate) {
@@ -147,7 +176,7 @@ export default class Block<IBlockPropsAndChildren extends Record<string, any>> {
         return this._element;
     }
 
-    public compile(template: string, props: IBlockPropsAndChildren) {
+    public compile(template: string, props: IBlockPropsAndAttrs<TProps, TAttrs>) {
         const propsAndStubs: Record<string, any> = { ...props };
 
         Object.entries(this._children).forEach(([key, child]) => {
@@ -161,6 +190,10 @@ export default class Block<IBlockPropsAndChildren extends Record<string, any>> {
             const stub = fragment.content.querySelector(`[data-id="${child.id}"]`);
 
             stub?.replaceWith(child.getContent());
+        });
+
+        this._attrs && Object.keys(this._attrs).forEach((key) => {
+            this._element.setAttribute(key, this._attrs[key].toString());
         });
 
         return fragment.content;

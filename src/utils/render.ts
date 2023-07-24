@@ -7,8 +7,6 @@ export default function render(query: string, component: Block<any>) {
         root.appendChild(component.getContent());
     }
 
-    console.log(root);
-
     component.dispatchComponentDidMount();
 
     return root;

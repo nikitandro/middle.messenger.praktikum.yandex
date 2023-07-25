@@ -5,6 +5,7 @@ import SignUpPage from './pages/sign-up-page';
 import NoAsideLayout from './layouts/no-aside-layout';
 import DebugPage from './pages/debug-page';
 import { ErrorPage } from './pages/error-page/error-page';
+import { ProfilePage } from './pages/profile-page/profile-page';
 
 document.addEventListener('DOMContentLoaded', () => {
     // const root = document.querySelector<HTMLDivElement>('#app')!;
@@ -23,9 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
     case '/debug':
         page = new DebugPage();
         break;
-        // case '/profile':
-        //     template = profilePage('profile');
-        //     break;
+    case '/profile':
+        page = new NoAsideLayout({ props: { page: new ProfilePage() } });
+        break;
         // case '/profile-edit':
         //     template = profilePage('edit-data');
         //     break;

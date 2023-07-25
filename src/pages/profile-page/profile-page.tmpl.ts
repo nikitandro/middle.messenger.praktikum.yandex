@@ -1,8 +1,6 @@
 import leftArrowIcon from '../../assets/icons/arrow-in-circle-left.svg';
 // language=handlebars
 export default /*hbs*/ `
-    <main>
-        <div class="profile-page">
             <div class="profile-page__go-back-area"><img src="${leftArrowIcon}" alt=""></div>
             <div class="profile-page__profile">
                 <form class="profile">
@@ -36,17 +34,18 @@ export default /*hbs*/ `
                     </ul>
                     <ul class="profile__actions profile-list">
                         <li class="profile-list-item">
-                            <a href="/profile-edit" class="link">Изменить данные</a>
+                            {{!-- <a href="/profile-edit" class="link">Изменить данные</a> --}}
+                            {{{linkToProfileEditData}}}
                         </li>
                         <li class="profile-list-item">
-                            <a href="/profile-edit-password" class="link">Изменить пароль</a>
+                            {{!-- <a href="/profile-edit-password" class="link">Изменить пароль</a> --}}
+                            {{{linkToProfileEditPassword}}}
                         </li>
                         <li class="profile-list-item">
-                            <a href="/" class="link link_warning">Выйти</a>
+                            {{!-- <a href="/" class="link link_warning">Выйти</a> --}}
+                            {{{linkLogout}}}
                         </li>
                     </ul>
                 </form>
             </div>
-        </div>
-    </main>
 `;

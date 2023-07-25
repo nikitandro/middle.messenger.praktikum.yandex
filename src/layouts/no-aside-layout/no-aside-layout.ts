@@ -2,7 +2,7 @@ import Block from '../../components/block';
 import noAsideLayoutTmpl from './no-aside-layout.tmpl.ts';
 
 export default class NoAsideLayout extends Block {
-    constructor(propsAndAttrs: {props: {page: Block}}) {
+    constructor(propsAndAttrs: {props: {page: Block<any, any>}}) {
         super('main', propsAndAttrs);
     }
 

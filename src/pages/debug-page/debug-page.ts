@@ -1,8 +1,8 @@
-import Block from '../../components/block/block';
-import { Button } from '../../components/button/button';
+import Block from '../../components/block';
+import Button from '../../components/button';
 import debugPageTmpl from './debug-page.tmpl';
-import { Input } from '../../components/input/input.ts';
-import { Link } from '../../components/link/link.ts';
+import Input from '../../components/input';
+import Link from '../../components/link';
 
 const button = new Button({ props: { text: 'Привет' }, events: {
     click: (event) => {

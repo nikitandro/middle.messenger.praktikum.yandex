@@ -12,9 +12,9 @@ export default class Block<
     TProps extends Record<string, any> = Record<string, any>,
     TAttrs extends IBlockAttributes = IBlockAttributes
 > {
+    public readonly id: string;
     protected _props: Record<string, any>;
     protected _children: Record<string, Block<any, any>>;
-    public id: string;
     protected _element: HTMLElement;
     protected _meta: IBlockMetaData;
     protected _setUpdate: boolean;
@@ -55,14 +55,14 @@ export default class Block<
         eventBus.emit(BlockLifeCycleEvents.INIT);
     }
 
-    private _registerEvents(eventBus: EventBus) {
+    protected _registerEvents(eventBus: EventBus) {
         eventBus.on(BlockLifeCycleEvents.INIT, this.init.bind(this));
         eventBus.on(BlockLifeCycleEvents.FLOW_CDM, this._componentDidMount.bind(this));
         eventBus.on(BlockLifeCycleEvents.FLOW_CDU, this._componentDidUpdate.bind(this));
         eventBus.on(BlockLifeCycleEvents.FLOW_RENDER, this._render.bind(this));
     }
 
-    private _getChildren(propsAndChildren: TProps | {}) {
+    protected _getChildren(propsAndChildren: TProps | {}) {
         const children: Record<string, Block<any, any>> = {};
         const props: Record<string, any> = {};
 
@@ -77,7 +77,7 @@ export default class Block<
         return { children, props };
     }
 
-    private _addEvents() {
+    protected _addEvents() {
         const events = this._events;
 
         Object.keys(events).forEach((event) => {
@@ -85,7 +85,7 @@ export default class Block<
         });
     }
 
-    private _removeEvents() {
+    protected _removeEvents() {
         const events = this._events;
 
         if (!events) {
@@ -97,7 +97,7 @@ export default class Block<
         });
     }
 
-    private _createResources() {
+    protected _createResources() {
         const { tagName } = this._meta;
         this._element = this._createDocumentElement(tagName);
     }
@@ -107,7 +107,7 @@ export default class Block<
         this.eventBus().emit(BlockLifeCycleEvents.FLOW_RENDER);
     }
 
-    private _componentDidMount(oldProps: IBlockPropsAndAttrs<TProps, TAttrs>) {
+    protected _componentDidMount(oldProps: IBlockPropsAndAttrs<TProps, TAttrs>) {
         this.componentDidMount(oldProps);
 
         Object.values(this._children).forEach((child) => {
@@ -122,7 +122,7 @@ export default class Block<
         this.eventBus().emit(BlockLifeCycleEvents.FLOW_CDM);
     }
 
-    private _componentDidUpdate(
+    protected _componentDidUpdate(
         oldProps: IBlockPropsAndAttrs<TProps, TAttrs>,
         newProps: IBlockPropsAndAttrs<TProps, TAttrs>
     ) {
@@ -199,7 +199,7 @@ export default class Block<
         return fragment.content;
     }
 
-    private _render() {
+    protected _render() {
         const block = this.render();
         // Этот небезопасный метод для упрощения логики
         // Используйте шаблонизатор из npm или напишите свой безопасный
@@ -221,7 +221,7 @@ export default class Block<
         return this.element;
     }
 
-    private _makePropsProxy<T extends Record<string, any>>(props: T) {
+    protected _makePropsProxy<T extends Record<string, any>>(props: T) {
     // Можно и так передать this
     // Такой способ больше не применяется с приходом ES6+
         const self = this;

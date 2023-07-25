@@ -1,15 +1,10 @@
-// import DebugPage from './pages/debug-page/debug-page';
 import './style.scss';
 import render from './utils/render';
 import SignInPage from './pages/sign-in-page';
 import SignUpPage from './pages/sign-up-page';
 import NoAsideLayout from './layouts/no-aside-layout';
-// import signInPage from './pages/sign-in-page';
-// import signUpPage from './pages/sign-up-page';
-// import profilePage from './pages/profile-page';
-// import errorPage from './pages/error-page';
-// import chatsPage from './pages/chats-page';
-// import pagesListPage from './pages/pages-list-page';
+import DebugPage from './pages/debug-page';
+import { ErrorPage } from './pages/error-page/error-page';
 
 document.addEventListener('DOMContentLoaded', () => {
     // const root = document.querySelector<HTMLDivElement>('#app')!;
@@ -24,6 +19,9 @@ document.addEventListener('DOMContentLoaded', () => {
         break;
     case '/sign-up':
         page = new NoAsideLayout({ props: { page: new SignUpPage() } });
+        break;
+    case '/debug':
+        page = new DebugPage();
         break;
         // case '/profile':
         //     template = profilePage('profile');
@@ -40,11 +38,22 @@ document.addEventListener('DOMContentLoaded', () => {
         // case '/chats':
         //     template = chatsPage();
         //     break;
-        // default:
-        //     template = errorPage(404, 'Не туда попали', 'Назад к чатам', '/chats');
-        //     break;
-        // }
+    default:
+        page = new NoAsideLayout({
+            props: {
+                page: new ErrorPage({
+                    props: {
+                        statusCode: 404,
+                        comment: 'Не туда попали',
+                        linkHref: '/sign-in',
+                        linkText: 'Назад',
+                    },
+                }),
+            },
+        });
+        break;
     }
+
     page && render('#app', page );
     // root.appendChild(template);
 });

@@ -1,6 +1,7 @@
 //language=handlebars
-export default /* hbs */ `
+export default /*hbs*/ `
     {{{ button }}}
     {{{ input }}}
     {{{ link }}}
+    {{{ links }}}
 `;

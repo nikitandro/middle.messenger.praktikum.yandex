@@ -14,7 +14,7 @@ export default class Block<
 > {
     public readonly id: string;
     protected _props: Record<string, any>;
-    protected _children: Record<string, Block<any, any>>;
+    protected _children: Record<string, Block<any, any> | Block<any, any>[]>;
     protected _element: HTMLElement;
     protected _meta: IBlockMetaData;
     protected _setUpdate: boolean;
@@ -37,7 +37,7 @@ export default class Block<
             tagName,
             props: props,
             children: children,
-            attrs: propsAndChildren.attrs,
+            attrs: attrs,
             events: events,
         };
 
@@ -63,12 +63,20 @@ export default class Block<
     }
 
     protected _getChildren(propsAndChildren: TProps | {}) {
-        const children: Record<string, Block<any, any>> = {};
+        const children: Record<string, Block<any, any> | Block<any, any>[]> = {};
         const props: Record<string, any> = {};
 
         Object.entries(propsAndChildren).forEach(([key, value]) => {
             if (value instanceof Block) {
                 children[key] = value;
+            } else if (Array.isArray(value)) {
+                const finalChildren: Block<any, any>[] = [];
+                Object.values(value).forEach((innerValue) => {
+                    if (innerValue instanceof Block) {
+                        finalChildren.push(innerValue);
+                    }
+                });
+                children[key] = finalChildren;
             } else {
                 props[key] = value;
             }
@@ -111,6 +119,12 @@ export default class Block<
         this.componentDidMount(oldProps);
 
         Object.values(this._children).forEach((child) => {
+            if (Array.isArray(child)) {
+                Object.values(child).forEach((child) => {
+                    child.dispatchComponentDidMount();
+                });
+                return;
+            }
             child.dispatchComponentDidMount();
         });
     }
@@ -180,6 +194,14 @@ export default class Block<
         const propsAndStubs: Record<string, any> = { ...props };
 
         Object.entries(this._children).forEach(([key, child]) => {
+            if (Array.isArray(child)) {
+                propsAndStubs[key] = '';
+                Object.values(child).forEach((value) => {
+                    propsAndStubs[key] += `<div data-id="${value.id}"></div>`;
+                });
+                return;
+            }
+
             propsAndStubs[key] = `<div data-id="${child.id}"></div>`;
         });
 
@@ -187,6 +209,15 @@ export default class Block<
         fragment.innerHTML = Handlebars.compile(template)(propsAndStubs);
 
         Object.values(this._children).forEach((child) => {
+            if (Array.isArray(child)) {
+                Object.values(child).forEach((value) => {
+                    const stub = fragment.content.querySelector(`[data-id="${value.id}"]`);
+                    stub?.replaceWith(value.getContent());
+                });
+
+                return;
+            }
+
             const stub = fragment.content.querySelector(`[data-id="${child.id}"]`);
 
             stub?.replaceWith(child.getContent());

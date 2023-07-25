@@ -10,7 +10,7 @@ export enum BlockLifeCycleEvents {
 export type IBlockMetaData = {
     tagName: keyof HTMLElementTagNameMap;
     props?: object;
-    children?: Record<string, Block<any, any>>;
+    children?: object;
     attrs?: object;
     events?: IBlockEvents;
 }

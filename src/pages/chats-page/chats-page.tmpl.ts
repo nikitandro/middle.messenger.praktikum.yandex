@@ -12,6 +12,19 @@ export default /*hbs*/ `
                 <input type="text" class="search__input" placeholder="Поиск" name="search">
             </form>
             <ul class="chat-list">
+            <li class="chat-list-item">
+                    <div class="chat-list-item__left-part">
+                        <div class="chat-image"></div>
+                        <div class="chat-list-item__texts">
+                            <h2 class="chat-list-item__name">Никита</h2>
+                            <p class="chat-list-item__content">Что-то</p>
+                        </div>
+                    </div>
+                    <div class="chat-list-item__right-part">
+                        <p class="chat-list-item__date">10:49</p>
+                        <div class="chat-list-item__new-msg-count">2</div>
+                    </div>
+                </li>
                 <li class="chat-list-item">
                     <div class="chat-list-item__left-part">
                         <div class="chat-image"></div>

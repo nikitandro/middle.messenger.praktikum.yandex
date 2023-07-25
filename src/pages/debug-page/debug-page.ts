@@ -21,6 +21,10 @@ export default class DebugPage extends Block {
                     button: button,
                     input: input,
                     link: link,
+                    links: [
+                        new Link({ props: { text: 'Привет' } }),
+                        new Link({ props: { text: 'Привет' } }),
+                    ],
                 },
                 attrs: {
                     style: 'display: flex; flex-direction: column; gap: 20px; align-items: center;',

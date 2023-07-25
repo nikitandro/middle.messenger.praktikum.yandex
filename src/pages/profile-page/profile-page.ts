@@ -54,6 +54,7 @@ export class ProfilePage extends Block {
                 linkLogout: new Link({
                     props: {
                         text: 'Выйти',
+                        isDanger: true,
                     },
                 }),
             },

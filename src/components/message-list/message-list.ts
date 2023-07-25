@@ -4,7 +4,14 @@ import { IMessageListInputParams } from './types';
 
 export default class MessageList extends Block {
     constructor(messageListInputParams: IMessageListInputParams) {
-        super();
+        const { props, attrs, events } = messageListInputParams;
+        super('ul', {
+            props: props,
+            attrs: {
+                class: ['message-list', attrs?.class ? attrs.class : ''].join(' '),
+            },
+            events: events,
+        });
     }
 
     protected render(): Node {

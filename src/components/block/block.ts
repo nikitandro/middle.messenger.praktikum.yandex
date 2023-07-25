@@ -1,8 +1,9 @@
 import {
     BlockLifeCycleEvents,
-    IBlockAttributes, IBlockEvents,
+    IBlockAttributes,
+    IBlockEvents,
     IBlockMetaData,
-    IBlockPropsAndAttrs,
+    IBlockInputParams,
 } from './types';
 import EventBus from '../../helpers/event-bus';
 import { v4 as makeUUID } from 'uuid';
@@ -10,7 +11,7 @@ import Handlebars from 'handlebars';
 
 export default class Block<
     TProps extends Record<string, any> = Record<string, any>,
-    TAttrs extends IBlockAttributes = IBlockAttributes
+    TAttrs extends IBlockAttributes = IBlockAttributes,
 > {
     public readonly id: string;
     protected _props: Record<string, any>;
@@ -25,8 +26,8 @@ export default class Block<
 
     constructor(
         tagName: keyof HTMLElementTagNameMap = 'div',
-        propsAndChildren:
-        IBlockPropsAndAttrs<TProps, TAttrs> = {}) {
+        propsAndChildren: IBlockInputParams<TProps, TAttrs> = {},
+    ) {
         const eventBus = new EventBus();
 
         const { children, props } = this._getChildren(propsAndChildren.props ?? {});
@@ -115,7 +116,7 @@ export default class Block<
         this.eventBus().emit(BlockLifeCycleEvents.FLOW_RENDER);
     }
 
-    protected _componentDidMount(oldProps: IBlockPropsAndAttrs<TProps, TAttrs>) {
+    protected _componentDidMount(oldProps: IBlockInputParams<TProps, TAttrs>) {
         this.componentDidMount(oldProps);
 
         Object.values(this._children).forEach((child) => {
@@ -130,15 +131,15 @@ export default class Block<
     }
 
     // Может переопределять пользователь, необязательно трогать
-    public componentDidMount(oldProps: IBlockPropsAndAttrs<TProps, TAttrs>) {}
+    public componentDidMount(oldProps: IBlockInputParams<TProps, TAttrs>) {}
 
     public dispatchComponentDidMount() {
         this.eventBus().emit(BlockLifeCycleEvents.FLOW_CDM);
     }
 
     protected _componentDidUpdate(
-        oldProps: IBlockPropsAndAttrs<TProps, TAttrs>,
-        newProps: IBlockPropsAndAttrs<TProps, TAttrs>
+        oldProps: IBlockInputParams<TProps, TAttrs>,
+        newProps: IBlockInputParams<TProps, TAttrs>,
     ) {
         const response = this.componentDidUpdate(oldProps, newProps);
         if (!response) {
@@ -150,14 +151,14 @@ export default class Block<
     // Может переопределять пользователь, необязательно трогать
     protected componentDidUpdate(
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        oldProps: IBlockPropsAndAttrs<TProps, TAttrs>,
+        oldProps: IBlockInputParams<TProps, TAttrs>,
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        newProps: IBlockPropsAndAttrs<TProps, TAttrs>
+        newProps: IBlockInputParams<TProps, TAttrs>,
     ) {
         return true;
     }
 
-    public setProps = (newProps: IBlockPropsAndAttrs<TProps, TAttrs>) => {
+    public setProps = (newProps: IBlockInputParams<TProps, TAttrs>) => {
         if (!newProps) {
             return;
         }
@@ -190,7 +191,7 @@ export default class Block<
         return this._element;
     }
 
-    public compile(template: string, props: IBlockPropsAndAttrs<TProps, TAttrs>) {
+    public compile(template: string, props: IBlockInputParams<TProps, TAttrs>) {
         const propsAndStubs: Record<string, any> = { ...props };
 
         Object.entries(this._children).forEach(([key, child]) => {
@@ -223,9 +224,10 @@ export default class Block<
             stub?.replaceWith(child.getContent());
         });
 
-        this._attrs && Object.keys(this._attrs).forEach((key) => {
-            this._element.setAttribute(key, this._attrs[key].toString());
-        });
+        this._attrs &&
+            Object.keys(this._attrs).forEach((key) => {
+                this._element.setAttribute(key, this._attrs[key].toString());
+            });
 
         return fragment.content;
     }
@@ -253,8 +255,8 @@ export default class Block<
     }
 
     protected _makePropsProxy<T extends Record<string, any>>(props: T) {
-    // Можно и так передать this
-    // Такой способ больше не применяется с приходом ES6+
+        // Можно и так передать this
+        // Такой способ больше не применяется с приходом ES6+
         const self = this;
 
         return new Proxy(props, {

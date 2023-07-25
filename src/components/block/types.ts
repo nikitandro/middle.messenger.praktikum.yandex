@@ -13,19 +13,19 @@ export type IBlockMetaData = {
     children?: object;
     attrs?: object;
     events?: IBlockEvents;
-}
+};
 
 export type IBlockAttributes = Record<string, string | number | boolean>;
 
-export type IBlockPropsAndAttrs<
+export type IBlockInputParams<
     TProps extends Record<string, any> = Record<string, any>,
-    TAttrs extends IBlockAttributes = IBlockAttributes
-    > = {
+    TAttrs extends IBlockAttributes = IBlockAttributes,
+> = {
     props?: TProps;
     attrs?: TAttrs;
     events?: IBlockEvents;
-}
+};
 
 export type IBlockEvents = {
-    [K in keyof HTMLElementEventMap]?: (event: (HTMLElementEventMap[K])) => void;
+    [K in keyof HTMLElementEventMap]?: (event: HTMLElementEventMap[K]) => void;
 } & Record<string, any>;

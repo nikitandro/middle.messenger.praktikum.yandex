@@ -1,55 +1,55 @@
 {
-  "extends": "eslint-config-google",
-  "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
-  "rules": {
-    "spaced-comment": "off",
-    "require-jsdoc": "off",
-    "max-len": ["error", { "code": 100, "ignoreTemplateLiterals": true }],
-    "@typescript-eslint/member-delimiter-style": [
-      "error",
-      {
-        "multiline": {
-          "delimiter": "semi",
-          "requireLast": true
-        },
-        "singleline": {
-          "delimiter": "semi",
-          "requireLast": false
-        },
-        "overrides": {
-          "interface": {
-            "multiline": {
-              "delimiter": "comma",
-              "requireLast": false
+    "extends": ["eslint-config-google", "prettier"],
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["@typescript-eslint", "prettier"],
+    "rules": {
+        "spaced-comment": "off",
+        "require-jsdoc": "off",
+        "max-len": ["error", { "code": 100, "ignoreTemplateLiterals": true }],
+        "@typescript-eslint/member-delimiter-style": [
+            "error",
+            {
+                "multiline": {
+                    "delimiter": "semi",
+                    "requireLast": true
+                },
+                "singleline": {
+                    "delimiter": "semi",
+                    "requireLast": false
+                },
+                "overrides": {
+                    "interface": {
+                        "multiline": {
+                            "delimiter": "comma",
+                            "requireLast": false
+                        }
+                    }
+                }
             }
-          }
-        }
-      }
-    ],
-    "@typescript-eslint/prefer-literal-enum-member": "error",
-    "@typescript-eslint/no-unused-vars": "warn",
-    "no-unused-vars": "off",
-    "object-curly-spacing": ["error", "always"],
-    "indent": ["warn", 4],
-    "newline-per-chained-call": ["error", { "ignoreChainWithDepth": 2 }],
-    "@typescript-eslint/explicit-member-accessibility": [
-      "error",
-      {
-        "accessibility": "explicit",
-        "overrides": {
-          "constructors": "no-public"
-        }
-      }
-    ],
-    "@typescript-eslint/naming-convention": [
-      "error",
-      {
-        "selector": "memberLike",
-        "modifiers": ["private"],
-        "format": ["camelCase"],
-        "leadingUnderscore": "require"
-      }
-    ]
-  }
+        ],
+        "@typescript-eslint/prefer-literal-enum-member": "error",
+        "@typescript-eslint/no-unused-vars": "warn",
+        "no-unused-vars": "off",
+        "object-curly-spacing": ["error", "always"],
+        "indent": ["warn", 4],
+        "newline-per-chained-call": ["error", { "ignoreChainWithDepth": 2 }],
+        "@typescript-eslint/explicit-member-accessibility": [
+            "error",
+            {
+                "accessibility": "explicit",
+                "overrides": {
+                    "constructors": "no-public"
+                }
+            }
+        ],
+        "@typescript-eslint/naming-convention": [
+            "error",
+            {
+                "selector": "memberLike",
+                "modifiers": ["private"],
+                "format": ["camelCase"],
+                "leadingUnderscore": "require"
+            }
+        ]
+    }
 }

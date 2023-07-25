@@ -1,8 +1,7 @@
-import { IBlockPropsAndAttrs } from '../block/types.ts';
+import { IBlockInputParams } from '../block/types.ts';
 
 export type IButtonProps = {
     text: string;
-}
+};
 
-
-export type IButtonPropsAndAttrs = IBlockPropsAndAttrs<IButtonProps>;
+export type IButtonPropsAndAttrs = IBlockInputParams<IButtonProps>;

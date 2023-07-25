@@ -1,16 +1,15 @@
-import { IBlockPropsAndAttrs } from '../block/types.ts';
+import { IBlockInputParams } from '../block/types.ts';
 
 export type IInputProps = {
     placeholder?: string;
     type: IInputType;
     name: string;
-}
+};
 
-export type IInputPropsAndAttrs = IBlockPropsAndAttrs<IInputProps>;
-
+export type IInputPropsAndAttrs = IBlockInputParams<IInputProps>;
 
 export type IInputType =
-    'text'
+    | 'text'
     | 'password'
     | 'checkbox'
     | 'radio'

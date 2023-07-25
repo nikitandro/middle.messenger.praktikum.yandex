@@ -3,7 +3,7 @@ import chatsPageTmpl from './chats-page.tmpl.ts';
 import './chats-page.scss';
 import Block from '../../components/block/block.ts';
 
-export default function() {
+export default function () {
     const template = Handlebars.compile(chatsPageTmpl);
 
     return template({});
@@ -12,12 +12,8 @@ export default function() {
 export class ChatsPage extends Block {
     constructor() {
         super('div', {
-            props: {
-
-            },
-            attrs: {
-
-            },
+            props: {},
+            attrs: {},
         });
     }
 

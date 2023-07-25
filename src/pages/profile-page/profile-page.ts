@@ -5,6 +5,7 @@ import editProfilePageTmpl from './edit-profile-page.tmpl.ts';
 import editPasswordProfilePageTmpl from './edit-password-profile-page.tmpl.ts';
 import Block from '../../components/block';
 import Link from '../../components/link';
+import AvatarInput from '../../components/avatar-input/avatar-input.ts';
 
 // export default function(type: 'profile' | 'edit-data' | 'edit-password') {
 //     let template;
@@ -57,6 +58,7 @@ export class ProfilePage extends Block {
                         isDanger: true,
                     },
                 }),
+                avatarInput: new AvatarInput(),
             },
             attrs: {
                 class: 'profile-page',

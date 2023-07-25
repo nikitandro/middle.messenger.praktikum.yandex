@@ -4,7 +4,7 @@ export default /*hbs*/ `
             <div class="profile-page__go-back-area"><img src="${leftArrowIcon}" alt=""></div>
             <div class="profile-page__profile">
                 <form class="profile">
-                    <input type="file" class="profile__avatar">
+                    {{{avatarInput}}}
                     <h1 class="profile__first-name">{{profile.first_name}}</h1>
                     <ul class="profile__data profile-list">
                         <li class="profile-list-item">

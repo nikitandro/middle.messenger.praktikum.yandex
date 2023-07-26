@@ -6,7 +6,7 @@ export type IInputProps = {
     name: string;
 };
 
-export type IInputPropsAndAttrs = IBlockInputParams<IInputProps>;
+export type IInputInputParams = IBlockInputParams<IInputProps>;
 
 export type IInputType =
     | 'text'

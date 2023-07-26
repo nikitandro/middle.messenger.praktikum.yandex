@@ -4,7 +4,7 @@ import './button.scss';
 import { IButtonProps } from './types.ts';
 import { IBlockInputParams } from '../block/types.ts';
 
-export default class Button extends Block<IButtonProps> {
+export default class Button extends Block {
     constructor(propsAndAttrs: IBlockInputParams<IButtonProps>) {
         super('button', {
             props: propsAndAttrs.props,

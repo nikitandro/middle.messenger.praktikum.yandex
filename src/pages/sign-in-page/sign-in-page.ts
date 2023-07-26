@@ -4,47 +4,57 @@ import Block from '../../components/block';
 import Input from '../../components/input';
 import Button from '../../components/button';
 import Link from '../../components/link';
+import AuthForm from '../../components/auth-form/auth-form.ts';
 
 export default class SignInPage extends Block {
     constructor() {
+        const form = new AuthForm({
+            props: {
+                inputs: [
+                    new Input({
+                        props: {
+                            type: 'text',
+                            name: 'login',
+                            placeholder: 'Логин',
+                        },
+                    }),
+                    new Input({
+                        props: {
+                            type: 'password',
+                            name: 'password',
+                            placeholder: 'Пароль',
+                        },
+                    }),
+                ],
+                actions: [
+                    new Button({
+                        props: {
+                            text: 'Авторизоваться',
+                        },
+                        attrs: {
+                            type: 'submit',
+                        },
+                        events: {
+                            submit: (event) => {
+                                event.preventDefault();
+                                console.log(event.submitter);
+                            },
+                        },
+                    }),
+                    new Link({
+                        props: {
+                            text: 'Нет аккаунта?',
+                        },
+                        attrs: {
+                            href: '/sign-up',
+                        },
+                    }),
+                ],
+            },
+        });
         super('div', {
             props: {
-                loginInput: new Input({
-                    props: {
-                        type: 'text',
-                        name: 'login',
-                        placeholder: 'Логин',
-                    },
-                }),
-                passwordInput: new Input({
-                    props: {
-                        type: 'password',
-                        name: 'password',
-                        placeholder: 'Пароль',
-                    },
-                }),
-                authButton: new Button({
-                    props: {
-                        text: 'Авторизоваться',
-                    },
-                    attrs: {
-                        type: 'submit',
-                    },
-                    events: {
-                        submit: (event) => {
-                            event.preventDefault();
-                            console.log(event.submitter);
-                        },
-                    },
-                }),
-                linkToSignUp: new Link({
-                    props: {
-                        text: 'Нет аккаунта?',
-                    },
-                    attrs: {
-                        href: '/sign-up',
-                    },
-                }),
+                form: form,
             },
             attrs: {
                 class: 'sign-in',

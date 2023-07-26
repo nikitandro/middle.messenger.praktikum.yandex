@@ -9,6 +9,14 @@ import { ProfilePage } from './pages/profile-page/profile-page';
 import ProfileEditDataPage from './pages/profile-edit-data-page';
 import ProfileEditPasswordPage from './pages/profile-edit-password-page';
 import ChatsPage from './pages/chats-page';
+import Handlebars from 'handlebars';
+
+Handlebars.registerHelper('formatDateToHoursAndMinutes', function (string: string): string {
+    const date = new Date(string);
+    const locale = navigator.language;
+    const formatDate = new Intl.DateTimeFormat(locale, { hour: '2-digit', minute: '2-digit' });
+    return formatDate.format(date);
+});
 
 document.addEventListener('DOMContentLoaded', () => {
     let page;

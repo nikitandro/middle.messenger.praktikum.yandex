@@ -1,6 +1,7 @@
 import Block from '../block';
 import messageListTmpl from './message-list.tmpl';
 import { IMessageListInputParams } from './types';
+import './message-list.scss';
 
 export default class MessageList extends Block {
     constructor(messageListInputParams: IMessageListInputParams) {

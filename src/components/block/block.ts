@@ -159,7 +159,7 @@ export default class Block<
         return true;
     }
 
-    public setProps = (newProps: IBlockInputParams<TProps, TAttrs>) => {
+    public setProps = (newProps: Partial<IBlockInputParams<TProps, TAttrs>>) => {
         if (!newProps) {
             return;
         }

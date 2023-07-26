@@ -1,6 +1,6 @@
 import signUpPageTmpl from './sign-up-page.tmpl.ts';
 import Block from '../../components/block';
-import Input from '../../components/input';
+import AuthFormInput from '../../components/auth-form-input';
 import Button from '../../components/button';
 import Link from '../../components/link';
 import AuthForm from '../../components/auth-form';
@@ -10,50 +10,50 @@ export default class SignUpPage extends Block {
         const form = new AuthForm({
             props: {
                 inputs: [
-                    new Input({
-                        props: {
+                    new AuthFormInput({
+                        attrs: {
                             type: 'email',
                             name: 'email',
                             placeholder: 'Почта',
                         },
                     }),
-                    new Input({
-                        props: {
+                    new AuthFormInput({
+                        attrs: {
                             type: 'text',
                             name: 'login',
                             placeholder: 'Логин',
                         },
                     }),
-                    new Input({
-                        props: {
+                    new AuthFormInput({
+                        attrs: {
                             type: 'text',
                             name: 'first_name',
                             placeholder: 'Имя',
                         },
                     }),
-                    new Input({
-                        props: {
+                    new AuthFormInput({
+                        attrs: {
                             type: 'text',
                             name: 'second_name',
                             placeholder: 'Фамилия',
                         },
                     }),
-                    new Input({
-                        props: {
+                    new AuthFormInput({
+                        attrs: {
                             type: 'text',
                             name: 'phone',
                             placeholder: 'Телефон',
                         },
                     }),
-                    new Input({
-                        props: {
+                    new AuthFormInput({
+                        attrs: {
                             type: 'text',
                             name: 'password',
                             placeholder: 'Пароль',
                         },
                     }),
-                    new Input({
-                        props: {
+                    new AuthFormInput({
+                        attrs: {
                             type: 'text',
                             name: 'password',
                             placeholder: 'Пароль (ещё раз)',

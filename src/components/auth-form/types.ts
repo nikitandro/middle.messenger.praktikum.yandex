@@ -1,9 +1,9 @@
+import AuthFormInput from '../auth-form-input/auth-form-input';
 import Block from '../block';
 import { IBlockInputParams } from '../block/types';
-import Input from '../input';
 
 export type IAuthFormProps = {
-    inputs: Input[];
+    inputs: AuthFormInput[];
     actions: Block[];
 };
 

@@ -2,15 +2,20 @@ import Block from '../block';
 import { IBlockAttributes, IBlockInputParams } from '../block/types';
 import Input from '../input';
 import authFormInputTmpl from './auth-form-input.tmpl';
+import './auth-form-input.scss';
 
 export default class AuthFormInput extends Block {
     constructor(inputParams: IBlockInputParams) {
+        const { attrs } = inputParams;
         super('div', {
             props: {
-                input: new Input({ ...inputParams }),
-            },
-            attrs: {
-                class: 'input-container',
+                input: new Input({
+                    ...inputParams,
+                    attrs: {
+                        ...attrs,
+                        class: ['auth-form-input', attrs?.class ? attrs.class : ''].join(' '),
+                    },
+                }),
             },
         });
     }

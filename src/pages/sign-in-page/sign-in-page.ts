@@ -1,25 +1,25 @@
 import './sign-in-page.scss';
 import signInTmpl from './sing-in-page.tmpl.ts';
 import Block from '../../components/block';
-import Input from '../../components/input';
 import Button from '../../components/button';
 import Link from '../../components/link';
 import AuthForm from '../../components/auth-form/auth-form.ts';
+import AuthFormInput from '../../components/auth-form-input/auth-form-input.ts';
 
 export default class SignInPage extends Block {
     constructor() {
         const form = new AuthForm({
             props: {
                 inputs: [
-                    new Input({
-                        props: {
+                    new AuthFormInput({
+                        attrs: {
                             type: 'text',
                             name: 'login',
                             placeholder: 'Логин',
                         },
                     }),
-                    new Input({
-                        props: {
+                    new AuthFormInput({
+                        attrs: {
                             type: 'password',
                             name: 'password',
                             placeholder: 'Пароль',

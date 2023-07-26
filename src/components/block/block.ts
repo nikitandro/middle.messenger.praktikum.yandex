@@ -131,6 +131,7 @@ export default class Block<
     }
 
     // Может переопределять пользователь, необязательно трогать
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     public componentDidMount(oldProps: IBlockInputParams<TProps, TAttrs>) {}
 
     public dispatchComponentDidMount() {

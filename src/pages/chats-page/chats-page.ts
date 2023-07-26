@@ -1,17 +1,10 @@
-import Handlebars from 'handlebars';
 import chatsPageTmpl from './chats-page.tmpl.ts';
 import './chats-page.scss';
 import Block from '../../components/block/block.ts';
 import MessageList from '../../components/message-list';
 import MessageListItem from '../../components/message-list-item';
 
-export default function () {
-    const template = Handlebars.compile(chatsPageTmpl);
-
-    return template({});
-}
-
-export class ChatsPage extends Block {
+export default class ChatsPage extends Block {
     constructor() {
         const messages = [
             new MessageListItem({

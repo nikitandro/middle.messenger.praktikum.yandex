@@ -4,7 +4,7 @@ import { IAsideLayoutInputParams } from './types';
 
 export default class AsideLayout extends Block {
     constructor(inputParams: IAsideLayoutInputParams) {
-        super('template', {
+        super('div', {
             ...inputParams,
         });
     }

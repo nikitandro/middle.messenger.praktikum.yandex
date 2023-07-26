@@ -10,6 +10,7 @@ import ProfileEditDataPage from './pages/profile-edit-data-page';
 import ProfileEditPasswordPage from './pages/profile-edit-password-page';
 import ChatsPage from './pages/chats-page';
 import Handlebars from 'handlebars';
+import AsideLayout from './layouts/aside-layout/aside-layout';
 
 Handlebars.registerHelper('formatDateToHoursAndMinutes', function (string: string): string {
     const date = new Date(string);
@@ -58,6 +59,9 @@ document.addEventListener('DOMContentLoaded', () => {
             break;
         case '/chats':
             page = new ChatsPage();
+            break;
+        case '/aside':
+            page = new AsideLayout({ props: { aside: 'asdas', main: 'asdas' } });
             break;
         default:
             page = new NoAsideLayout({

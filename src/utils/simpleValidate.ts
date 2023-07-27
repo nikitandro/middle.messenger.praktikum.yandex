@@ -14,6 +14,12 @@ export default function validateInput(name: string, value: string): boolean {
                 value.length >= 8 &&
                 value.length <= 40
             );
+        case 'newPassword':
+            return (
+                !!value.match(/^(?=.*[A-Z])(?=.*\d).+$/)?.length &&
+                value.length >= 8 &&
+                value.length <= 40
+            );
         case 'message':
             return value.length > 0;
         case 'phone':

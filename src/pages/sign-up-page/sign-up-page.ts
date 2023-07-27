@@ -66,6 +66,9 @@ export default class SignUpPage extends Block {
                         props: {
                             text: 'Зарегистрироваться',
                         },
+                        attrs: {
+                            type: 'submit',
+                        },
                     }),
                     new Link({
                         props: {

@@ -20,6 +20,11 @@ export default class AuthFormInput extends Block {
         });
     }
 
+    public get element(): HTMLElement {
+        // @ts-ignore
+        return this._children.input.element;
+    }
+
     public setProps = (
         newProps: Partial<IBlockInputParams<Record<string, any>, IBlockAttributes>>,
     ) => {

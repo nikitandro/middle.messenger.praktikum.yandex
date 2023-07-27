@@ -15,6 +15,34 @@ export default class AuthForm extends Form {
             events: events,
         });
         this.addValidationEvents(this._children);
+        this.addValidationOnSubmit();
+    }
+
+    public addValidationOnSubmit() {
+        const self = this;
+        this.setProps({
+            events: {
+                submit: (event) => {
+                    event.preventDefault();
+                    this.validateAllInputs(self._children);
+                },
+            },
+        });
+    }
+
+    public validateAllInputs(children: Record<string, any>) {
+        for (const child of Object.values(children)) {
+            if (Array.isArray(child)) {
+                this.validateAllInputs(child);
+            }
+            if (child instanceof AuthFormInput) {
+                // @ts-ignore
+                const name = child.element.name;
+                // @ts-ignore
+                const value = child.element.value;
+                console.log(`is '${name}' valid: ${this.validateInput(name, value)}`);
+            }
+        }
     }
 
     public addValidationEvents(children: Record<string, any>) {
@@ -44,7 +72,9 @@ export default class AuthForm extends Form {
                 return value.length >= 3 && value.length <= 20;
             case 'email':
                 return !!value.match(/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/)?.length;
-            case 'first_name' || 'second_name':
+            case 'first_name':
+                return !!value.match(/^[\p{Lu}\p{Ll}А-ЯЁ][\p{L}]*(-[\p{L}]+)*$/)?.length;
+            case 'second_name':
                 return !!value.match(/^[\p{Lu}\p{Ll}А-ЯЁ][\p{L}]*(-[\p{L}]+)*$/)?.length;
             case 'password':
                 return (

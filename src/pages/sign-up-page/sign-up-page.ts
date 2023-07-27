@@ -7,59 +7,60 @@ import AuthForm from '../../components/auth-form';
 
 export default class SignUpPage extends Block {
     constructor() {
+        const inputs = [
+            new AuthFormInput({
+                attrs: {
+                    type: 'email',
+                    name: 'email',
+                    placeholder: 'Почта',
+                },
+            }),
+            new AuthFormInput({
+                attrs: {
+                    type: 'text',
+                    name: 'login',
+                    placeholder: 'Логин',
+                },
+            }),
+            new AuthFormInput({
+                attrs: {
+                    type: 'text',
+                    name: 'first_name',
+                    placeholder: 'Имя',
+                },
+            }),
+            new AuthFormInput({
+                attrs: {
+                    type: 'text',
+                    name: 'second_name',
+                    placeholder: 'Фамилия',
+                },
+            }),
+            new AuthFormInput({
+                attrs: {
+                    type: 'text',
+                    name: 'phone',
+                    placeholder: 'Телефон',
+                },
+            }),
+            new AuthFormInput({
+                attrs: {
+                    type: 'text',
+                    name: 'password',
+                    placeholder: 'Пароль',
+                },
+            }),
+            new AuthFormInput({
+                attrs: {
+                    type: 'text',
+                    name: 'password',
+                    placeholder: 'Пароль (ещё раз)',
+                },
+            }),
+        ];
         const form = new AuthForm({
             props: {
-                inputs: [
-                    new AuthFormInput({
-                        attrs: {
-                            type: 'email',
-                            name: 'email',
-                            placeholder: 'Почта',
-                        },
-                    }),
-                    new AuthFormInput({
-                        attrs: {
-                            type: 'text',
-                            name: 'login',
-                            placeholder: 'Логин',
-                        },
-                    }),
-                    new AuthFormInput({
-                        attrs: {
-                            type: 'text',
-                            name: 'first_name',
-                            placeholder: 'Имя',
-                        },
-                    }),
-                    new AuthFormInput({
-                        attrs: {
-                            type: 'text',
-                            name: 'second_name',
-                            placeholder: 'Фамилия',
-                        },
-                    }),
-                    new AuthFormInput({
-                        attrs: {
-                            type: 'text',
-                            name: 'phone',
-                            placeholder: 'Телефон',
-                        },
-                    }),
-                    new AuthFormInput({
-                        attrs: {
-                            type: 'text',
-                            name: 'password',
-                            placeholder: 'Пароль',
-                        },
-                    }),
-                    new AuthFormInput({
-                        attrs: {
-                            type: 'text',
-                            name: 'password',
-                            placeholder: 'Пароль (ещё раз)',
-                        },
-                    }),
-                ],
+                inputs: inputs,
                 actions: [
                     new Button({
                         props: {

@@ -23,7 +23,9 @@ export default class AuthFormInput extends Block {
     public setProps = (
         newProps: Partial<IBlockInputParams<Record<string, any>, IBlockAttributes>>,
     ) => {
-        this._props.input.setProps(newProps);
+        if (this._children.input instanceof Block) {
+            this._children.input.setProps(newProps);
+        }
     };
 
     protected render(): Node {

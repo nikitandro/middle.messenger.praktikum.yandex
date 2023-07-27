@@ -169,6 +169,7 @@ export default class Block<
 
         const { children, props } = this._getChildren(newProps.props ?? {});
         const attrs = newProps.attrs;
+        const events = newProps.events;
 
         if (Object.values(children).length) {
             Object.assign(this._children, children);
@@ -180,6 +181,10 @@ export default class Block<
 
         if (attrs && Object.values(attrs).length) {
             Object.assign(this._attrs, attrs);
+        }
+
+        if (events && Object.values(events).length) {
+            Object.assign(this._events, events);
         }
 
         if (this._setUpdate) {

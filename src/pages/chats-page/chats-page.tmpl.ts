@@ -5,9 +5,7 @@ export default /*hbs*/ `
             <div class="side-menu__profile-link-container">
                 <a href="/profile" class="side-menu__profile-link">Профиль</a>
             </div>
-            <form class="search">
-                <input type="text" class="search__input" placeholder="Поиск" name="search">
-            </form>
+            {{{chatSearchForm}}}
             {{{chatList}}}
         </div>
     </aside>

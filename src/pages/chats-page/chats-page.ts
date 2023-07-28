@@ -6,6 +6,7 @@ import MessageListItem from '../../components/message-list-item';
 import ChatList from '../../components/chat-list';
 import ChatListItem from '../../components/chat-list-item';
 import ChatInputForm from '../../components/chat-input-form';
+import ChatSearchForm from '../../components/chat-search-form';
 
 export default class ChatsPage extends Block {
     constructor() {
@@ -57,6 +58,7 @@ export default class ChatsPage extends Block {
                 messagesList: messagesList,
                 chatList: chatList,
                 chatInputForm: new ChatInputForm(),
+                chatSearchForm: new ChatSearchForm(),
             },
             attrs: {},
         });

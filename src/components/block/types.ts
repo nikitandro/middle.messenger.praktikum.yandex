@@ -1,5 +1,3 @@
-import Block from './';
-
 export enum BlockLifeCycleEvents {
     INIT = 'init',
     FLOW_CDM = 'flow:component-did-mount',

@@ -16,6 +16,7 @@ function queryStringify(data: Record<string, any>) {
     return query;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 class HTTPTransport {
     public get = (url: string, options: Record<string, any> = {}) => {
         return this.request(url, { ...options, method: METHODS.GET }, options.timeout);
@@ -60,6 +61,7 @@ class HTTPTransport {
                 resolve(xhr);
             };
 
+            xhr.timeout = timeout;
             xhr.ontimeout = reject;
 
             if (options.method === METHODS.GET || !data) {

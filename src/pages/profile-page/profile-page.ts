@@ -4,26 +4,7 @@ import Block from '../../components/block';
 import Link from '../../components/link';
 import AvatarInput from '../../components/avatar-input/avatar-input.ts';
 
-// export default function(type: 'profile' | 'edit-data' | 'edit-password') {
-//     let template;
-
-//     switch (type) {
-//     case 'profile':
-//         template = Handlebars.compile(profilePageTmpl);
-//         break;
-//     case 'edit-data':
-//         template = Handlebars.compile(editProfilePageTmpl);
-//         break;
-//     case 'edit-password':
-//         template = Handlebars.compile(editPasswordProfilePageTmpl);
-//         break;
-//     }
-
-
-//     return template({ profile });
-// }
-
-export class ProfilePage extends Block {
+export default class ProfilePage extends Block {
     constructor() {
         const profile: {
             first_name: string;

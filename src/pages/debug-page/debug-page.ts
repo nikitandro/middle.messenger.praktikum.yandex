@@ -37,10 +37,3 @@ export default class DebugPage extends Block {
         return this.compile(debugPageTmpl, this._props);
     }
 }
-
-// @ts-ignore
-window.button = button;
-// @ts-ignore
-window.input = input;
-// @ts-ignore
-window.link = link;

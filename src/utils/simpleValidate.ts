@@ -1,4 +1,4 @@
-export default function validateInput(name: string, value: string): boolean {
+export default function simpleValidate(name: string, value: string): boolean {
     switch (name) {
         case 'login':
             return value.length >= 3 && value.length <= 20;

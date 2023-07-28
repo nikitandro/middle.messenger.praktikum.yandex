@@ -16,7 +16,7 @@ export type IBlockMetaData = {
 export type IBlockAttributes = Record<string, string | number | boolean>;
 
 export type IBlockInputParams<
-    TProps extends Record<string, any> = Record<string, any>,
+    TProps extends Record<string, unknown> = Record<string, unknown>,
     TAttrs extends IBlockAttributes = IBlockAttributes,
 > = {
     props?: TProps;
@@ -26,4 +26,4 @@ export type IBlockInputParams<
 
 export type IBlockEvents = {
     [K in keyof HTMLElementEventMap]?: (event: HTMLElementEventMap[K]) => void;
-} & Record<string, any>;
+} & Record<string, unknown>;

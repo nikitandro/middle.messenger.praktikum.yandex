@@ -1,6 +1,7 @@
 import Form from '../form';
 import authFormTmpl from './auth-form.tmpl';
 import { IAuthFormInputParams } from './types';
+import './auth-form.scss';
 
 export default class AuthForm extends Form {
     constructor(inputParams: IAuthFormInputParams) {

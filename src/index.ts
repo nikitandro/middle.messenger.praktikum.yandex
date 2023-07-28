@@ -4,13 +4,13 @@ import SignInPage from './pages/sign-in-page';
 import SignUpPage from './pages/sign-up-page';
 import NoAsideLayout from './layouts/no-aside-layout';
 import DebugPage from './pages/debug-page';
-import { ErrorPage } from './pages/error-page/error-page';
-import { ProfilePage } from './pages/profile-page/profile-page';
+import ErrorPage from './pages/error-page';
+import ProfilePage from './pages/profile-page';
 import ProfileEditDataPage from './pages/profile-edit-data-page';
 import ProfileEditPasswordPage from './pages/profile-edit-password-page';
 import ChatsPage from './pages/chats-page';
 import Handlebars from 'handlebars';
-import AsideLayout from './layouts/aside-layout/aside-layout';
+import AsideLayout from './layouts/aside-layout';
 
 Handlebars.registerHelper('formatDateToHoursAndMinutes', function (string: string): string {
     const date = new Date(string);
@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     switch (window.location.pathname) {
         case '/':
+            window.location.replace('/sign-in');
             break;
         case '/sign-in':
             page = new NoAsideLayout({ props: { page: new SignInPage() } });
@@ -32,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
             page = new NoAsideLayout({ props: { page: new SignUpPage() } });
             break;
         case '/debug':
-            page = new DebugPage();
+            page = new NoAsideLayout({ props: { page: new DebugPage() } });
             break;
         case '/profile':
             page = new NoAsideLayout({ props: { page: new ProfilePage() } });

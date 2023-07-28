@@ -90,6 +90,8 @@ export default class Block<
         const events = this._events;
 
         Object.keys(events).forEach((event) => {
+            // Здесь висит ts-ignore потому что ключи не имеют нужного типа
+            //@ts-ignore
             this._element.addEventListener(event, events[event]);
         });
     }
@@ -102,6 +104,8 @@ export default class Block<
         }
 
         Object.keys(events).forEach((event) => {
+            // Здесь висит ts-ignore потому что ключи не имеют нужного типа
+            //@ts-ignore
             this._element.addEventListener(event, events[event]);
         });
     }

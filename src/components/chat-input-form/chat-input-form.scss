@@ -17,10 +17,12 @@
         align-items: center;
         justify-content: center;
         width: 32px;
+        min-width: 32px;
         height: 32px;
         border: none;
         background: none;
         cursor: pointer;
+        background-image: $clip-icon;
     }
 
     &__input {
@@ -39,9 +41,11 @@
 
     &__send-button {
         width: 28px;
+        min-width: 28px;
         height: 28px;
         background: none;
         border: none;
         cursor: pointer;
+        background-image: $arrow-right-icon;
     }
 }

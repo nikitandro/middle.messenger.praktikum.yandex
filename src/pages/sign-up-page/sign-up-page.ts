@@ -64,10 +64,11 @@ export default class SignUpPage extends Block {
                 actions: [
                     new Button({
                         props: {
-                            text: 'Зарегистрироваться',
+                            content: 'Зарегистрироваться',
                         },
                         attrs: {
                             type: 'submit',
+                            class: 'button',
                         },
                     }),
                     new Link({

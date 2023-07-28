@@ -1,4 +1,5 @@
 import simpleValidate from '../../utils/simpleValidate';
+import AuthFormInput from '../auth-form-input';
 import Block from '../block';
 import { BlockLifeCycleEvents, IBlockInputParams } from '../block/types';
 import Input from '../input';
@@ -46,7 +47,7 @@ export default class Form extends Block {
             if (Array.isArray(child)) {
                 this.addValidationEvents(child);
             }
-            if (child instanceof Input) {
+            if (child instanceof Input || child instanceof AuthFormInput) {
                 child.setProps({
                     events: {
                         focusout: (event) => {

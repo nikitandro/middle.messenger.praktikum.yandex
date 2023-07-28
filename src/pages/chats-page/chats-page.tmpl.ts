@@ -1,6 +1,3 @@
-import clipIcon from '../../assets/icons/clip-icon.svg';
-import arrowInCircleRight from '../../assets/icons/arrow-in-circle-right.svg';
-
 // language=handlebars
 export default /*hbs*/ `
     <aside>
@@ -23,11 +20,7 @@ export default /*hbs*/ `
             <div class="chat-body">
                 {{{messagesList}}}
             </div>
-            <form class="chat-input">
-                <button class="chat-input__clip-button"><img src="${clipIcon}" alt=""/></button>
-                <input class="chat-input__input" placeholder="Сообщение" name="message">
-                <button class="chat-input__send-button"><img src="${arrowInCircleRight}" alt=""></button>
-            </form>
+            {{{chatInputForm}}}
         </div>
     </main>
 `;

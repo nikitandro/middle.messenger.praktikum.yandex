@@ -19,7 +19,7 @@ export default class ProfileEditDataForm extends Form {
             props: {
                 profile: profile,
                 avatarInput: new AvatarInput(),
-                saveButton: new Button({ props: { text: 'Сохранить' } }),
+                saveButton: new Button({ props: { content: 'Сохранить' } }),
                 emailInput: new Input({
                     attrs: {
                         class: inputClass,

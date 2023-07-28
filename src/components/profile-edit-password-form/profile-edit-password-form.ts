@@ -11,7 +11,7 @@ export default class ProfileEditPasswordForm extends Form {
             props: {
                 first_name: 'Никита',
                 avatarInput: new AvatarInput(),
-                saveButton: new Button({ props: { text: 'Сохранить' } }),
+                saveButton: new Button({ props: { content: 'Сохранить' } }),
                 oldPasswordInput: new Input({
                     attrs: {
                         class: inputClass,

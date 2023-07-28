@@ -1,10 +1,11 @@
 import chatsPageTmpl from './chats-page.tmpl.ts';
 import './chats-page.scss';
-import Block from '../../components/block/block.ts';
+import Block from '../../components/block';
 import MessageList from '../../components/message-list';
 import MessageListItem from '../../components/message-list-item';
-import ChatList from '../../components/chat-list/chat-list.ts';
-import ChatListItem from '../../components/chat-list-item/chat-list-item.ts';
+import ChatList from '../../components/chat-list';
+import ChatListItem from '../../components/chat-list-item';
+import ChatInputForm from '../../components/chat-input-form';
 
 export default class ChatsPage extends Block {
     constructor() {
@@ -52,7 +53,11 @@ export default class ChatsPage extends Block {
         ];
         const messagesList = new MessageList({ props: { messages: messages } });
         super('div', {
-            props: { messagesList: messagesList, chatList: chatList },
+            props: {
+                messagesList: messagesList,
+                chatList: chatList,
+                chatInputForm: new ChatInputForm(),
+            },
             attrs: {},
         });
     }

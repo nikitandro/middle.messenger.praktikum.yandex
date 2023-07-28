@@ -5,13 +5,9 @@ import { IButtonProps } from './types.ts';
 import { IBlockInputParams } from '../block/types.ts';
 
 export default class Button extends Block {
-    constructor(propsAndAttrs: IBlockInputParams<IButtonProps>) {
+    constructor(inputParams: IBlockInputParams<IButtonProps>) {
         super('button', {
-            props: propsAndAttrs.props,
-            attrs: {
-                ...propsAndAttrs.attrs,
-                class: 'button' + (propsAndAttrs.attrs?.class ? propsAndAttrs.attrs.class : ''),
-            },
+            ...inputParams,
         });
     }
 

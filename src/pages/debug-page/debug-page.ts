@@ -5,7 +5,7 @@ import Input from '../../components/input';
 import Link from '../../components/link';
 
 const button = new Button({
-    props: { text: 'Привет' },
+    props: { content: 'Привет' },
     events: {
         click: (event) => {
             console.log(event.target);

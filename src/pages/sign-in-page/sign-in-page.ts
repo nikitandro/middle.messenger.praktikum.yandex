@@ -29,10 +29,11 @@ export default class SignInPage extends Block {
                 actions: [
                     new Button({
                         props: {
-                            text: 'Авторизоваться',
+                            content: 'Авторизоваться',
                         },
                         attrs: {
                             type: 'submit',
+                            class: 'button',
                         },
                         events: {
                             submit: (event) => {

@@ -21,25 +21,33 @@ export default class Form extends Block {
             events: {
                 submit: (event) => {
                     event.preventDefault();
-                    this.validateAllInputs(self._children);
+                    console.log(this.validateAllInputs(self._children));
                 },
             },
         });
     }
 
     public validateAllInputs(children: Record<string, any>) {
+        let obj: Record<string, any> = {};
         for (const child of Object.values(children)) {
             if (Array.isArray(child)) {
-                this.validateAllInputs(child);
+                obj = {
+                    ...obj,
+                    ...this.validateAllInputs(child),
+                };
             }
-            if (child instanceof Input) {
+            if (child instanceof Input || child instanceof AuthFormInput) {
                 // @ts-ignore
                 const name = child.element.name;
                 // @ts-ignore
                 const value = child.element.value;
-                console.log(`is '${name}' valid: ${simpleValidate(name, value)}`);
+                console.log(
+                    `is '${name}' valid: ${simpleValidate(name, value)};\nvalue: '${value}'`,
+                );
+                obj[name] = value;
             }
         }
+        return obj;
     }
 
     public addValidationEvents(children: Record<string, any>) {
@@ -55,7 +63,12 @@ export default class Form extends Block {
                             const name: string = event.target.name;
                             // @ts-ignore
                             const value: string = event.target.value;
-                            console.log(`is '${name}' valid: ${simpleValidate(name, value)}`);
+                            console.log(
+                                `is '${name}' valid: ${simpleValidate(
+                                    name,
+                                    value,
+                                )};\nvalue: '${value}'`,
+                            );
                         },
                     },
                 });

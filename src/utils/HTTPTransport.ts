@@ -16,21 +16,23 @@ function queryStringify(data: Record<string, any>) {
     return query;
 }
 
+type HTTPMethod = (url: string, options?: Record<string, any>) => Promise<unknown>;
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 class HTTPTransport {
-    public get = (url: string, options: Record<string, any> = {}) => {
+    public get: HTTPMethod = (url, options = {}) => {
         return this.request(url, { ...options, method: METHODS.GET }, options.timeout);
     };
 
-    public put = (url: string, options: Record<string, any>) => {
+    public put: HTTPMethod = (url, options = {}) => {
         return this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
     };
 
-    public post = (url: string, options: Record<string, any>) => {
+    public post: HTTPMethod = (url, options = {}) => {
         return this.request(url, { ...options, method: METHODS.POST }, options.timeout);
     };
 
-    public delete = (url: string, options: Record<string, any>) => {
+    public delete: HTTPMethod = (url, options = {}) => {
         return this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
     };
 

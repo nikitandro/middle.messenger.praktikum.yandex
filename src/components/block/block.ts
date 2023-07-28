@@ -135,8 +135,9 @@ export default class Block<
     }
 
     // Может переопределять пользователь, необязательно трогать
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    public componentDidMount(oldProps: IBlockInputParams<TProps, TAttrs>) {}
+    public componentDidMount(oldProps: IBlockInputParams<TProps, TAttrs>) {
+        oldProps && '';
+    }
 
     public dispatchComponentDidMount() {
         this.eventBus().emit(BlockLifeCycleEvents.FLOW_CDM);
@@ -155,11 +156,11 @@ export default class Block<
 
     // Может переопределять пользователь, необязательно трогать
     protected componentDidUpdate(
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         oldProps: IBlockInputParams<TProps, TAttrs>,
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         newProps: IBlockInputParams<TProps, TAttrs>,
     ) {
+        oldProps && '';
+        newProps && '';
         return true;
     }
 

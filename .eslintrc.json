@@ -2,6 +2,11 @@
     "extends": ["eslint-config-google", "prettier"],
     "parser": "@typescript-eslint/parser",
     "plugins": ["@typescript-eslint", "prettier"],
+    "parserOptions": {
+        "ecmaVersion": 2018,
+        "sourceType": "module",
+        "project": "tsconfig.json"
+    },
     "rules": {
         "spaced-comment": "off",
         "require-jsdoc": "off",

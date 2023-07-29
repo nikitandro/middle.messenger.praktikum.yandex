@@ -1,11 +1,17 @@
-import Handlebars from 'handlebars';
 import buttonTmpl from './button.tmpl.ts';
+import Block from '../block';
 import './button.scss';
+import { IButtonProps } from './types.ts';
+import { IBlockInputParams } from '../block/types.ts';
 
-export default function (text: string) {
-    const template = Handlebars.compile(buttonTmpl);
+export default class Button extends Block {
+    constructor(inputParams: IBlockInputParams<IButtonProps>) {
+        super('button', {
+            ...inputParams,
+        });
+    }
 
-    return template({
-        text
-    });
+    public render() {
+        return this.compile(buttonTmpl, { ...this._props, ...this._children });
+    }
 }

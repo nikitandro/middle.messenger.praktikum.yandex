@@ -1,44 +1,84 @@
 import './style.scss';
-import signInPage from './pages/sign-in-page';
-import signUpPage from './pages/sign-up-page';
-import profilePage from './pages/profile-page';
-import errorPage from './pages/error-page';
-import chatsPage from './pages/chats-page';
-import pagesListPage from './pages/pages-list-page';
+import render from './utils/render';
+import SignInPage from './pages/sign-in-page';
+import SignUpPage from './pages/sign-up-page';
+import NoAsideLayout from './layouts/no-aside-layout';
+import DebugPage from './pages/debug-page';
+import ErrorPage from './pages/error-page';
+import ProfilePage from './pages/profile-page';
+import ProfileEditDataPage from './pages/profile-edit-data-page';
+import ProfileEditPasswordPage from './pages/profile-edit-password-page';
+import ChatsPage from './pages/chats-page';
+import Handlebars from 'handlebars';
+import AsideLayout from './layouts/aside-layout';
+
+Handlebars.registerHelper('formatDateToHoursAndMinutes', function (string: string): string {
+    const date = new Date(string);
+    const locale = navigator.language;
+    const formatDate = new Intl.DateTimeFormat(locale, { hour: '2-digit', minute: '2-digit' });
+    return formatDate.format(date);
+});
 
 document.addEventListener('DOMContentLoaded', () => {
-    const root = document.querySelector<HTMLDivElement>('#app')!;
-    let template: string;
+    let page;
 
     switch (window.location.pathname) {
         case '/':
-            template = pagesListPage();
+            window.location.replace('/sign-in');
             break;
         case '/sign-in':
-            template = signInPage();
+            page = new NoAsideLayout({ props: { page: new SignInPage() } });
             break;
         case '/sign-up':
-            template = signUpPage();
+            page = new NoAsideLayout({ props: { page: new SignUpPage() } });
+            break;
+        case '/debug':
+            page = new NoAsideLayout({ props: { page: new DebugPage() } });
             break;
         case '/profile':
-            template = profilePage('profile');
+            page = new NoAsideLayout({ props: { page: new ProfilePage() } });
             break;
-        case '/profile-edit':
-            template = profilePage('edit-data');
+        case '/profile-edit-data':
+            page = new NoAsideLayout({ props: { page: new ProfileEditDataPage() } });
             break;
         case '/profile-edit-password':
-            template = profilePage('edit-password');
+            page = new NoAsideLayout({ props: { page: new ProfileEditPasswordPage() } });
             break;
         case '/500':
-            template = errorPage(500, 'Мы уже фиксим', 'Назад к чатам', '/chats');
+            page = new NoAsideLayout({
+                props: {
+                    page: new ErrorPage({
+                        props: {
+                            statusCode: 500,
+                            comment: 'Мы уже фиксим',
+                            linkHref: '/chats',
+                            linkText: 'Назад к чатам',
+                        },
+                    }),
+                },
+            });
             break;
         case '/chats':
-            template = chatsPage();
+            page = new ChatsPage();
+            break;
+        case '/aside':
+            page = new AsideLayout({ props: { aside: 'asdas', main: 'asdas' } });
             break;
         default:
-            template = errorPage(404, 'Не туда попали', 'Назад к чатам', '/chats');
+            page = new NoAsideLayout({
+                props: {
+                    page: new ErrorPage({
+                        props: {
+                            statusCode: 404,
+                            comment: 'Не туда попали',
+                            linkHref: '/chats',
+                            linkText: 'Назад к чатам',
+                        },
+                    }),
+                },
+            });
             break;
     }
 
-    root.innerHTML = template;
+    page && render('#app', page);
 });

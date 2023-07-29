@@ -1,13 +1,14 @@
-import Handlebars from 'handlebars';
-import inputTmpl from './input.tmpl.ts';
-import './input.scss';
+import Block from '../block';
+import { IInputInputParams } from './types.ts';
 
-export default function (type: string, label: string, name: string) {
-    const template = Handlebars.compile(inputTmpl);
+export default class Input extends Block {
+    constructor(inputParams: IInputInputParams) {
+        super('input', {
+            ...inputParams,
+        });
+    }
 
-    return template({
-        type,
-        label,
-        name
-    });
+    protected render(): Node {
+        return this.compile('', { ...this._props, ...this._children });
+    }
 }

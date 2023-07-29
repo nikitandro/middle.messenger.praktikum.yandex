@@ -14,13 +14,13 @@ export default class Block<
     TAttrs extends IBlockAttributes = IBlockAttributes,
 > {
     public readonly id: string;
-    protected _props: Record<string, any>;
-    protected _children: Record<string, Block<any, any> | Block<any, any>[]>;
-    protected _element: HTMLElement;
-    protected _meta: IBlockMetaData;
-    protected _setUpdate: boolean;
-    protected _attrs: TAttrs | Record<string, string | number | boolean>;
-    protected _events: IBlockEvents;
+    public _props: Record<string, any>;
+    public _children: Record<string, Block<any, any> | Block<any, any>[]>;
+    public _element: HTMLElement;
+    public _meta: IBlockMetaData;
+    public _setUpdate: boolean;
+    public _attrs: TAttrs | Record<string, string | number | boolean>;
+    public _events: IBlockEvents;
 
     public eventBus: () => EventBus;
 
@@ -276,7 +276,7 @@ export default class Block<
             },
             set(target, prop, value, receiver) {
                 const oldValue = Reflect.get(target, prop, receiver);
-                let result = false;
+                let result = true;
                 if (oldValue !== value) {
                     result = Reflect.set(target, prop, value, receiver);
                     self._setUpdate = true;

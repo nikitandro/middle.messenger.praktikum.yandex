@@ -1,12 +1,5 @@
 import { IBlockInputParams } from '../block/types.ts';
-
-export type IInputProps = {
-    placeholder?: string;
-    type: IInputType;
-    name: string;
-};
-
-export type IInputInputParams = IBlockInputParams<IInputProps>;
+export type IInputInputParams = IBlockInputParams;
 
 export type IInputType =
     | 'text'

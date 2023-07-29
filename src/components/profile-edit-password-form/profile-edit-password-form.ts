@@ -2,6 +2,7 @@ import AvatarInput from '../avatar-input';
 import Button from '../button';
 import Form from '../form';
 import Input from '../input';
+import ValidatedInput from '../validated-input';
 import profileEditPasswordFormTmpl from './profile-edit-password-form.tmpl';
 
 export default class ProfileEditPasswordForm extends Form {
@@ -15,21 +16,21 @@ export default class ProfileEditPasswordForm extends Form {
                     props: { content: 'Сохранить' },
                     attrs: { class: 'button' },
                 }),
-                oldPasswordInput: new Input({
+                oldPasswordInput: new ValidatedInput({
                     attrs: {
                         class: inputClass,
                         name: 'oldPassword',
                         type: 'password',
                     },
                 }),
-                newPasswordInput: new Input({
+                newPasswordInput: new ValidatedInput({
                     attrs: {
                         class: inputClass,
                         name: 'newPassword',
                         type: 'password',
                     },
                 }),
-                newPasswordInputAgain: new Input({
+                newPasswordInputAgain: new ValidatedInput({
                     attrs: {
                         class: inputClass,
                         name: 'newPassword',

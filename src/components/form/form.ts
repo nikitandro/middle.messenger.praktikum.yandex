@@ -1,8 +1,8 @@
-import simpleValidate from '../../utils/simpleValidate';
 import AuthFormInput from '../auth-form-input';
 import Block from '../block';
 import { BlockLifeCycleEvents, IBlockInputParams } from '../block/types';
 import Input from '../input';
+import ValidatedInput from '../validated-input/validated-input';
 
 export default class Form extends Block {
     private _template: string;
@@ -36,14 +36,26 @@ export default class Form extends Block {
                     ...this.validateAllInputs(child),
                 };
             }
-            if (child instanceof Input || child instanceof AuthFormInput) {
+            if (child instanceof AuthFormInput) {
                 // @ts-ignore
-                const name = child.element.name;
+                const input = child._children.input._children.input.element;
+                const name = input.name;
+                const value = input.value;
+                input.dispatchEvent(new Event('focusout'));
+                obj[name] = value;
+            } else if (child instanceof ValidatedInput) {
                 // @ts-ignore
-                const value = child.element.value;
-                console.log(
-                    `is '${name}' valid: ${simpleValidate(name, value)};\nvalue: '${value}'`,
-                );
+                const input = child._children.input.element;
+                const name = input.name;
+                const value = input.value;
+                input.dispatchEvent(new Event('focusout'));
+                obj[name] = value;
+            } else if (child instanceof Input) {
+                const input = child.element;
+                // @ts-ignore
+                const name = input.name;
+                // @ts-ignore
+                const value = input.value;
                 obj[name] = value;
             }
         }
@@ -63,12 +75,6 @@ export default class Form extends Block {
                             const name: string = event.target.name;
                             // @ts-ignore
                             const value: string = event.target.value;
-                            console.log(
-                                `is '${name}' valid: ${simpleValidate(
-                                    name,
-                                    value,
-                                )};\nvalue: '${value}'`,
-                            );
                         },
                     },
                 });

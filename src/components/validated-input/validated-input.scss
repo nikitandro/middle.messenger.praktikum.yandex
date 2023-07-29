@@ -1,0 +1,16 @@
+@import '../../vars';
+
+.validation-text {
+    color: $error-color;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 8px;
+}
+
+.validated-input-cont {
+    position: relative;
+    height: fit-content;
+    input {
+        display: block;
+    }
+}

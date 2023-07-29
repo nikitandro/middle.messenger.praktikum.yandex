@@ -1,87 +1,94 @@
-@import "../../vars";
+@import '../../vars';
 
 .profile-page {
-  &__profile {
-    margin-left: 64px;
-    padding-top: 60px;
-  }
+    &__profile {
+        margin-left: 64px;
+        padding-top: 60px;
+    }
 
-  &__go-back-area {
-    position: fixed;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    left: 0;
-    height: 100vh;
-    width: 64px;
-    background: $secondary-surface-color;
-    cursor: pointer;
-    user-select: none;
-  }
+    &__go-back-area {
+        position: fixed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        left: 0;
+        height: 100vh;
+        width: 64px;
+        background: $secondary-surface-color;
+        cursor: pointer;
+        user-select: none;
+    }
 }
 
 .profile {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-  .button {
-    margin-top: 50px;
-  }
+    .button {
+        margin-top: 50px;
+    }
 
-  &__first-name {
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 16px;
-    color: $primary-text-color;
-    margin-top: 21px;
-  }
+    &__first-name {
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 16px;
+        color: $primary-text-color;
+        margin-top: 21px;
+    }
 }
 
 .profile-list {
-  list-style: none;
-  margin-top: 50px;
-  width: 100%;
+    list-style: none;
+    margin-top: 50px;
+    width: 100%;
 }
 
 .profile-list-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  max-width: 510px;
-  padding: 10px 0;
-  margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 510px;
+    padding: 10px 0;
+    margin: auto;
 
-  &:not(:last-child) {
-    border-bottom: $third-party-color solid 1px;
-  }
+    &:not(:last-child) {
+        border-bottom: $third-party-color solid 1px;
+    }
 
-  &__title {
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 13px;
-    color: $primary-text-color;
-  }
+    &__title {
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 13px;
+        color: $primary-text-color;
+    }
 
-  &__value {
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 13px;
-    color: $secondary-text-color;
-  }
+    &__value {
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 13px;
+        color: $secondary-text-color;
+    }
 
-  &__input {
-    font-family: $font-family;
-    background: none;
-    border: none;
-    outline: none;
-    min-width: min-content;
-    height: 13px;
-    font-weight: 500;
-    text-align: right;
-  }
+    &__input {
+        font-family: $font-family;
+        background: none;
+        border: none;
+        outline: none;
+        min-width: min-content;
+        height: 13px;
+        font-weight: 500;
+        text-align: right;
+    }
 
-  .link {
-    font-size: 13px;
-  }
+    .link {
+        font-size: 13px;
+    }
+
+    .validation-text {
+        position: absolute;
+        right: -110px;
+        top: 50%;
+        transform: translate(0, -50%);
+    }
 }

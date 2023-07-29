@@ -3,6 +3,7 @@ import Button from '../../components/button';
 import Input from '../../components/input';
 import AvatarInput from '../../components/avatar-input';
 import profileEditDataFormTmpl from './profile-edit-data-form.tmpl';
+import ValidatedInput from '../validated-input/validated-input';
 const profile = {
     first_name: 'Никита',
     email: 'nik.vish.93@mail.ru',
@@ -23,42 +24,42 @@ export default class ProfileEditDataForm extends Form {
                     props: { content: 'Сохранить' },
                     attrs: { class: 'button' },
                 }),
-                emailInput: new Input({
+                emailInput: new ValidatedInput({
                     attrs: {
                         class: inputClass,
                         value: profile.email,
                         name: 'email',
                     },
                 }),
-                loginInput: new Input({
+                loginInput: new ValidatedInput({
                     attrs: {
                         class: inputClass,
                         value: profile.login,
                         name: 'login',
                     },
                 }),
-                firstNameInput: new Input({
+                firstNameInput: new ValidatedInput({
                     attrs: {
                         class: inputClass,
                         value: profile.first_name,
                         name: 'first_name',
                     },
                 }),
-                secondNameInput: new Input({
+                secondNameInput: new ValidatedInput({
                     attrs: {
                         class: inputClass,
                         value: profile.second_name,
                         name: 'second_name',
                     },
                 }),
-                displayNameInput: new Input({
+                displayNameInput: new ValidatedInput({
                     attrs: {
                         class: inputClass,
                         value: profile.display_name,
                         name: 'display_name',
                     },
                 }),
-                phoneInput: new Input({
+                phoneInput: new ValidatedInput({
                     attrs: {
                         class: inputClass,
                         value: profile.phone,

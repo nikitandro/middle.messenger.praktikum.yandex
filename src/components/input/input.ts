@@ -1,8 +1,8 @@
 import Block from '../block';
-import { IBlockInputParams } from '../block/types.ts';
+import { IInputInputParams } from './types.ts';
 
 export default class Input extends Block {
-    constructor(inputParams: IBlockInputParams) {
+    constructor(inputParams: IInputInputParams) {
         super('input', {
             ...inputParams,
         });

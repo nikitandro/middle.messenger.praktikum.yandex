@@ -5,9 +5,9 @@ export default function simpleValidate(name: string, value: string): boolean {
         case 'email':
             return !!value.match(/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/)?.length;
         case 'first_name':
-            return !!value.match(/^[\p{Lu}\p{Ll}А-ЯЁ][\p{L}]*(-[\p{L}]+)*$/)?.length;
+            return !!value.match(/^(?:[A-ZА-ЯЁ][A-Za-zА-Яа-яЁё-]*)$/)?.length;
         case 'second_name':
-            return !!value.match(/^[\p{Lu}\p{Ll}А-ЯЁ][\p{L}]*(-[\p{L}]+)*$/)?.length;
+            return !!value.match(/^(?:[A-ZА-ЯЁ][A-Za-zА-Яа-яЁё-]*)$/)?.length;
         case 'password':
             return (
                 !!value.match(/^(?=.*[A-Z])(?=.*\d).+$/)?.length &&

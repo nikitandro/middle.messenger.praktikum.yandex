@@ -1,7 +1,6 @@
 import AvatarInput from '../avatar-input';
 import Button from '../button';
 import Form from '../form';
-import Input from '../input';
 import ValidatedInput from '../validated-input';
 import profileEditPasswordFormTmpl from './profile-edit-password-form.tmpl';
 

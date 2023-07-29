@@ -1,6 +1,5 @@
 import Form from '../form';
 import Button from '../../components/button';
-import Input from '../../components/input';
 import AvatarInput from '../../components/avatar-input';
 import profileEditDataFormTmpl from './profile-edit-data-form.tmpl';
 import ValidatedInput from '../validated-input/validated-input';

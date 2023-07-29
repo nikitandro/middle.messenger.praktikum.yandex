@@ -11,7 +11,6 @@ export default class Form extends Block {
         super('form', inputParams);
         this._template = template;
         this.eventBus().emit(BlockLifeCycleEvents.INIT);
-        this.addValidationEvents(this._children);
         this.addValidationOnSubmit();
     }
 
@@ -60,26 +59,6 @@ export default class Form extends Block {
             }
         }
         return obj;
-    }
-
-    public addValidationEvents(children: Record<string, any>) {
-        for (const child of Object.values(children)) {
-            if (Array.isArray(child)) {
-                this.addValidationEvents(child);
-            }
-            if (child instanceof Input || child instanceof AuthFormInput) {
-                child.setProps({
-                    events: {
-                        focusout: (event) => {
-                            // @ts-ignore
-                            const name: string = event.target.name;
-                            // @ts-ignore
-                            const value: string = event.target.value;
-                        },
-                    },
-                });
-            }
-        }
     }
 
     protected render(): Node {

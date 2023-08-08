@@ -3,6 +3,7 @@ export type HTTPMethodOptions<T> = {
     queryData?: Record<string, any>;
     timeout?: number;
     headers?: Record<string, any>;
+    withCredentials?: boolean;
 };
 
 export type HTTPMethod<R = unknown, T = undefined> = (
@@ -26,4 +27,5 @@ export enum METHODS {
 export type IHTTPTransportConfigOptions = {
     baseUrl?: string;
     timeout?: number;
+    withCredentials?: boolean;
 };

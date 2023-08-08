@@ -1,25 +1,16 @@
-const METHODS = {
-    GET: 'GET',
-    PUT: 'PUT',
-    DELETE: 'DELETE',
-    POST: 'POST',
-};
-
-function queryStringify(data: Record<string, any>) {
-    let query = '?';
-    for (const key in data) {
-        if (data.hasOwnProperty(key)) {
-            query += `${key}=${data[key]}&`;
-        }
-    }
-    query = query.slice(0, query.length - 1);
-    return query;
-}
-
-type HTTPMethod = (url: string, options?: Record<string, any>) => Promise<unknown>;
+import { HTTPMethod, HTTPRequest, IHTTPTransportConfigOptions, METHODS } from './types';
+import queryStringify from '../queryStringify';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 class HTTPTransport {
+    public readonly config: IHTTPTransportConfigOptions;
+
+    public static defaultTimeout = 5000;
+
+    constructor(config: IHTTPTransportConfigOptions) {
+        this.config = config;
+    }
+
     public get: HTTPMethod = (url, options = {}) => {
         return this.request(url, { ...options, method: METHODS.GET }, options.timeout);
     };
@@ -41,20 +32,28 @@ class HTTPTransport {
     // options:
     // headers — obj
     // data — obj
-    public request = (url: string, options: Record<string, any>, timeout = 5000) => {
+    public request: HTTPRequest = (
+        url,
+        options,
+        timeout = this.config.timeout ? this.config.timeout : HTTPTransport.defaultTimeout,
+    ) => {
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
             let data;
 
+            if (this.config.baseUrl) {
+                url = this.config.baseUrl + url;
+            }
+
             if (options.method === METHODS.GET) {
-                data = queryStringify(options.data);
+                data = queryStringify(options.queryData ? options.queryData : {});
                 url += data;
             }
 
             xhr.open(options.method, url);
 
             for (const header in options.headers) {
-                if (options.header.hasOwnProperty(header)) {
+                if (options.headers.hasOwnProperty(header)) {
                     xhr.setRequestHeader(header, options.headers[header]);
                 }
             }
@@ -74,3 +73,5 @@ class HTTPTransport {
         });
     };
 }
+
+export default HTTPTransport;

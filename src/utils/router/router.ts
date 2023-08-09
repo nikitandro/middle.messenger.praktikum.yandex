@@ -1,4 +1,4 @@
-import Block from '../../components/block/block';
+import Block from '../../components/block';
 import Route from '../route';
 
 class Router {

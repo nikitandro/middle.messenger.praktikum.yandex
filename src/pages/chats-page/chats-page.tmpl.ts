@@ -3,7 +3,7 @@ export default /*hbs*/ `
     <aside>
         <div class="side-menu">
             <div class="side-menu__profile-link-container">
-                <a href="/profile" class="side-menu__profile-link">Профиль</a>
+                {{{profileLink}}}
             </div>
             {{{chatSearchForm}}}
             {{{chatList}}}

@@ -7,6 +7,7 @@ import ChatList from '../../components/chat-list';
 import ChatListItem from '../../components/chat-list-item';
 import ChatInputForm from '../../components/chat-input-form';
 import ChatSearchForm from '../../components/chat-search-form';
+import Link from '../../components/link';
 
 export default class ChatsPage extends Block {
     constructor() {
@@ -59,6 +60,10 @@ export default class ChatsPage extends Block {
                 chatList: chatList,
                 chatInputForm: new ChatInputForm(),
                 chatSearchForm: new ChatSearchForm(),
+                profileLink: new Link({
+                    props: { text: 'Профиль', to: '/settings' },
+                    attrs: { class: 'side-menu__profile-link' },
+                }),
             },
             attrs: {},
         });

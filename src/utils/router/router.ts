@@ -1,12 +1,14 @@
 import Block from '../../components/block';
 import Route from '../route';
 
-class Router {
+export default class Router {
     private static _instance: Router;
     public routes: Route[] = [];
     public history: History = window.history;
     public _currentRoute: Route | null = null;
     public _rootQuery: string = '';
+    public defaultRoute: Route | null = null;
+
     constructor(rootQuery: string) {
         if (Router._instance) {
             return Router._instance;
@@ -17,12 +19,25 @@ class Router {
         Router._instance = this;
     }
 
+    public static get instance() {
+        if (Router._instance) {
+            return Router._instance;
+        }
+        throw new Error("The router doesn't have an instance yet.");
+    }
+
     public use(pathname: string, block: new (...args: any[]) => Block) {
         const route = new Route(pathname, block, { rootQuery: this._rootQuery });
 
         this.routes.push(route);
 
         return this;
+    }
+
+    public default(block: new (...args: any[]) => Block) {
+        this.defaultRoute = new Route('/', block, { rootQuery: this._rootQuery });
+
+        return { start: this.start.bind(this) };
     }
 
     public start() {
@@ -35,9 +50,14 @@ class Router {
     }
 
     public _onRoute(pathname: string) {
-        const route = this.getRoute(pathname);
+        let route = this.getRoute(pathname);
+        console.log(pathname);
         if (!route) {
-            return;
+            if (this.defaultRoute) {
+                route = this.defaultRoute;
+            } else {
+                return;
+            }
         }
 
         if (this._currentRoute && this._currentRoute !== route) {

@@ -45,9 +45,7 @@ export default class SignInPage extends Block {
                     new Link({
                         props: {
                             text: 'Нет аккаунта?',
-                        },
-                        attrs: {
-                            href: '/sign-up',
+                            to: '/sign-up',
                         },
                     }),
                 ],

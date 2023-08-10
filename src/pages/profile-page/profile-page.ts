@@ -25,23 +25,20 @@ export default class ProfilePage extends Block {
                 linkToProfileEditData: new Link({
                     props: {
                         text: 'Изменить данные',
-                    },
-                    attrs: {
-                        href: '/profile-edit-data',
+                        to: '/settings/edit-data',
                     },
                 }),
                 linkToProfileEditPassword: new Link({
                     props: {
                         text: 'Изменить пароль',
-                    },
-                    attrs: {
-                        href: '/profile-edit-password',
+                        to: '/settings/edit-password',
                     },
                 }),
                 linkLogout: new Link({
                     props: {
                         text: 'Выйти',
                         isDanger: true,
+                        to: '/',
                     },
                 }),
                 avatarInput: new AvatarInput(),

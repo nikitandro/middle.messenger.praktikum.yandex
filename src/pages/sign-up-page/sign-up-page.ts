@@ -74,9 +74,7 @@ export default class SignUpPage extends Block {
                     new Link({
                         props: {
                             text: 'Войти',
-                        },
-                        attrs: {
-                            href: '/sign-in',
+                            to: '/',
                         },
                     }),
                 ],

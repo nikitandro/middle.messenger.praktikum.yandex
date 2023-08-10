@@ -1,21 +1,24 @@
-export type HTTPMethodOptions<T> = {
-    data?: T;
+export type HTTPMethodOptions = {
+    data?: unknown;
     queryData?: Record<string, any>;
     timeout?: number;
     headers?: Record<string, any>;
     withCredentials?: boolean;
+    responseType?: XMLHttpRequestResponseType;
 };
 
-export type HTTPMethod<R = unknown, T = undefined> = (
-    url: string,
-    options?: HTTPMethodOptions<T>,
-) => Promise<R>;
+export type XHRResponse<T> = Omit<XMLHttpRequest, 'response'> & { response: T };
 
-export type HTTPRequest<R = unknown, T = undefined> = (
+export type HTTPMethod = <R = unknown>(
     url: string,
-    options: { method: METHODS } & HTTPMethodOptions<T>,
+    options?: HTTPMethodOptions,
+) => Promise<XHRResponse<R>>;
+
+export type HTTPRequest = <R = unknown>(
+    url: string,
+    options: { method: METHODS } & HTTPMethodOptions,
     timeout?: number,
-) => Promise<R>;
+) => Promise<XHRResponse<R>>;
 
 export enum METHODS {
     GET = 'GET',

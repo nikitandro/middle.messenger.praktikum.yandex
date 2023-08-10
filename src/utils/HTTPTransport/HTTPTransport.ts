@@ -11,20 +11,20 @@ class HTTPTransport {
         this.config = config;
     }
 
-    public get: HTTPMethod = (url, options = {}) => {
-        return this.request(url, { ...options, method: METHODS.GET }, options.timeout);
+    public get: HTTPMethod = (url, options) => {
+        return this.request(url, { ...options, method: METHODS.GET }, options?.timeout);
     };
 
-    public put: HTTPMethod = (url, options = {}) => {
-        return this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
+    public put: HTTPMethod = (url, options) => {
+        return this.request(url, { ...options, method: METHODS.PUT }, options?.timeout);
     };
 
-    public post: HTTPMethod = (url, options = {}) => {
-        return this.request(url, { ...options, method: METHODS.POST }, options.timeout);
+    public post: HTTPMethod = (url, options) => {
+        return this.request(url, { ...options, method: METHODS.POST }, options?.timeout);
     };
 
-    public delete: HTTPMethod = (url, options = {}) => {
-        return this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
+    public delete: HTTPMethod = (url, options) => {
+        return this.request(url, { ...options, method: METHODS.DELETE }, options?.timeout);
     };
 
     // PUT, POST, DELETE
@@ -44,6 +44,8 @@ class HTTPTransport {
             if (this.config.baseUrl) {
                 url = this.config.baseUrl + url;
             }
+
+            xhr.responseType = options.responseType ? options.responseType : 'json';
 
             if (options.method === METHODS.GET) {
                 data = queryStringify(options.queryData ? options.queryData : {});
@@ -65,8 +67,8 @@ class HTTPTransport {
             xhr.withCredentials = options.withCredentials
                 ? options.withCredentials
                 : this.config.withCredentials
-                    ? this.config.withCredentials
-                    : false;
+                ? this.config.withCredentials
+                : false;
             xhr.timeout = timeout;
             xhr.ontimeout = reject;
 

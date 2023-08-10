@@ -38,7 +38,7 @@ function queryStringify(data: StringIndexed): string | never {
         throw new Error('input must be an object');
     }
 
-    return convertObjectToQueryString(data);
+    return '?' + convertObjectToQueryString(data);
 }
 
 export default queryStringify;

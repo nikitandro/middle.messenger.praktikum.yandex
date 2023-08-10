@@ -2,6 +2,7 @@ import createRouter from './utils/createRouter';
 import './style.scss';
 
 import Handlebars from 'handlebars';
+import AuthAPI from './services/auth-api/auth';
 
 Handlebars.registerHelper('formatDateToHoursAndMinutes', function (string: string): string {
     const date = new Date(string);
@@ -12,4 +13,10 @@ Handlebars.registerHelper('formatDateToHoursAndMinutes', function (string: strin
 
 document.addEventListener('DOMContentLoaded', () => {
     createRouter();
+    AuthAPI.signIn({
+        login: 'Bobby',
+        password: '123',
+    }).then((value) => {
+        console.log(value.response);
+    });
 });

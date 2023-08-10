@@ -26,13 +26,13 @@ export default class Block<
 
     constructor(
         tagName: keyof HTMLElementTagNameMap = 'div',
-        propsAndChildren: IBlockInputParams<TProps, TAttrs> = {},
+        inputParams: IBlockInputParams<TProps, TAttrs> = {},
     ) {
         const eventBus = new EventBus();
 
-        const { children, props } = this._getChildren(propsAndChildren.props ?? {});
-        const attrs = propsAndChildren.attrs;
-        const events = propsAndChildren.events;
+        const { children, props } = this._getChildren(inputParams.props ?? {});
+        const attrs = inputParams.attrs;
+        const events = inputParams.events;
 
         this._meta = {
             tagName,

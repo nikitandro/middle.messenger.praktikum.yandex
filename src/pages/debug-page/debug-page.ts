@@ -13,7 +13,7 @@ const button = new Button({
     },
 });
 const input = new Input({ props: { name: 'debug', type: 'text', placeholder: 'Привет' } });
-const link = new Link({ props: { text: 'Привет', isUnderlined: true } });
+const link = new Link({ props: { content: 'Привет', isUnderlined: true } });
 
 export default class DebugPage extends Block {
     constructor() {
@@ -23,8 +23,8 @@ export default class DebugPage extends Block {
                 input: input,
                 link: link,
                 links: [
-                    new Link({ props: { text: 'Привет' } }),
-                    new Link({ props: { text: 'Привет' } }),
+                    new Link({ props: { content: 'Привет' } }),
+                    new Link({ props: { content: 'Привет' } }),
                 ],
             },
             attrs: {

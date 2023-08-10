@@ -1,20 +1,8 @@
-import Block from '../../components/block';
 import ProfileEditDataForm from '../../components/profile-edit-data-form';
-import profileEditDataPageTmpl from './profile-edit-data-page.tmpl';
+import SettingsLayout from '../../layouts/settings-layout/seetings-layout';
 
-export default class ProfileEditDataPage extends Block {
+export default class ProfileEditDataPage extends SettingsLayout {
     constructor() {
-        super('div', {
-            props: {
-                form: new ProfileEditDataForm(),
-            },
-            attrs: {
-                class: 'profile-page',
-            },
-        });
-    }
-
-    protected render(): Node {
-        return this.compile(profileEditDataPageTmpl, { ...this._props, ...this._children });
+        super({ props: { page: new ProfileEditDataForm() } });
     }
 }

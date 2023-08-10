@@ -3,6 +3,7 @@ import profilePageTmpl from './profile-page.tmpl.ts';
 import Block from '../../components/block';
 import Link from '../../components/link';
 import AvatarInput from '../../components/avatar-input/avatar-input.ts';
+import GoBackArea from '../../components/go-back-area/go-back-area.ts';
 
 export default class ProfilePage extends Block {
     constructor() {
@@ -42,6 +43,7 @@ export default class ProfilePage extends Block {
                     },
                 }),
                 avatarInput: new AvatarInput(),
+                goBackArea: new GoBackArea(),
             },
             attrs: {
                 class: 'profile-page',

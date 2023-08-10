@@ -1,11 +1,12 @@
 import Block from '../../components/block';
 import { IBlockInputParams } from '../../components/block/types';
+import GoBackArea from '../../components/go-back-area';
 import settingsLayoutTmpl from './settings-layout.tmpl';
 
 export default class SettingsLayout extends Block {
-    constructor(inputParams: IBlockInputParams<{ page: Block }>) {
+    constructor({ props, attrs }: IBlockInputParams<{ page: Block }>) {
         super('div', {
-            ...inputParams,
+            props: { ...props, goBackArea: new GoBackArea() },
             attrs: {
                 class: 'profile-page',
             },

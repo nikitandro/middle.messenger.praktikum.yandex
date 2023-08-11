@@ -19,4 +19,8 @@ export default class AuthAPI {
     public static getUserInfo() {
         return api.get<GetUserInfoResponseModel>('/auth/user');
     }
+
+    public static logout() {
+        api.post('/auth/logout');
+    }
 }

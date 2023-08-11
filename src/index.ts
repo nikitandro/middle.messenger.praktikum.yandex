@@ -1,5 +1,5 @@
 import './style.scss';
-import createRouter from './utils/createRouter';
+import authGuard from './utils/authGuard';
 import Handlebars from 'handlebars';
 
 Handlebars.registerHelper('formatDateToHoursAndMinutes', function (string: string): string {
@@ -10,5 +10,5 @@ Handlebars.registerHelper('formatDateToHoursAndMinutes', function (string: strin
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    createRouter();
+    authGuard();
 });

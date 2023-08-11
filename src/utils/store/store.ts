@@ -4,10 +4,13 @@ import set from '../set';
 
 class Store extends EventBus {
     private _state: Record<string, any> = {};
+    private static _instance?: Store;
 
     constructor() {
+        if (Store._instance) {
+            return Store._instance;
+        }
         super();
-        this.emit(StoreEvents.Created);
     }
 
     public getState() {
@@ -20,4 +23,4 @@ class Store extends EventBus {
     }
 }
 
-export default new Store();
+export default Store;

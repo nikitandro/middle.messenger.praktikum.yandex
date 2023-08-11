@@ -5,11 +5,26 @@ import Button from '../../components/button';
 import Link from '../../components/link';
 import AuthForm from '../../components/auth-form/auth-form.ts';
 import AuthFormInput from '../../components/auth-form-input/auth-form-input.ts';
+import { SignInRequestModel } from '../../services/auth-api/types.ts';
+import AuthController from '../../controllers/auth-controller/auth-controller.ts';
+import useNavigate from '../../utils/useNavigate.ts';
 
 export default class SignInPage extends Block {
     constructor() {
+        const getFormValue = (formValue: SignInRequestModel) => {
+            const navigate = useNavigate();
+            const response = AuthController.signIn(formValue);
+            response.then((value) => {
+                if (value.status === 200) {
+                    navigate.go('/messenger');
+                } else {
+                    navigate.go('/');
+                }
+            });
+        };
         const form = new AuthForm({
             props: {
+                getFormValue: getFormValue,
                 inputs: [
                     new AuthFormInput({
                         attrs: {
@@ -34,12 +49,6 @@ export default class SignInPage extends Block {
                         attrs: {
                             type: 'submit',
                             class: 'button',
-                        },
-                        events: {
-                            submit: (event) => {
-                                event.preventDefault();
-                                console.log(event.submitter);
-                            },
                         },
                     }),
                     new Link({

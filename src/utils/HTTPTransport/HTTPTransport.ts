@@ -1,13 +1,13 @@
-import { HTTPMethod, HTTPRequest, IHTTPTransportConfigOptions, METHODS } from './types';
+import { HTTPMethod, HTTPRequest, HTTPTransportConfigOptions, METHODS } from './types';
 import queryStringify from '../queryStringify';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 class HTTPTransport {
-    public readonly config: IHTTPTransportConfigOptions;
+    public readonly config: HTTPTransportConfigOptions;
 
     public static defaultTimeout = 5000;
 
-    constructor(config: IHTTPTransportConfigOptions) {
+    constructor(config: HTTPTransportConfigOptions) {
         this.config = config;
     }
 
@@ -27,11 +27,6 @@ class HTTPTransport {
         return this.request(url, { ...options, method: METHODS.DELETE }, options?.timeout);
     };
 
-    // PUT, POST, DELETE
-
-    // options:
-    // headers — obj
-    // data — obj
     public request: HTTPRequest = (
         url,
         options,
@@ -50,7 +45,11 @@ class HTTPTransport {
             if (options.method === METHODS.GET) {
                 data = queryStringify(options.queryData ? options.queryData : {});
                 url += data;
+            } else {
+                data = options.data;
             }
+
+            console.log(data);
 
             xhr.open(options.method, url);
 

@@ -1,5 +1,5 @@
 export type HTTPMethodOptions = {
-    data?: unknown;
+    data?: Document | XMLHttpRequestBodyInit | null;
     queryData?: Record<string, any>;
     timeout?: number;
     headers?: Record<string, any>;
@@ -27,7 +27,7 @@ export enum METHODS {
     POST = 'POST',
 }
 
-export type IHTTPTransportConfigOptions = {
+export type HTTPTransportConfigOptions = {
     baseUrl?: string;
     timeout?: number;
     withCredentials?: boolean;

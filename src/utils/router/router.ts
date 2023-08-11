@@ -40,6 +40,18 @@ export default class Router {
         return { start: this.start.bind(this) };
     }
 
+    public defaultRedirect(pathname: string) {
+        const route = this.getRoute(pathname);
+
+        if (!route) {
+            throw new Error('Route for default redirect must be registered.');
+        }
+
+        this.go(pathname);
+
+        return { start: this.start.bind(this) };
+    }
+
     public start() {
         window.onpopstate = (event) => {
             // @ts-ignore из-за плохой типизации currentTarget

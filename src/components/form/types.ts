@@ -1,8 +1,9 @@
-import Block from '../block';
 import { IBlockInputParams } from '../block/types';
 
-export type IFormProps = {
-    content: string | Block<Record<string, unknown>>;
-};
+export type IFormProps<T> = {
+    getFormValue?: GetFormValueFunction<T>;
+} & Record<string, any>;
 
-export type IFormInputParams = IBlockInputParams<IFormProps>;
+export type IFormInputParams<T = unknown> = IBlockInputParams<IFormProps<T>>;
+
+export type GetFormValueFunction<T> = (formValue: T) => void;

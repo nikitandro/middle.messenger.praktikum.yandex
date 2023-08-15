@@ -3,16 +3,16 @@ import isEqual from '../isEqual';
 import { StoreEvents } from './events';
 import Store from './store';
 
-export default function ConnectComponentToStore(
-    mapStateToProps: <T extends Record<string, any>>(state: Record<string, any>) => T,
+export default function connectComponentToStore(
+    mapStateToProps: (state: Record<string, any>) => Record<string, any>,
 ) {
     const store = new Store();
     return function (Component: typeof Block) {
         return class extends Component {
-            constructor([tagName, inputParams]: ConstructorParameters<typeof Block>) {
+            constructor(props: ConstructorParameters<typeof Block>) {
                 let state = mapStateToProps(store.getState());
 
-                super(tagName, { ...inputParams, props: { ...inputParams?.props, ...state } });
+                super(...props);
 
                 store.on(StoreEvents.Updated, () => {
                     const newState = mapStateToProps(store.getState());

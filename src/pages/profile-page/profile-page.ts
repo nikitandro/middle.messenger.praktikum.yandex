@@ -2,10 +2,13 @@ import './profile-page.scss';
 import profilePageTmpl from './profile-page.tmpl.ts';
 import Block from '../../components/block';
 import Link from '../../components/link';
-import AvatarInput from '../../components/avatar-input/avatar-input.ts';
-import GoBackArea from '../../components/go-back-area/go-back-area.ts';
+import AvatarInput from '../../components/avatar-input';
+import GoBackArea from '../../components/go-back-area';
+import AuthController from '../../controllers/auth-controller';
+import Store from '../../utils/store';
+import connectComponentToStore from '../../utils/store/ConnectComponent.ts';
 
-export default class ProfilePage extends Block {
+class ProfilePage extends Block {
     constructor() {
         const profile: {
             first_name: string;
@@ -41,6 +44,13 @@ export default class ProfilePage extends Block {
                         isDanger: true,
                         to: '/',
                     },
+                    events: {
+                        click: () => {
+                            AuthController.logout();
+                            const store = new Store();
+                            store.set('isAuth', false);
+                        },
+                    },
                 }),
                 avatarInput: new AvatarInput(),
                 goBackArea: new GoBackArea(),
@@ -55,3 +65,5 @@ export default class ProfilePage extends Block {
         return this.compile(profilePageTmpl, { ...this._props, ...this._children });
     }
 }
+
+export default ProfilePage;

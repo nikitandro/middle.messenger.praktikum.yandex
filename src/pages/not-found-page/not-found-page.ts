@@ -9,7 +9,7 @@ export default class NotFoundPage extends NoAsideLayout {
                     props: {
                         statusCode: 404,
                         comment: 'Не туда попали',
-                        linkTo: '/messenger',
+                        linkTo: '/',
                         linkText: 'Назад к чатам',
                     },
                 }),

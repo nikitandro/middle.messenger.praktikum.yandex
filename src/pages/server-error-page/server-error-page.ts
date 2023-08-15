@@ -9,7 +9,7 @@ export default class ServerErrorPage extends NoAsideLayout {
                     props: {
                         statusCode: 500,
                         comment: 'Мы уже фиксим',
-                        linkTo: '/messenger',
+                        linkTo: '/',
                         linkText: 'Назад к чатам',
                     },
                 }),

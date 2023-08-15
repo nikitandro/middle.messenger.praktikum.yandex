@@ -21,4 +21,11 @@ export default function createRouter() {
         .use('/server-error', ServerErrorPage)
         .default(NotFoundPage)
         .start();
+
+    const lastPath = localStorage.getItem('lastPath');
+    if (lastPath) {
+        router.go(lastPath);
+    } else {
+        router.go('/');
+    }
 }

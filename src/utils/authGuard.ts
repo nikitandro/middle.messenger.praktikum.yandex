@@ -1,18 +1,25 @@
-import AuthController from '../controllers/auth-controller/auth-controller';
 import createAuthRouter from './createAuthRouter';
 import createRouter from './createRouter';
 import Store from './store';
+import { StoreEvents } from './store/events';
 
 export default function authGuard() {
-    const user = AuthController.getUserInfo();
-    user.then((response) => {
-        console.log(response);
-        if (response.status === 200) {
+    const store = new Store();
+    let isAuth = store.getState().isAuth;
+    console.log('authGuard');
+
+    store.on(StoreEvents.Updated, () => {
+        console.log(store.getState());
+        const state = store.getState();
+        if (isAuth === state.isAuth) {
+            return;
+        } else if (state.isAuth) {
             createRouter();
-            const store = new Store();
-            store.set('user', response.response);
+            isAuth = true;
         } else {
+            console.log('auth router');
             createAuthRouter();
+            isAuth = false;
         }
     });
 }

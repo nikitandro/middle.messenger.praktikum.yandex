@@ -1,6 +1,8 @@
 import './style.scss';
-import authGuard from './utils/authGuard';
 import Handlebars from 'handlebars';
+import Store from './utils/store';
+import AuthController from './controllers/auth-controller/auth-controller';
+import authGuard from './utils/authGuard';
 
 Handlebars.registerHelper('formatDateToHoursAndMinutes', function (string: string): string {
     const date = new Date(string);
@@ -10,5 +12,16 @@ Handlebars.registerHelper('formatDateToHoursAndMinutes', function (string: strin
 });
 
 document.addEventListener('DOMContentLoaded', () => {
+    const store = new Store();
     authGuard();
+    AuthController.getUserInfo().then(
+        () => {
+            store.set('isAuth', true);
+        },
+        (res) => {
+            if (res.status === 401) {
+                store.set('isAuth', false);
+            }
+        },
+    );
 });

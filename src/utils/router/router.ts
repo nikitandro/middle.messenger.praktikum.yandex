@@ -2,7 +2,7 @@ import Block from '../../components/block';
 import Route from '../route';
 
 export default class Router {
-    private static _instance: Router;
+    private static _instance: Router | null = null;
     public routes: Route[] = [];
     public history: History = window.history;
     public _currentRoute: Route | null = null;
@@ -20,13 +20,16 @@ export default class Router {
     }
 
     public static get instance() {
-        if (Router._instance) {
-            return Router._instance;
-        }
-        throw new Error("The router doesn't have an instance yet.");
+        return Router._instance;
     }
 
     public use(pathname: string, block: new (...args: any[]) => Block) {
+        const existingRoute = this.getRoute(pathname);
+
+        if (existingRoute) {
+            throw new Error('Route with such pathname already exists.');
+        }
+
         const route = new Route(pathname, block, { rootQuery: this._rootQuery });
 
         this.routes.push(route);
@@ -95,5 +98,9 @@ export default class Router {
 
     public getRoute(pathname: string) {
         return this.routes.find((route) => route.match(pathname));
+    }
+
+    public clearRoutes() {
+        this.routes = [];
     }
 }

@@ -8,6 +8,7 @@ export default class SettingsLayout extends Block {
         super('div', {
             props: { ...props, goBackArea: new GoBackArea() },
             attrs: {
+                ...attrs,
                 class: 'profile-page',
             },
         });

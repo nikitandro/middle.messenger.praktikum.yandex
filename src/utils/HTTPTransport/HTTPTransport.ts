@@ -1,11 +1,14 @@
-import { HTTPMethod, HTTPRequest, HTTPTransportConfigOptions, METHODS } from './types';
+import { HTTPMethod, HTTPRequest, HTTPTransportConfigOptions, METHODS, XHRResponse } from './types';
 import queryStringify from '../queryStringify';
+import HTTPMiddleware from '../HTTPMiddleware';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 class HTTPTransport {
     public readonly config: HTTPTransportConfigOptions;
 
     public static defaultTimeout = 5000;
+
+    private _responseMiddleware?: HTTPMiddleware;
 
     constructor(config: HTTPTransportConfigOptions) {
         this.config = config;
@@ -26,6 +29,13 @@ class HTTPTransport {
     public delete: HTTPMethod = (url, options) => {
         return this.request(url, { ...options, method: METHODS.DELETE }, options?.timeout);
     };
+
+    public useResponseMiddleware(
+        onFulfiled: <T>(config: XHRResponse<T>) => XHRResponse<T>,
+        onError: <R>(config: XHRResponse<R>) => XHRResponse<R>,
+    ) {
+        this._responseMiddleware = new HTTPMiddleware(onFulfiled, onError);
+    }
 
     public request: HTTPRequest = (
         url,
@@ -60,7 +70,20 @@ class HTTPTransport {
             }
 
             xhr.onload = () => {
-                resolve(xhr);
+                if (!this._responseMiddleware) {
+                    if (xhr.status >= 400 && xhr.status <= 599) {
+                        reject(xhr);
+                        return;
+                    }
+                    resolve(xhr);
+                    return;
+                }
+
+                if (xhr.status >= 400 && xhr.status <= 599) {
+                    reject(this._responseMiddleware.onError(xhr));
+                }
+
+                resolve(this._responseMiddleware.onFulfiled(xhr));
             };
 
             xhr.withCredentials = options.withCredentials

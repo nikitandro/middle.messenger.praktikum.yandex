@@ -7,13 +7,17 @@ import ProfileEditPasswordPage from '../pages/profile-edit-password-page';
 import ChatsPage from '../pages/chats-page';
 
 export default function createRouter() {
+    if (Router.instance) {
+        const router = new Router('#app');
+        router.clearRoutes();
+    }
     const router = new Router('#app');
 
     router
         .use('/settings', ProfilePage)
         .use('/settings/edit-password', ProfileEditPasswordPage)
         .use('/settings/edit-data', ProfileEditDataPage)
-        .use('/messenger', ChatsPage)
+        .use('/', ChatsPage)
         .use('/server-error', ServerErrorPage)
         .default(NotFoundPage)
         .start();

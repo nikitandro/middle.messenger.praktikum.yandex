@@ -11,6 +11,7 @@ class Store extends EventBus {
             return Store._instance;
         }
         super();
+        Store._instance = this;
     }
 
     public getState() {

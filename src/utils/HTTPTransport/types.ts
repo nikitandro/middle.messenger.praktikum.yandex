@@ -7,7 +7,7 @@ export type HTTPMethodOptions = {
     responseType?: XMLHttpRequestResponseType;
 };
 
-export type XHRResponse<T> = Omit<XMLHttpRequest, 'response'> & { response: T };
+export type XHRResponse<T = any> = Omit<XMLHttpRequest, 'response'> & { response: T };
 
 export type HTTPMethod = <R = unknown>(
     url: string,

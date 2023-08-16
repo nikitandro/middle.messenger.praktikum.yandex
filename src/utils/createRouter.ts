@@ -22,10 +22,7 @@ export default function createRouter() {
         .default(NotFoundPage)
         .start();
 
-    const lastPath = localStorage.getItem('lastPath');
-    if (lastPath) {
-        router.go(lastPath);
-    } else {
+    if (!router.hasRoute(window.location.pathname)) {
         router.go('/');
     }
 }

@@ -28,7 +28,10 @@ export default class AuthController {
     }
 
     public static getUserInfo() {
-        return AuthAPI.getUserInfo();
+        return AuthAPI.getUserInfo().then((value) => {
+            this._store.set('user', value.response);
+            return value;
+        });
     }
 
     public static async logout() {

@@ -9,10 +9,10 @@ export default function connectComponentToStore(
     const store = new Store();
     return function (Component: typeof Block) {
         return class extends Component {
-            constructor(props: ConstructorParameters<typeof Block>) {
+            constructor(props: any) {
                 let state = mapStateToProps(store.getState());
 
-                super(...props);
+                super({ ...props, ...state });
 
                 store.on(StoreEvents.Updated, () => {
                     const newState = mapStateToProps(store.getState());

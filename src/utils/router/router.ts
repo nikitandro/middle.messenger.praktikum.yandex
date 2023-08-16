@@ -103,4 +103,8 @@ export default class Router {
     public clearRoutes() {
         this.routes = [];
     }
+
+    public hasRoute(pathname: string) {
+        return !!this.getRoute(pathname);
+    }
 }

@@ -59,8 +59,6 @@ class HTTPTransport {
                 data = options.data;
             }
 
-            console.log(data);
-
             xhr.open(options.method, url);
 
             for (const header in options.headers) {

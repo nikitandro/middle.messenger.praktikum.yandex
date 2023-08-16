@@ -33,6 +33,7 @@ export default class AuthController {
 
     public static async logout() {
         const response = await AuthAPI.logout();
+        localStorage.setItem('lastPath', window.location.pathname);
         this._setIsAuth(false);
         return response;
     }

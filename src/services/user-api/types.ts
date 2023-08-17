@@ -17,3 +17,8 @@ export type UserResponseModel = {
     status: null | string;
     phone: string;
 };
+
+export type UserChangePasswordRequestModel = {
+    oldPassword: string;
+    newPassword: string;
+};

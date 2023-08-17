@@ -50,14 +50,14 @@ export default class SignUpPage extends Block {
             }),
             new AuthFormInput({
                 attrs: {
-                    type: 'text',
+                    type: 'password',
                     name: 'password',
                     placeholder: 'Пароль',
                 },
             }),
             new AuthFormInput({
                 attrs: {
-                    type: 'text',
+                    type: 'password',
                     name: 'password',
                     placeholder: 'Пароль (ещё раз)',
                 },

@@ -24,6 +24,7 @@ export default class Form<T> extends Block {
                 submit: (event) => {
                     event.preventDefault();
                     const formValue = self.validateAllInputs(self._children);
+
                     getFormValue && getFormValue(formValue);
                     submitEvent && submitEvent(event);
                 },

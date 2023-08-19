@@ -1,5 +1,6 @@
 // language=handlebars
 export default /*hbs*/ `
+            {{{modal}}}
             {{{goBackArea}}}
             <div class="profile-page__profile">
                 <form class="profile">

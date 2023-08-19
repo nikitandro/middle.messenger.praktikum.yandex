@@ -11,7 +11,14 @@ export default class UserAPI {
         });
     }
 
-    public static changeUserAvatar(avatar: FormData) {}
+    public static changeUserAvatar(formData: FormData) {
+        return api.put<UserResponseModel>('/user/profile/avatar', {
+            data: formData,
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+    }
 
     public static changeUserPassword(requestModel: UserChangePasswordRequestModel) {
         return api.put('/user/password', {

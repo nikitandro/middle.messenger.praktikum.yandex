@@ -6,22 +6,17 @@ import AvatarInput from '../../components/avatar-input';
 import GoBackArea from '../../components/go-back-area';
 import AuthController from '../../controllers/auth-controller';
 import withProfileState from '../../helpers/withProfileState.ts';
+import Modal from '../../components/modal';
+import ChangeAvatarForm from '../../components/change-avatar-form';
 
 class ProfilePage extends Block {
     constructor(state: any) {
-        // const profile: {
-        //     first_name: string;
-        //     second_name: string;
-        //     email: string;
-        //     phone: string;
-        //     login: string;
-        // } = {
-        //     first_name: 'Никита',
-        //     email: 'nik.vish.93@mail.ru',
-        //     login: 'nikitandro',
-        //     phone: '+79193813732',
-        //     second_name: 'Вишняков',
-        // };
+        const modal = new Modal({
+            content: new ChangeAvatarForm(),
+        });
+        const onAvatarClick = () => {
+            modal.toggleOpen();
+        };
         super('div', {
             props: {
                 ...state,
@@ -49,8 +44,15 @@ class ProfilePage extends Block {
                         },
                     },
                 }),
-                avatarInput: new AvatarInput(),
+                avatarInput: new AvatarInput({
+                    events: {
+                        click: () => {
+                            onAvatarClick();
+                        },
+                    },
+                }),
                 goBackArea: new GoBackArea(),
+                modal,
             },
             attrs: {
                 class: 'profile-page',

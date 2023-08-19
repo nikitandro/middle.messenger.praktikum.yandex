@@ -15,7 +15,7 @@ class ProfileEditDataForm extends Form<UserProfileModel> {
         super(profileEditDataFormTmpl, {
             props: {
                 getFormValue: getFormValue,
-                avatarInput: new AvatarInput(),
+                avatarInput: new AvatarInput({}),
                 saveButton: new Button({
                     props: { content: 'Сохранить' },
                     attrs: { class: 'button' },

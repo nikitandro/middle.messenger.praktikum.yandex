@@ -50,7 +50,7 @@ class HTTPTransport {
                 url = this.config.baseUrl + url;
             }
 
-            xhr.responseType = options.responseType ? options.responseType : 'json';
+            xhr.responseType = options.responseType ?? 'json';
 
             if (options.method === METHODS.GET) {
                 data = queryStringify(options.queryData ? options.queryData : {});

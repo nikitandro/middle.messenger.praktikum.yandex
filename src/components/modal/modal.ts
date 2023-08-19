@@ -1,4 +1,6 @@
 import Block from '../block';
+import modalTmpl from './modal.tmpl';
+import './modal.scss';
 
 export default class Modal extends Block {
     public isOpen: boolean = false;
@@ -36,5 +38,9 @@ export default class Modal extends Block {
             this.show();
         }
         this.isOpen = !this.isOpen;
+    }
+
+    protected render(): Node {
+        return this.compile(modalTmpl, { ...this._props, ...this._children });
     }
 }

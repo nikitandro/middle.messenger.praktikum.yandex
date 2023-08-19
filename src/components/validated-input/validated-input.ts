@@ -41,10 +41,10 @@ export default class ValidatedInput extends Block {
         }
     }
 
-    public validate(name: string, input: string) {
+    public validate(name: string, input: string | File | null) {
         this.setProps({
             props: {
-                isValid: simpleValidate(name, input),
+                isValid: typeof input === 'string' ? simpleValidate(name, input) : !!input,
             },
         });
     }

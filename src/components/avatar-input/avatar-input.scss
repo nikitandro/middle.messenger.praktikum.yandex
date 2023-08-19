@@ -1,37 +1,45 @@
 @import '../../vars';
 
 .avatar-input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     position: relative;
     width: 130px;
     height: 130px;
     border-radius: 130px;
-    background-color: #606468;
-    background-image: url('../../assets/icons/image-paceholder.svg');
+    // background-color: #606468;
+    background-color: transparent;
     background-repeat: no-repeat;
     background-position-x: center;
     background-position-y: center;
     cursor: pointer;
     color: transparent;
-
-    &::file-selector-button {
-        display: none;
-    }
+    border: none;
 
     &:hover {
-        &::before {
+        &::after {
             position: absolute;
             display: flex;
             align-items: center;
             justify-content: center;
             width: 100%;
             height: 100%;
-            background: #000;
-            opacity: 0.5;
+            left: 0;
+            top: 0;
+            background: rgba(0, 0, 0, 0.5);
             content: 'Поменять аватар';
             color: $primary-text-color;
             border-radius: 130px;
             font-size: 13px;
             font-weight: 500;
         }
+    }
+
+    &__image {
+        border-radius: 130px;
+        width: 130px;
+        height: 130px;
     }
 }

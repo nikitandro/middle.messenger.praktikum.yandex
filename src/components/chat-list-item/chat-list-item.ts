@@ -1,9 +1,9 @@
 import Block from '../block';
 import chatListItemTmpl from './chat-list-item.tmpl';
 import './chat-list-item.scss';
-import { IChatListItemInputParams, IChatListItemProps } from './types';
+import { IChatListItemInputParams } from './types';
 
-export default class ChatListItem extends Block<IChatListItemProps> {
+export default class ChatListItem extends Block {
     constructor(inputParams: IChatListItemInputParams) {
         const { props, attrs, events } = inputParams;
 

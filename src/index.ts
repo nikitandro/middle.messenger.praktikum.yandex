@@ -11,6 +11,10 @@ Handlebars.registerHelper('formatDateToHoursAndMinutes', function (string: strin
     return formatDate.format(date);
 });
 
+Handlebars.registerHelper('moreThanZero', function (value: number) {
+    return value > 0;
+});
+
 document.addEventListener('DOMContentLoaded', () => {
     const store = new Store();
     authGuard();

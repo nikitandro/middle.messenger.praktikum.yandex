@@ -19,6 +19,7 @@
 //     };
 // };
 
+import { ChatModel } from '../../services/chat-api/types';
 import { IBlockInputParams } from '../block/types';
 
 export type IChatListItemProps = {
@@ -30,4 +31,4 @@ export type IChatListItemProps = {
     };
 };
 
-export type IChatListItemInputParams = IBlockInputParams<IChatListItemProps>;
+export type IChatListItemInputParams = IBlockInputParams<ChatModel>;

@@ -8,36 +8,19 @@ import ChatListItem from '../../components/chat-list-item';
 import ChatInputForm from '../../components/chat-input-form';
 import ChatSearchForm from '../../components/chat-search-form';
 import Link from '../../components/link';
+import Store from '../../utils/store';
+import { ChatModel } from '../../services/chat-api/types.ts';
+import { StoreEvents } from '../../utils/store/events.ts';
+import isEqual from '../../utils/isEqual.ts';
+import cloneDeep from '../../utils/cloneDeep.ts';
+import ChatController from '../../controllers/chat-controller/chat-controller.ts';
 
 export default class ChatsPage extends Block {
     constructor() {
-        const chats = [
-            new ChatListItem({
-                props: {
-                    title: 'Заголовок',
-                    last_message: {
-                        content: 'Привет',
-                        time: new Date().toISOString(),
-                    },
-                    unread_count: 2,
-                },
-            }),
-            new ChatListItem({
-                props: {
-                    title: 'Заголовок',
-                    last_message: { content: 'Привет', time: new Date().toISOString() },
-                    unread_count: 2,
-                },
-            }),
-            new ChatListItem({
-                props: {
-                    title: 'Заголовок',
-                    last_message: { content: 'Привет', time: new Date().toISOString() },
-                    unread_count: 2,
-                },
-            }),
-        ];
-        const chatList = new ChatList({ props: { chats: chats } });
+        const store = new Store();
+        let chatListItems: ChatListItem[] = [];
+        const chats: ChatModel[] = [];
+        const chatList = new ChatList({ props: { chats: chatListItems } });
 
         const messages = [
             new MessageListItem({
@@ -66,6 +49,26 @@ export default class ChatsPage extends Block {
                 }),
             },
             attrs: {},
+        });
+
+        store.on(StoreEvents.Updated, () => {
+            const newChats = cloneDeep(store.getState().chats);
+
+            if (isEqual(newChats, chats)) {
+                return;
+            }
+            console.log(newChats);
+            chatList.setProps({
+                props: {
+                    chats: newChats.map((value: ChatModel) => {
+                        return new ChatListItem({ props: { ...value } });
+                    }),
+                },
+            });
+            chatListItems = newChats;
+        });
+        ChatController.getChats({}).then((value) => {
+            console.log(value);
         });
     }
 

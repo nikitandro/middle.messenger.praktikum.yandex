@@ -8,6 +8,8 @@ export default /*hbs*/ `
 </div>
 <div class="chat-list-item__right-part">
     <p class="chat-list-item__date">{{formatDateToHoursAndMinutes last_message.time}}</p>
+    {{#if (moreThanZero unread_count)}}
     <div class="chat-list-item__new-msg-count">{{unread_count}}</div>
+    {{/if}}
 </div>
 `;

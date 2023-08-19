@@ -1,5 +1,5 @@
 import ChatAPI from '../../services/chat-api';
-import { GetChatsRequestQueryParams } from '../../services/chat-api/types';
+import { CreateChatRequestModel, GetChatsRequestQueryParams } from '../../services/chat-api/types';
 import Store from '../../utils/store';
 
 export default class ChatController {
@@ -8,5 +8,12 @@ export default class ChatController {
         const getChatsResponse = await ChatAPI.getChats(params);
         this._store.set('chats', getChatsResponse.response);
         return getChatsResponse;
+    }
+
+    public static async createChat(requestModel: CreateChatRequestModel) {
+        const response = await ChatAPI.createChat(requestModel);
+        await this.getChats({});
+        this._store.set('selectedChatId', response.response.id);
+        return response;
     }
 }

@@ -1,7 +1,7 @@
 import './style.scss';
 import Handlebars from 'handlebars';
 import Store from './utils/store';
-import AuthController from './controllers/auth-controller/auth-controller';
+import AuthController from './controllers/auth-controller';
 import authGuard from './utils/authGuard';
 
 Handlebars.registerHelper('formatDateToHoursAndMinutes', function (string: string): string {

@@ -29,7 +29,19 @@
 
     &__profile-link-container {
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
+    }
+
+    &__create-chat {
+        background: none;
+        border: none;
+        border-radius: 100px;
+        margin-left: 10px;
+        cursor: pointer;
+    }
+
+    &__create-chat-icon {
+        display: block;
     }
 }
 

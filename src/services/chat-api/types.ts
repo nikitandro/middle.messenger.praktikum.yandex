@@ -22,3 +22,11 @@ export type ChatModel = {
 };
 
 export type GetChatsResponseModel = ChatModel[];
+
+export type CreateChatRequestModel = {
+    title: string;
+};
+
+export type CreateChatResponseModel = {
+    id: number;
+};

@@ -7,9 +7,6 @@ import UserController from '../../controllers/user-controller';
 
 export default class ChangeAvatarForm extends Block {
     constructor() {
-        const getAvatar = (value: any) => {
-            console.log(value);
-        };
         const input = new ValidatedInput({
             attrs: {
                 type: 'file',

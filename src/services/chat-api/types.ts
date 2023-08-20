@@ -30,3 +30,31 @@ export type CreateChatRequestModel = {
 export type CreateChatResponseModel = {
     id: number;
 };
+
+export type GetChatTokenResponseModel = {
+    token: string;
+};
+
+export type ChatMessage = {
+    id: number;
+    user_id: number;
+    chat_id?: number;
+    time: string;
+    type: 'message' | 'file';
+    content: string;
+    file?: {
+        id: number;
+        user_id: number;
+        path: string;
+        filename: string;
+        content_type: string;
+        content_size: number;
+        upload_date: string;
+    };
+};
+
+export enum ChatEvents {
+    Message = 'message',
+    UserConnected = 'user connected',
+    GetOld = 'get old',
+}

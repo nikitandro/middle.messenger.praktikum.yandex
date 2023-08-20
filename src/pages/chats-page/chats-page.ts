@@ -9,7 +9,7 @@ import ChatInputForm from '../../components/chat-input-form';
 import ChatSearchForm from '../../components/chat-search-form';
 import Link from '../../components/link';
 import Store from '../../utils/store';
-import { ChatModel, CreateChatRequestModel } from '../../services/chat-api/types.ts';
+import { ChatMessage, ChatModel, CreateChatRequestModel } from '../../services/chat-api/types.ts';
 import { StoreEvents } from '../../utils/store/events.ts';
 import isEqual from '../../utils/isEqual.ts';
 import cloneDeep from '../../utils/cloneDeep.ts';
@@ -24,6 +24,7 @@ export default class ChatsPage extends Block {
     constructor() {
         const store = new Store();
         let chatListItems: ChatListItem[] = [];
+        let selectedChatId: number;
         const chats: ChatModel[] = [];
         const chatList = new ChatList({ props: { chats: chatListItems } });
         const modal = new Modal({
@@ -47,6 +48,7 @@ export default class ChatsPage extends Block {
                 },
             }),
         });
+
         const createChatButton = new Button({
             props: {
                 isContentBlock: true,
@@ -67,21 +69,10 @@ export default class ChatsPage extends Block {
             },
         });
 
-        const messages = [
-            new MessageListItem({
-                props: {
-                    content: `Привет! Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну.`,
-                    isIncoming: true,
-                },
-            }),
-            new MessageListItem({
-                props: {
-                    content: 'Круто!',
-                    isIncoming: false,
-                },
-            }),
-        ];
-        const messagesList = new MessageList({ props: { messages: messages } });
+        let messages: ChatMessage[] = [];
+
+        const messagesList = new MessageList({ props: { messages: [] } });
+
         super('div', {
             props: {
                 modal,
@@ -99,12 +90,39 @@ export default class ChatsPage extends Block {
         });
 
         store.on(StoreEvents.Updated, () => {
+            const newSelectedChatId: number = store.getState().selectedChatId;
+
+            if (newSelectedChatId === selectedChatId) {
+                return;
+            }
+
+            ChatController.connectToChat();
+            selectedChatId = newSelectedChatId;
+        });
+
+        store.on(StoreEvents.Updated, () => {
+            const newMessages: ChatMessage[] = cloneDeep(store.getState().messages);
+            console.log(newMessages);
+            if (!newMessages || isEqual(newMessages, messages)) {
+                return;
+            }
+
+            messagesList.setProps({
+                props: {
+                    messages: newMessages.map((value) => {
+                        return new MessageListItem({ props: value });
+                    }),
+                },
+            });
+            messages = newMessages;
+        });
+
+        store.on(StoreEvents.Updated, () => {
             const newChats = cloneDeep(store.getState().chats);
 
             if (isEqual(newChats, chats)) {
                 return;
             }
-            console.log(newChats);
             chatList.setProps({
                 props: {
                     chats: newChats.map((value: ChatModel) => {
@@ -114,9 +132,7 @@ export default class ChatsPage extends Block {
             });
             chatListItems = newChats;
         });
-        ChatController.getChats({}).then((value) => {
-            console.log(value);
-        });
+        ChatController.getChats({});
     }
 
     protected render(): Node {

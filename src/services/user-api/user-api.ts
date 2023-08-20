@@ -14,9 +14,6 @@ export default class UserAPI {
     public static changeUserAvatar(formData: FormData) {
         return api.put<UserResponseModel>('/user/profile/avatar', {
             data: formData,
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
         });
     }
 

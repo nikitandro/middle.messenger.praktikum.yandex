@@ -6,7 +6,6 @@ import { StoreEvents } from './store/events';
 export default function authGuard() {
     const store = new Store();
     let isAuth = store.getState().isAuth;
-    console.log('authGuard');
 
     store.on(StoreEvents.Updated, () => {
         const state = store.getState();

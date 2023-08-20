@@ -2,6 +2,7 @@ import Block from '../block';
 import chatListItemTmpl from './chat-list-item.tmpl';
 import './chat-list-item.scss';
 import { IChatListItemInputParams } from './types';
+import Store from '../../utils/store';
 
 export default class ChatListItem extends Block {
     constructor(inputParams: IChatListItemInputParams) {
@@ -13,7 +14,14 @@ export default class ChatListItem extends Block {
                 ...attrs,
                 class: ['chat-list-item', attrs?.class ? attrs.class : ''].join(' '),
             },
-            events: events,
+            events: {
+                ...events,
+                click: () => {
+                    const store = new Store();
+                    store.set('selectedChatId', props?.id);
+                    console.log(store.getState().selectedChatId);
+                },
+            },
         });
     }
 

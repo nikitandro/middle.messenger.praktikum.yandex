@@ -24,7 +24,7 @@ export default class ChatController {
     }
 
     private static _addSocketEventListeners(socket: WebSocket) {
-        socket.addEventListener('open', (ev) => {
+        socket.addEventListener('open', () => {
             this.getOldMessages(0);
         });
         socket.addEventListener('message', (ev) => {

@@ -31,8 +31,23 @@ export default class ChatController {
             const data = JSON.parse(ev.data);
             if (Array.isArray(data)) {
                 this._store.set('messages', data);
+            } else if (data.type === 'message') {
+                this._store.set('messages', [data, ...this._store.getState().messages]);
             }
         });
+        socket.addEventListener('close', (ev) => {
+            if (ev.wasClean) {
+                console.log('Socket closed clean.');
+                console.log(ev.reason);
+            } else {
+                console.log('Socket closed dirty.');
+                console.log(ev.reason);
+            }
+        });
+    }
+
+    public static sendChatMessage(message: string) {
+        ChatAPI.sendChatMessage(this._currentSocket, message);
     }
 
     public static async connectToChat() {

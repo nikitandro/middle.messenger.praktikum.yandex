@@ -63,12 +63,19 @@
     position: fixed;
     display: flex;
     align-items: center;
-    gap: 10px;
+    justify-content: space-between;
+    gap: 20px;
     height: 55px;
     width: calc(100% - 352px);
     top: 0;
     background: $primary-surface-color;
     border-bottom: $third-party-color 1px solid;
+
+    &__content {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
 
     &__name {
         font-size: 13px;
@@ -90,4 +97,15 @@
     min-height: 100vh;
     padding-top: 55px;
     padding-bottom: 55px;
+}
+
+.menu-button {
+    border: none;
+    background: none;
+    display: block;
+    cursor: pointer;
+
+    &__image {
+        display: block;
+    }
 }

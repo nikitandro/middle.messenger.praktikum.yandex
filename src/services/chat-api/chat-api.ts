@@ -1,5 +1,6 @@
 import api, { API_DOMAIN } from '../api';
 import {
+    AddUsersToChatRequestModel,
     CreateChatRequestModel,
     CreateChatResponseModel,
     GetChatTokenResponseModel,
@@ -14,6 +15,15 @@ export default class ChatAPI {
 
     public static createChat(requestModel: CreateChatRequestModel) {
         return api.post<CreateChatResponseModel>('/chats', {
+            data: JSON.stringify(requestModel),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+    }
+
+    public static addUsersToChat(requestModel: AddUsersToChatRequestModel) {
+        return api.put('/chats/users', {
             data: JSON.stringify(requestModel),
             headers: {
                 'Content-Type': 'application/json',

@@ -19,6 +19,7 @@ import CustomImage from '../../components/custom-image/custom-image.ts';
 import plusIcon from '../../assets/icons/plus-icon.svg';
 import Modal from '../../components/modal';
 import CreateChatForm from '../../components/create-chat-form';
+import menuButtonIcon from '../../assets/icons/menu-button-icon.svg';
 
 export default class ChatsPage extends Block {
     constructor() {
@@ -69,6 +70,18 @@ export default class ChatsPage extends Block {
             },
         });
 
+        const menuButton = new Button({
+            props: {
+                isContentBlock: true,
+                content: new CustomImage({
+                    attrs: { src: menuButtonIcon, class: 'menu-button__image' },
+                }),
+            },
+            attrs: {
+                class: 'menu-button',
+            },
+        });
+
         let messages: ChatMessage[] = [];
 
         const messagesList = new MessageList({ props: { messages: [] } });
@@ -77,6 +90,7 @@ export default class ChatsPage extends Block {
             props: {
                 modal,
                 createChatButton,
+                menuButton,
                 messagesList: messagesList,
                 chatList: chatList,
                 chatInputForm: new ChatInputForm(),

@@ -58,3 +58,8 @@ export enum ChatEvents {
     UserConnected = 'user connected',
     GetOld = 'get old',
 }
+
+export type AddUsersToChatRequestModel = {
+    users: number[];
+    chatId: number;
+};

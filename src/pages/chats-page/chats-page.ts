@@ -20,6 +20,7 @@ import plusIcon from '../../assets/icons/plus-icon.svg';
 import Modal from '../../components/modal';
 import CreateChatForm from '../../components/create-chat-form';
 import menuButtonIcon from '../../assets/icons/menu-button-icon.svg';
+import ChatMenu from '../../components/chat-menu';
 
 export default class ChatsPage extends Block {
     constructor() {
@@ -28,6 +29,7 @@ export default class ChatsPage extends Block {
         let selectedChatId: number;
         const chats: ChatModel[] = [];
         const chatList = new ChatList({ props: { chats: chatListItems } });
+        const chatMenu = new ChatMenu({});
         const modal = new Modal({
             content: new CreateChatForm({
                 events: {
@@ -95,6 +97,7 @@ export default class ChatsPage extends Block {
                 chatList: chatList,
                 chatInputForm: new ChatInputForm(),
                 chatSearchForm: new ChatSearchForm(),
+                chatMenu,
                 profileLink: new Link({
                     props: { text: 'Профиль', to: '/settings' },
                     attrs: { class: 'side-menu__profile-link' },

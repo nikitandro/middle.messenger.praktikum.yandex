@@ -90,6 +90,26 @@
     }
 }
 
+.chat-header-actions {
+    position: relative;
+    list-style: none;
+}
+
+.chat-header-actions-item {
+    &__content {
+        display: none;
+        padding-top: 25px;
+        right: 0;
+        position: absolute;
+    }
+
+    &:hover {
+        .chat-header-actions-item__content {
+            display: block;
+        }
+    }
+}
+
 .chat-body {
     display: flex;
     flex-direction: column;

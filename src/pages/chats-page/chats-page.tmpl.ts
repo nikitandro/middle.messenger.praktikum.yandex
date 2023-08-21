@@ -18,9 +18,14 @@ export default /*hbs*/ `
                     <div class="chat-image"></div>
                     <h1 class="chat-header__name">Никита</h1>
                 </div>
-                <div class="chat-header__actions">
-                    {{{menuButton}}}
-                </div>
+                <ul class="chat-header-actions">
+                    <li class="chat-header-actions-item">
+                        {{{menuButton}}}
+                        <div class="chat-header-actions-item__content">
+                            {{{chatMenu}}}  
+                        </div>
+                    </li>
+                </ul>
             </header>
             <div class="chat-body">
                 {{{messagesList}}}

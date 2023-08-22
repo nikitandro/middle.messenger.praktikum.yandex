@@ -1,4 +1,5 @@
 export default /*hbs*/ `
+
 <ul class="chat-menu-button-list">
     <li class="chat-menu-button-list__item">
         {{{addUserButton}}}

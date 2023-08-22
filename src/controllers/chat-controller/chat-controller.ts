@@ -46,6 +46,8 @@ export default class ChatController {
         });
     }
 
+    public static addUserToChat() {}
+
     public static sendChatMessage(message: string) {
         ChatAPI.sendChatMessage(this._currentSocket, message);
     }

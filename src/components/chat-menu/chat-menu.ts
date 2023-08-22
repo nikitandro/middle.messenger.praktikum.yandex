@@ -4,10 +4,12 @@ import plusIcon from '../../assets/icons/plus-icon.svg';
 import CustomImage from '../custom-image';
 import chatMenuTmpl from './chat-menu.tmpl';
 import './chat-menu.scss';
-import { IBlockInputParams } from '../block/types';
+import AddUserToChatForm from '../add-user-to-chat-form';
+import Modal from '../modal';
+import { ChatMenuInputParams } from './types';
 
 export default class ChatMenu extends Block {
-    constructor(inputParams: IBlockInputParams) {
+    constructor(inputParams: ChatMenuInputParams) {
         const addUserButton = new MenuButton({
             props: {
                 icon: new CustomImage({
@@ -16,6 +18,9 @@ export default class ChatMenu extends Block {
                     },
                 }),
                 text: 'Добавить пользователя',
+            },
+            events: {
+                click: inputParams.props?.onAddUserButtonClick,
             },
         });
         const deleteUserButton = new MenuButton({
@@ -28,7 +33,11 @@ export default class ChatMenu extends Block {
                 }),
                 text: 'Удалить пользователя',
             },
+            events: {
+                click: inputParams.props?.onDeleteUserButtonClick,
+            },
         });
+
         super('div', {
             ...inputParams,
             props: {

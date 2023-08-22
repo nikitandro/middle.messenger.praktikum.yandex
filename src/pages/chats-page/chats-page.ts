@@ -15,22 +15,33 @@ import isEqual from '../../utils/isEqual.ts';
 import cloneDeep from '../../utils/cloneDeep.ts';
 import ChatController from '../../controllers/chat-controller';
 import Button from '../../components/button';
-import CustomImage from '../../components/custom-image/custom-image.ts';
+import CustomImage from '../../components/custom-image';
 import plusIcon from '../../assets/icons/plus-icon.svg';
 import Modal from '../../components/modal';
 import CreateChatForm from '../../components/create-chat-form';
 import menuButtonIcon from '../../assets/icons/menu-button-icon.svg';
 import ChatMenu from '../../components/chat-menu';
+import AddUserToChatForm from '../../components/add-user-to-chat-form';
 
 export default class ChatsPage extends Block {
     constructor() {
         const store = new Store();
         let chatListItems: ChatListItem[] = [];
         let selectedChatId: number;
+        let currentChat: ChatModel;
         const chats: ChatModel[] = [];
         const chatList = new ChatList({ props: { chats: chatListItems } });
-        const chatMenu = new ChatMenu({});
-        const modal = new Modal({
+        const chatMenu = new ChatMenu({
+            props: {
+                onAddUserButtonClick: () => {
+                    addUserToChatModal.toggleOpen();
+                },
+            },
+        });
+        const addUserToChatModal = new Modal({
+            content: new AddUserToChatForm(),
+        });
+        const createChatModal = new Modal({
             content: new CreateChatForm({
                 events: {
                     submit: (e) => {
@@ -44,7 +55,7 @@ export default class ChatsPage extends Block {
                         }
                         ChatController.createChat(requestModel as CreateChatRequestModel).then(
                             () => {
-                                modal.toggleOpen();
+                                createChatModal.toggleOpen();
                             },
                         );
                     },
@@ -67,7 +78,7 @@ export default class ChatsPage extends Block {
             },
             events: {
                 click: () => {
-                    modal.toggleOpen();
+                    createChatModal.toggleOpen();
                 },
             },
         });
@@ -90,11 +101,13 @@ export default class ChatsPage extends Block {
 
         super('div', {
             props: {
-                modal,
+                addUserToChatModal,
+                createChatModal,
                 createChatButton,
                 menuButton,
                 messagesList: messagesList,
                 chatList: chatList,
+                currentChat: {},
                 chatInputForm: new ChatInputForm(),
                 chatSearchForm: new ChatSearchForm(),
                 chatMenu,
@@ -103,7 +116,16 @@ export default class ChatsPage extends Block {
                     attrs: { class: 'side-menu__profile-link' },
                 }),
             },
-            attrs: {},
+        });
+
+        store.on(StoreEvents.Updated, () => {
+            const newChat: ChatModel = cloneDeep(store.getState().currentChat);
+            if (currentChat && newChat.id === currentChat?.id) {
+                return;
+            }
+
+            currentChat = newChat;
+            this.setProps({ props: { currentChat: newChat } });
         });
 
         store.on(StoreEvents.Updated, () => {
@@ -115,11 +137,19 @@ export default class ChatsPage extends Block {
 
             ChatController.connectToChat();
             selectedChatId = newSelectedChatId;
+            console.log(store.getState());
+            store.set(
+                'currentChat',
+                cloneDeep(
+                    store.getState().chats.find((val: ChatModel) => {
+                        return val.id === selectedChatId;
+                    }),
+                ),
+            );
         });
 
         store.on(StoreEvents.Updated, () => {
             const newMessages: ChatMessage[] = cloneDeep(store.getState().messages);
-            console.log(newMessages);
             if (!newMessages || isEqual(newMessages, messages)) {
                 return;
             }

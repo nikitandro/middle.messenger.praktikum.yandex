@@ -1,0 +1,19 @@
+@import '../../vars';
+
+.add-user-to-chat-form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 30px;
+    background: $primary-surface-color;
+    border-radius: $surface-border-radius;
+}
+
+.user-search-input {
+    margin-top: 40px;
+}
+
+.user-list {
+    margin-top: 20px;
+    width: 100%;
+}

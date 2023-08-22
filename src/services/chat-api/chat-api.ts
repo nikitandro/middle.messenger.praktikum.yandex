@@ -3,6 +3,7 @@ import {
     AddUsersToChatRequestModel,
     CreateChatRequestModel,
     CreateChatResponseModel,
+    DeleteUsersFromChatRequestModel,
     GetChatTokenResponseModel,
     GetChatsRequestQueryParams,
     GetChatsResponseModel,
@@ -24,6 +25,15 @@ export default class ChatAPI {
 
     public static addUsersToChat(requestModel: AddUsersToChatRequestModel) {
         return api.put('/chats/users', {
+            data: JSON.stringify(requestModel),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+    }
+
+    public static deleteUsersFormChat(requestModel: DeleteUsersFromChatRequestModel) {
+        return api.delete('/chats/users', {
             data: JSON.stringify(requestModel),
             headers: {
                 'Content-Type': 'application/json',

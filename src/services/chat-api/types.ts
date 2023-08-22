@@ -63,3 +63,5 @@ export type AddUsersToChatRequestModel = {
     users: number[];
     chatId: number;
 };
+
+export type DeleteUsersFromChatRequestModel = AddUsersToChatRequestModel;

@@ -11,12 +11,13 @@ export default /*hbs*/ `
         </div>
     </aside>
     <main>
-        {{{modal}}}
+        {{{createChatModal}}}
+        {{{addUserToChatModal}}}
         <div class="chat">
             <header class="chat-header">
                 <div class="chat-header__content">
                     <div class="chat-image"></div>
-                    <h1 class="chat-header__name">Никита</h1>
+                    <h1 class="chat-header__name">{{currentChat.title}}</h1>
                 </div>
                 <ul class="chat-header-actions">
                     <li class="chat-header-actions-item">

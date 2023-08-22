@@ -22,3 +22,11 @@ export type UserChangePasswordRequestModel = {
     oldPassword: string;
     newPassword: string;
 };
+
+export type SearchUsersByLoginRequestModel = {
+    login: string;
+};
+
+export type SearchedUserByLoginModel = Omit<UserResponseModel, 'status' | 'phone'>;
+
+export type SearchUsersByLoginResponseModel = SearchedUserByLoginModel[];

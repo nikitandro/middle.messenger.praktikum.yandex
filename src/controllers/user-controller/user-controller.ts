@@ -1,4 +1,8 @@
-import { UserChangePasswordRequestModel, UserProfileModel } from '../../services/user-api/types';
+import {
+    SearchUsersByLoginRequestModel,
+    UserChangePasswordRequestModel,
+    UserProfileModel,
+} from '../../services/user-api/types';
 import UserAPI from '../../services/user-api';
 import Store from '../../utils/store';
 
@@ -19,5 +23,11 @@ export default class UserController {
         const value = await UserAPI.changeUserAvatar(formData);
         this._store.set('user', value.response);
         return value;
+    }
+
+    public static async searchUsersByLogin(requestModel: SearchUsersByLoginRequestModel) {
+        const searchedUsers = await UserAPI.searchUsersByLogin(requestModel);
+        this._store.set('searchedUsers', searchedUsers.response);
+        return searchedUsers;
     }
 }

@@ -33,7 +33,7 @@ export default class UserAPI {
     }
 
     public static searchUsersByLogin(requestModel: SearchUsersByLoginRequestModel) {
-        return api.post<SearchUsersByLoginResponseModel>('/users/search', {
+        return api.post<SearchUsersByLoginResponseModel>('/user/search', {
             data: JSON.stringify(requestModel),
             headers: {
                 'Content-Type': 'application/json',

@@ -38,8 +38,18 @@ export default class ChatsPage extends Block {
                 },
             },
         });
+        const addUserToChat = (userId: number, chatId: number) => {
+            ChatController.addUserToChat({ chatId: chatId, users: [userId] });
+        };
         const addUserToChatModal = new Modal({
-            content: new AddUserToChatForm(),
+            content: new AddUserToChatForm({
+                props: {
+                    onSelectUser: (userId) => {
+                        addUserToChat(userId, store.getState().selectedChatId);
+                        addUserToChatModal.toggleOpen();
+                    },
+                },
+            }),
         });
         const createChatModal = new Modal({
             content: new CreateChatForm({
@@ -137,7 +147,6 @@ export default class ChatsPage extends Block {
 
             ChatController.connectToChat();
             selectedChatId = newSelectedChatId;
-            console.log(store.getState());
             store.set(
                 'currentChat',
                 cloneDeep(

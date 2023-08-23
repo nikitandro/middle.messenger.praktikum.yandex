@@ -7,6 +7,7 @@
     padding: 30px;
     background: $primary-surface-color;
     border-radius: $surface-border-radius;
+    max-height: 500px;
 }
 
 .user-search-input {
@@ -16,4 +17,6 @@
 .user-list {
     margin-top: 20px;
     width: 100%;
+    overflow: hidden;
+    overflow-y: scroll;
 }

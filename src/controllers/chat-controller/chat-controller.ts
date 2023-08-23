@@ -1,5 +1,9 @@
 import ChatAPI from '../../services/chat-api';
-import { CreateChatRequestModel, GetChatsRequestQueryParams } from '../../services/chat-api/types';
+import {
+    AddUsersToChatRequestModel,
+    CreateChatRequestModel,
+    GetChatsRequestQueryParams,
+} from '../../services/chat-api/types';
 import Store from '../../utils/store';
 
 export default class ChatController {
@@ -46,7 +50,9 @@ export default class ChatController {
         });
     }
 
-    public static addUserToChat() {}
+    public static addUserToChat(requestModel: AddUsersToChatRequestModel) {
+        return ChatAPI.addUsersToChat(requestModel);
+    }
 
     public static sendChatMessage(message: string) {
         ChatAPI.sendChatMessage(this._currentSocket, message);

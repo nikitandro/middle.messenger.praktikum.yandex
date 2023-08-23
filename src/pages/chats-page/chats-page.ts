@@ -22,6 +22,7 @@ import CreateChatForm from '../../components/create-chat-form';
 import menuButtonIcon from '../../assets/icons/menu-button-icon.svg';
 import ChatMenu from '../../components/chat-menu';
 import AddUserToChatForm from '../../components/add-user-to-chat-form';
+import DeleteUserFromChatForm from '../../components/delete-user-from-chat-form/';
 
 export default class ChatsPage extends Block {
     constructor() {
@@ -36,10 +37,16 @@ export default class ChatsPage extends Block {
                 onAddUserButtonClick: () => {
                     addUserToChatModal.toggleOpen();
                 },
+                onDeleteUserButtonClick: () => {
+                    deleteUserFormChatModal.toggleOpen();
+                },
             },
         });
         const addUserToChat = (userId: number, chatId: number) => {
-            ChatController.addUserToChat({ chatId: chatId, users: [userId] });
+            ChatController.addUsersToChat({ chatId: chatId, users: [userId] });
+        };
+        const deleteUserFromChat = (userId: number, chatId: number) => {
+            ChatController.deleteUsersFromChat({ chatId: chatId, users: [userId] });
         };
         const addUserToChatModal = new Modal({
             content: new AddUserToChatForm({
@@ -51,6 +58,18 @@ export default class ChatsPage extends Block {
                 },
             }),
         });
+
+        const deleteUserFormChatModal = new Modal({
+            content: new DeleteUserFromChatForm({
+                props: {
+                    onSelectUser: (userId) => {
+                        deleteUserFromChat(userId, store.getState().selectedChatId);
+                        deleteUserFormChatModal.toggleOpen();
+                    },
+                },
+            }),
+        });
+
         const createChatModal = new Modal({
             content: new CreateChatForm({
                 events: {
@@ -112,6 +131,7 @@ export default class ChatsPage extends Block {
         super('div', {
             props: {
                 addUserToChatModal,
+                deleteUserFormChatModal,
                 createChatModal,
                 createChatButton,
                 menuButton,

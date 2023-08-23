@@ -2,6 +2,8 @@ import ChatAPI from '../../services/chat-api';
 import {
     AddUsersToChatRequestModel,
     CreateChatRequestModel,
+    DeleteUsersFromChatRequestModel,
+    GetChatUsersQueryParams,
     GetChatsRequestQueryParams,
 } from '../../services/chat-api/types';
 import Store from '../../utils/store';
@@ -50,8 +52,18 @@ export default class ChatController {
         });
     }
 
-    public static addUserToChat(requestModel: AddUsersToChatRequestModel) {
+    public static addUsersToChat(requestModel: AddUsersToChatRequestModel) {
         return ChatAPI.addUsersToChat(requestModel);
+    }
+
+    public static deleteUsersFromChat(requestModel: DeleteUsersFromChatRequestModel) {
+        return ChatAPI.deleteUsersFormChat(requestModel);
+    }
+
+    public static async getChatUsers(chatId: number, queryParams?: GetChatUsersQueryParams) {
+        const response = await ChatAPI.getChatUsers(chatId, queryParams);
+        this._store.set('chatUsers', response.response);
+        return response;
     }
 
     public static sendChatMessage(message: string) {

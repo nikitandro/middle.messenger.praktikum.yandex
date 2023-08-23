@@ -65,3 +65,17 @@ export type AddUsersToChatRequestModel = {
 };
 
 export type DeleteUsersFromChatRequestModel = AddUsersToChatRequestModel;
+
+export type ChatUsersModel = {
+    id: number;
+    first_name: string;
+    second_name: string;
+    display_name: string;
+    login: string;
+    avatar: string;
+    role: string;
+};
+
+export type GetChatUsersResponseModel = ChatUsersModel[];
+
+export type GetChatUsersQueryParams = { offset: number; limit: number; name: string };

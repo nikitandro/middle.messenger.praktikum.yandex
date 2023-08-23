@@ -13,6 +13,7 @@ export default /*hbs*/ `
     <main>
         {{{createChatModal}}}
         {{{addUserToChatModal}}}
+        {{{deleteUserFormChatModal}}}
         <div class="chat">
             <header class="chat-header">
                 <div class="chat-header__content">

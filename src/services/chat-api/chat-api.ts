@@ -5,6 +5,8 @@ import {
     CreateChatResponseModel,
     DeleteUsersFromChatRequestModel,
     GetChatTokenResponseModel,
+    GetChatUsersQueryParams,
+    GetChatUsersResponseModel,
     GetChatsRequestQueryParams,
     GetChatsResponseModel,
 } from './types';
@@ -38,6 +40,12 @@ export default class ChatAPI {
             headers: {
                 'Content-Type': 'application/json',
             },
+        });
+    }
+
+    public static getChatUsers(chatId: number, queryParams?: GetChatUsersQueryParams) {
+        return api.get<GetChatUsersResponseModel>(`/chats/${chatId}/users`, {
+            queryData: queryParams,
         });
     }
 

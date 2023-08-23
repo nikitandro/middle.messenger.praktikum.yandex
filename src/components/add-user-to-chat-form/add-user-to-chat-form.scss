@@ -8,15 +8,9 @@
     background: $primary-surface-color;
     border-radius: $surface-border-radius;
     max-height: 500px;
+    width: 360px;
 }
 
 .user-search-input {
     margin-top: 40px;
-}
-
-.user-list {
-    margin-top: 20px;
-    width: 100%;
-    overflow: hidden;
-    overflow-y: scroll;
 }

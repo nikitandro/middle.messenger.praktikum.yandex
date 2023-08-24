@@ -44,11 +44,20 @@ export default class AddUserToChatForm extends Block {
 
         super('form', {
             props: {
+                ...inputParams.props,
                 input,
                 userList,
             },
             attrs: {
+                ...inputParams.attrs,
                 class: 'add-user-to-chat-form',
+            },
+            events: {
+                ...inputParams.events,
+                submit: (event) => {
+                    event.preventDefault();
+                    inputParams.events?.submit && inputParams.events?.submit(event);
+                },
             },
         });
 

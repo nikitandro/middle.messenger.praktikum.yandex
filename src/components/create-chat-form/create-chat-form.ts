@@ -18,6 +18,7 @@ export default class CreateChatForm extends Block {
         super('form', {
             ...inputParams,
             props: {
+                ...inputParams.props,
                 input,
                 button: new Button({
                     props: { content: 'Создать' },
@@ -26,11 +27,17 @@ export default class CreateChatForm extends Block {
                         type: 'submit',
                     },
                 }),
-                ...inputParams.props,
             },
             attrs: {
-                class: 'modal-form create-chat-form',
                 ...inputParams.attrs,
+                class: 'modal-form create-chat-form',
+            },
+            events: {
+                ...inputParams.events,
+                submit: (event) => {
+                    event.preventDefault();
+                    inputParams.events?.submit && inputParams.events?.submit(event);
+                },
             },
         });
     }

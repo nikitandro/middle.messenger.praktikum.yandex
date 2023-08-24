@@ -16,6 +16,8 @@ import cloneDeep from '../../utils/cloneDeep';
 import isEqual from '../../utils/isEqual';
 import MessageListItem from '../message-list-item';
 import chatTmpl from './chat.tmpl';
+import Avatar from '../avatar/avatar';
+import { createResourceURL } from '../../services/api';
 
 export default class Chat extends Block {
     constructor() {
@@ -70,7 +72,12 @@ export default class Chat extends Block {
             }),
         });
         const messagesList = new MessageList({ props: { messages: [] } });
-
+        const avatar = new Avatar({
+            props: { src: undefined },
+            attrs: {
+                class: 'chat-header__avatar',
+            },
+        });
         const menuButton = new Button({
             props: {
                 isContentBlock: true,
@@ -92,6 +99,7 @@ export default class Chat extends Block {
                 chatMenu,
                 chatInputForm: new ChatInputForm(),
                 currentChat: {},
+                avatar,
             },
         });
 
@@ -108,7 +116,17 @@ export default class Chat extends Block {
             }
 
             currentChat = newChat;
-            this.setProps({ props: { currentChat: newChat, isAnyChatSelected: true } });
+            this.setProps({
+                props: {
+                    currentChat: newChat,
+                    isAnyChatSelected: true,
+                },
+            });
+            avatar.setProps({
+                props: {
+                    src: currentChat.avatar ? createResourceURL(currentChat.avatar) : undefined,
+                },
+            });
         });
         store.on(StoreEvents.Updated, () => {
             const newMessages: ChatMessage[] = cloneDeep(store.getState().messages);

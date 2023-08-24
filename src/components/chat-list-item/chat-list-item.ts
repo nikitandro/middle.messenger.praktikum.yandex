@@ -3,13 +3,20 @@ import chatListItemTmpl from './chat-list-item.tmpl';
 import './chat-list-item.scss';
 import { IChatListItemInputParams } from './types';
 import Store from '../../utils/store';
+import Avatar from '../avatar';
 
 export default class ChatListItem extends Block {
     constructor(inputParams: IChatListItemInputParams) {
         const { props, attrs, events } = inputParams;
 
         super('li', {
-            props: props,
+            props: {
+                ...props,
+                avatar: new Avatar({
+                    props: { src: props?.avatar },
+                    attrs: { class: 'chat-list-item__avatar' },
+                }),
+            },
             attrs: {
                 ...attrs,
                 class: ['chat-list-item', attrs?.class ? attrs.class : ''].join(' '),

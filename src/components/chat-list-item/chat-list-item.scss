@@ -8,6 +8,11 @@
     height: 71px;
     padding: 12px 0;
 
+    &__avatar {
+        width: 47px;
+        height: 47px;
+    }
+
     &__left-part {
         display: flex;
         align-items: flex-start;

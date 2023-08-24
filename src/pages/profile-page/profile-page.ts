@@ -5,12 +5,18 @@ import Link from '../../components/link';
 import AvatarInput from '../../components/avatar-input';
 import GoBackArea from '../../components/go-back-area';
 import AuthController from '../../controllers/auth-controller';
-import withProfileState from '../../helpers/withProfileState.ts';
 import Modal from '../../components/modal';
 import ChangeAvatarForm from '../../components/change-avatar-form';
+import { GetUserInfoResponseModel } from '../../services/auth-api/types.ts';
+import Store from '../../utils/store';
+import { StoreEvents } from '../../utils/store/events.ts';
+import isEqual from '../../utils/isEqual.ts';
+import cloneDeep from '../../utils/cloneDeep.ts';
 
 class ProfilePage extends Block {
-    constructor(state: any) {
+    constructor() {
+        const store = new Store();
+        let user: GetUserInfoResponseModel;
         const modal = new Modal({
             content: new ChangeAvatarForm(),
         });
@@ -19,7 +25,7 @@ class ProfilePage extends Block {
         };
         super('div', {
             props: {
-                ...state,
+                profile: {},
                 linkToProfileEditData: new Link({
                     props: {
                         text: 'Изменить данные',
@@ -58,6 +64,21 @@ class ProfilePage extends Block {
             },
         });
         AuthController.getUserInfo();
+        store.on(StoreEvents.Updated, () => {
+            const newUser = cloneDeep(store.getState().user);
+
+            if (isEqual(newUser, user ?? {})) {
+                return;
+            }
+
+            user = newUser;
+
+            this.setProfile(newUser);
+        });
+    }
+
+    public setProfile(user: GetUserInfoResponseModel) {
+        this.setProps({ props: { profile: user } });
     }
 
     protected render(): Node {
@@ -65,4 +86,4 @@ class ProfilePage extends Block {
     }
 }
 
-export default withProfileState(ProfilePage);
+export default ProfilePage;

@@ -15,20 +15,32 @@ export default class ChatController {
     private static _currentSocket: WebSocket;
 
     public static async getChats(params: GetChatsRequestQueryParams) {
-        const getChatsResponse = await ChatAPI.getChats(params);
-        this._store.set('chats', getChatsResponse.response);
-        return getChatsResponse;
+        try {
+            const getChatsResponse = await ChatAPI.getChats(params);
+            this._store.set('chats', getChatsResponse.response);
+            return getChatsResponse;
+        } catch (e) {
+            throw new Error('Failed to get chats.');
+        }
     }
 
     public static async createChat(requestModel: CreateChatRequestModel) {
-        const response = await ChatAPI.createChat(requestModel);
-        await this.getChats({});
-        this._store.set('selectedChatId', response.response.id);
-        return response;
+        try {
+            const response = await ChatAPI.createChat(requestModel);
+            await this.getChats({});
+            this._store.set('selectedChatId', response.response.id);
+            return response;
+        } catch (e) {
+            throw new Error('Failed to create the chat.');
+        }
     }
 
     public static getOldMessages(limit: number) {
-        ChatAPI.getOldMessages(this._currentSocket, limit);
+        try {
+            ChatAPI.getOldMessages(this._currentSocket, limit);
+        } catch (e) {
+            throw new Error('Failed to get old messages.');
+        }
     }
 
     private static _addSocketEventListeners() {
@@ -52,61 +64,85 @@ export default class ChatController {
     }
 
     public static async addUsersToChat(requestModel: AddUsersToChatRequestModel) {
-        const response = await ChatAPI.addUsersToChat(requestModel);
-        await this.getChatUsers(requestModel.chatId);
-        return response;
+        try {
+            const response = await ChatAPI.addUsersToChat(requestModel);
+            await this.getChatUsers(requestModel.chatId);
+            return response;
+        } catch (e) {
+            throw new Error('Failed to add user to the chat.');
+        }
     }
 
     public static async deleteUsersFromChat(requestModel: DeleteUsersFromChatRequestModel) {
-        const response = await ChatAPI.deleteUsersFormChat(requestModel);
-        await this.getChatUsers(requestModel.chatId);
-        return response;
+        try {
+            const response = await ChatAPI.deleteUsersFormChat(requestModel);
+            await this.getChatUsers(requestModel.chatId);
+            return response;
+        } catch (e) {
+            throw new Error('Failed to delete users from the chat.');
+        }
     }
 
     public static async deleteChatById(requestModel: DeleteChatByIdRequestModel) {
-        const response = await ChatAPI.deleteChatById(requestModel);
-        const chats: ChatModel[] = this._store.getState().chats;
-        if (chats) {
-            this._store.set(
-                'chats',
-                chats.filter((chat) => chat.id !== response.response.result.id),
-            );
-            this._store.set('selectedChatId', null);
+        try {
+            const response = await ChatAPI.deleteChatById(requestModel);
+            const chats: ChatModel[] = this._store.getState().chats;
+            if (chats) {
+                this._store.set(
+                    'chats',
+                    chats.filter((chat) => chat.id !== response.response.result.id),
+                );
+                this._store.set('selectedChatId', null);
+            }
+            return response;
+        } catch (e) {
+            throw new Error('Failed to delete the chat.');
         }
-        return response;
     }
 
     public static async getChatUsers(chatId: number, queryParams?: GetChatUsersQueryParams) {
-        const response = await ChatAPI.getChatUsers(chatId, queryParams);
-        this._store.set('chatUsers', response.response);
-        return response;
+        try {
+            const response = await ChatAPI.getChatUsers(chatId, queryParams);
+            this._store.set('chatUsers', response.response);
+            return response;
+        } catch (e) {
+            throw new Error("Failed to get the chat's users.");
+        }
     }
 
     public static sendChatMessage(message: string) {
-        ChatAPI.sendChatMessage(this._currentSocket, message);
+        try {
+            ChatAPI.sendChatMessage(this._currentSocket, message);
+        } catch (e) {
+            throw new Error('Failed to send the chat message.');
+        }
     }
 
     public static async connectToChat() {
-        const userId = this._store.getState()?.user?.id;
-        const selectedChatId = this._store.getState().selectedChatId;
+        try {
+            const userId = this._store.getState()?.user?.id;
+            const selectedChatId = this._store.getState().selectedChatId;
 
-        if (!selectedChatId) {
-            return;
+            if (!selectedChatId) {
+                return;
+            }
+
+            if (!userId) {
+                return;
+            }
+
+            if (this._currentSocket) {
+                this._currentSocket.close();
+            }
+
+            const socket = await ChatAPI.connectToChat(selectedChatId, userId);
+            this._currentSocket = socket;
+
+            this._addSocketEventListeners();
+
+            return socket;
+        } catch (e) {
+            throw new Error('Failed to connect to the chat.');
         }
-
-        if (!userId) {
-            return;
-        }
-
-        if (this._currentSocket) {
-            this._currentSocket.close();
-        }
-
-        const socket = await ChatAPI.connectToChat(selectedChatId, userId);
-        this._currentSocket = socket;
-
-        this._addSocketEventListeners();
-
-        return socket;
     }
 }

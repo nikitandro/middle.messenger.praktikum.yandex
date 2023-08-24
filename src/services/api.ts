@@ -8,6 +8,10 @@ export const API_NO_PROTOCOL_URL = 'ya-praktikum.tech/api/v2';
 
 export const API_STATIC_URL = API_BASE_URL + '/resources';
 
+export const createResourceURL = (uri: string) => {
+    return API_STATIC_URL + uri;
+};
+
 const api = new HTTPTransport({
     baseUrl: API_BASE_URL,
     withCredentials: true,

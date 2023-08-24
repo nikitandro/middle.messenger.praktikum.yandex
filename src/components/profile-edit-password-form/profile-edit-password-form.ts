@@ -1,13 +1,14 @@
 import UserController from '../../controllers/user-controller/user-controller';
+import { createResourceURL } from '../../services/api';
 import { UserChangePasswordRequestModel } from '../../services/user-api/types';
-import AvatarInput from '../avatar-input';
+import Avatar from '../avatar';
 import Button from '../button';
 import Form from '../form';
 import ValidatedInput from '../validated-input';
 import profileEditPasswordFormTmpl from './profile-edit-password-form.tmpl';
 
 export default class ProfileEditPasswordForm extends Form<UserChangePasswordRequestModel> {
-    constructor() {
+    constructor(profile: any) {
         const inputClass = 'profile-list-item__value profile-list-item__input';
         const getFormValue = (formValue: UserChangePasswordRequestModel) => {
             UserController.changeUserPassword(formValue);
@@ -15,7 +16,12 @@ export default class ProfileEditPasswordForm extends Form<UserChangePasswordRequ
         super(profileEditPasswordFormTmpl, {
             props: {
                 getFormValue: getFormValue,
-                avatarInput: new AvatarInput(),
+                avatar: new Avatar({
+                    props: { src: profile.avatar ? createResourceURL(profile.avatar) : undefined },
+                    attrs: {
+                        class: 'profile__avatar',
+                    },
+                }),
                 saveButton: new Button({
                     props: { content: 'Сохранить' },
                     attrs: { class: 'button' },

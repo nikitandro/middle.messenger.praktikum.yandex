@@ -1,10 +1,11 @@
 import Form from '../form';
 import Button from '../../components/button';
-import AvatarInput from '../../components/avatar-input';
 import profileEditDataFormTmpl from './profile-edit-data-form.tmpl';
 import ValidatedInput from '../validated-input/validated-input';
 import { UserProfileModel } from '../../services/user-api/types';
 import UserController from '../../controllers/user-controller/user-controller';
+import Avatar from '../avatar';
+import { createResourceURL } from '../../services/api';
 
 class ProfileEditDataForm extends Form<UserProfileModel> {
     constructor(profile: any) {
@@ -12,10 +13,16 @@ class ProfileEditDataForm extends Form<UserProfileModel> {
         const getFormValue = (formValue: UserProfileModel) => {
             UserController.changeUserProfile(formValue);
         };
+        console.log(profile);
         super(profileEditDataFormTmpl, {
             props: {
                 getFormValue: getFormValue,
-                avatarInput: new AvatarInput({}),
+                avatar: new Avatar({
+                    props: { src: profile.avatar ? createResourceURL(profile.avatar) : undefined },
+                    attrs: {
+                        class: 'profile__avatar',
+                    },
+                }),
                 saveButton: new Button({
                     props: { content: 'Сохранить' },
                     attrs: { class: 'button' },

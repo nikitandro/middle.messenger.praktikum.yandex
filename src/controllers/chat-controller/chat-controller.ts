@@ -41,23 +41,18 @@ export default class ChatController {
                 this._store.set('messages', [data, ...this._store.getState().messages]);
             }
         });
-        socket.addEventListener('close', (ev) => {
-            if (ev.wasClean) {
-                console.log('Socket closed clean.');
-                console.log(ev.reason);
-            } else {
-                console.log('Socket closed dirty.');
-                console.log(ev.reason);
-            }
-        });
     }
 
-    public static addUsersToChat(requestModel: AddUsersToChatRequestModel) {
-        return ChatAPI.addUsersToChat(requestModel);
+    public static async addUsersToChat(requestModel: AddUsersToChatRequestModel) {
+        const response = await ChatAPI.addUsersToChat(requestModel);
+        await this.getChatUsers(requestModel.chatId);
+        return response;
     }
 
-    public static deleteUsersFromChat(requestModel: DeleteUsersFromChatRequestModel) {
-        return ChatAPI.deleteUsersFormChat(requestModel);
+    public static async deleteUsersFromChat(requestModel: DeleteUsersFromChatRequestModel) {
+        const response = await ChatAPI.deleteUsersFormChat(requestModel);
+        await this.getChatUsers(requestModel.chatId);
+        return response;
     }
 
     public static async getChatUsers(chatId: number, queryParams?: GetChatUsersQueryParams) {

@@ -19,7 +19,6 @@ export default class ChatListItem extends Block {
                 click: () => {
                     const store = new Store();
                     store.set('selectedChatId', props?.id);
-                    console.log(store.getState().selectedChatId);
                 },
             },
         });

@@ -66,7 +66,6 @@ export default class Router {
 
     public _onRoute(pathname: string) {
         let route = this.getRoute(pathname);
-        console.log(pathname);
         if (!route) {
             if (this.defaultRoute) {
                 route = this.defaultRoute;

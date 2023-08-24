@@ -15,7 +15,6 @@ export default class ProfileEditDataPage extends SettingsLayout {
         AuthController.getUserInfo();
 
         store.on(StoreEvents.Updated, () => {
-            console.log(user);
             const newUser = cloneDeep(store.getState().user);
             if (isEqual(user, newUser)) {
                 return;

@@ -7,5 +7,8 @@ export default /*hbs*/ `
     <li class="chat-menu-button-list__item">
         {{{deleteUserButton}}}
     </li>
+    <li class="chat-menu-button-list__item">
+        {{{deleteChatButton}}}
+    </li>
 </ul>
 `;

@@ -20,6 +20,10 @@ export default class ChatListItem extends Block {
                     const store = new Store();
                     store.set('selectedChatId', props?.id);
                 },
+                contextmenu: (event) => {
+                    event.preventDefault();
+                    console.log(event);
+                },
             },
         });
     }

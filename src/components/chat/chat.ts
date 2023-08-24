@@ -31,6 +31,12 @@ export default class Chat extends Block {
                 onDeleteUserButtonClick: () => {
                     deleteUserFormChatModal.toggleOpen();
                 },
+                onDeleteChatButtonClick: () => {
+                    const chatId = store.getState().selectedChatId;
+                    if (typeof chatId === 'number') {
+                        deleteChat(chatId);
+                    }
+                },
             },
         });
         const addUserToChat = (userId: number, chatId: number) => {
@@ -38,6 +44,9 @@ export default class Chat extends Block {
         };
         const deleteUserFromChat = (userId: number, chatId: number) => {
             ChatController.deleteUsersFromChat({ chatId: chatId, users: [userId] });
+        };
+        const deleteChat = (chatId: number) => {
+            ChatController.deleteChatById({ chatId });
         };
         const addUserToChatModal = new Modal({
             content: new AddUserToChatForm({

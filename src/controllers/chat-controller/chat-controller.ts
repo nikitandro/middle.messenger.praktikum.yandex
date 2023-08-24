@@ -1,7 +1,9 @@
 import ChatAPI from '../../services/chat-api';
 import {
     AddUsersToChatRequestModel,
+    ChatModel,
     CreateChatRequestModel,
+    DeleteChatByIdRequestModel,
     DeleteUsersFromChatRequestModel,
     GetChatUsersQueryParams,
     GetChatsRequestQueryParams,
@@ -58,6 +60,19 @@ export default class ChatController {
     public static async deleteUsersFromChat(requestModel: DeleteUsersFromChatRequestModel) {
         const response = await ChatAPI.deleteUsersFormChat(requestModel);
         await this.getChatUsers(requestModel.chatId);
+        return response;
+    }
+
+    public static async deleteChatById(requestModel: DeleteChatByIdRequestModel) {
+        const response = await ChatAPI.deleteChatById(requestModel);
+        const chats: ChatModel[] = this._store.getState().chats;
+        if (chats) {
+            this._store.set(
+                'chats',
+                chats.filter((chat) => chat.id !== response.response.result.id),
+            );
+            this._store.set('selectedChatId', null);
+        }
         return response;
     }
 

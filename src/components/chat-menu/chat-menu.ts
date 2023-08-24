@@ -5,6 +5,7 @@ import CustomImage from '../custom-image';
 import chatMenuTmpl from './chat-menu.tmpl';
 import './chat-menu.scss';
 import { ChatMenuInputParams } from './types';
+import redCrossIcon from '../../assets/icons/red-cross-icon.svg';
 
 export default class ChatMenu extends Block {
     constructor(inputParams: ChatMenuInputParams) {
@@ -35,6 +36,19 @@ export default class ChatMenu extends Block {
                 click: inputParams.props?.onDeleteUserButtonClick,
             },
         });
+        const deleteChatButton = new MenuButton({
+            props: {
+                icon: new CustomImage({
+                    attrs: {
+                        src: redCrossIcon,
+                    },
+                }),
+                text: 'Удалить чат',
+            },
+            events: {
+                click: inputParams.props?.onDeleteChatButtonClick,
+            },
+        });
 
         super('div', {
             ...inputParams,
@@ -42,6 +56,7 @@ export default class ChatMenu extends Block {
                 ...inputParams.props,
                 addUserButton,
                 deleteUserButton,
+                deleteChatButton,
             },
             attrs: {
                 ...inputParams.attrs,

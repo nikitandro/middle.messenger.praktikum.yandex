@@ -79,3 +79,12 @@ export type ChatUsersModel = {
 export type GetChatUsersResponseModel = ChatUsersModel[];
 
 export type GetChatUsersQueryParams = { offset: number; limit: number; name: string };
+
+export type DeleteChatByIdRequestModel = {
+    chatId: number;
+};
+
+export type DeleteChatByIdResponseModel = {
+    userId: number;
+    result: ChatModel;
+};

@@ -9,5 +9,7 @@ export default function createAuthRouter() {
         router.clearRoutes();
     }
 
-    router.use('/', SignInPage).use('/sign-up', SignUpPage).defaultRedirect('/').start();
+    router.use('/', SignInPage).use('/sign-up', SignUpPage)
+        .defaultRedirect('/')
+        .start();
 }

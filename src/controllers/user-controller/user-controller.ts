@@ -20,7 +20,7 @@ export default class UserController {
     }
 
     public static changeUserPassword(requestModel: UserChangePasswordRequestModel) {
-        return UserAPI.changeUserPassword(requestModel).catch((reason) => {
+        return UserAPI.changeUserPassword(requestModel).catch(() => {
             throw new Error('Failed to change user password.');
         });
     }

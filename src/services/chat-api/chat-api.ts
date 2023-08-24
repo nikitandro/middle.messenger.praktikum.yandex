@@ -1,6 +1,7 @@
 import api, { API_DOMAIN } from '../api';
 import {
     AddUsersToChatRequestModel,
+    ChangeChatAvatarResponseModel,
     CreateChatRequestModel,
     CreateChatResponseModel,
     DeleteChatByIdRequestModel,
@@ -24,6 +25,12 @@ export default class ChatAPI {
             headers: {
                 'Content-Type': 'application/json',
             },
+        });
+    }
+
+    public static changeChatAvatar(formData: FormData) {
+        return api.put<ChangeChatAvatarResponseModel>('/chats/avatar', {
+            data: formData,
         });
     }
 

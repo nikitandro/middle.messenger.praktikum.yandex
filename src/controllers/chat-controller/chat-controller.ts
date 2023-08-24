@@ -73,6 +73,29 @@ export default class ChatController {
         }
     }
 
+    public static async changeChatAvatar(formData: FormData) {
+        try {
+            const response = await ChatAPI.changeChatAvatar(formData);
+            const chats: ChatModel[] = this._store.getState().chats;
+            const currentChat: ChatModel = this._store.getState().currentChat;
+            let newAvatar: string | undefined;
+            this._store.set(
+                'chats',
+                chats.map((chat) => {
+                    if (chat.id === response.response.id) {
+                        chat.avatar = response.response.avatar;
+                        newAvatar = response.response.avatar;
+                    }
+                    return chat;
+                }),
+            );
+            this._store.set('currentChat', { ...currentChat, avatar: newAvatar });
+            return response;
+        } catch (e) {
+            throw new Error("Failed to change the chat's avatar");
+        }
+    }
+
     public static async deleteUsersFromChat(requestModel: DeleteUsersFromChatRequestModel) {
         try {
             const response = await ChatAPI.deleteUsersFormChat(requestModel);

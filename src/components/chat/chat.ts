@@ -18,6 +18,7 @@ import MessageListItem from '../message-list-item';
 import chatTmpl from './chat.tmpl';
 import Avatar from '../avatar/avatar';
 import { createResourceURL } from '../../services/api';
+import ChangeChatAvatarForm from '../change-chat-avatar-form/change-chat-avatar-form';
 
 export default class Chat extends Block {
     constructor() {
@@ -38,6 +39,9 @@ export default class Chat extends Block {
                     if (typeof chatId === 'number') {
                         deleteChat(chatId);
                     }
+                },
+                onChangeAvatarButtonClick: () => {
+                    changeChatAvatarModal.toggleOpen();
                 },
             },
         });
@@ -72,12 +76,6 @@ export default class Chat extends Block {
             }),
         });
         const messagesList = new MessageList({ props: { messages: [] } });
-        const avatar = new Avatar({
-            props: { src: undefined },
-            attrs: {
-                class: 'chat-header__avatar',
-            },
-        });
         const menuButton = new Button({
             props: {
                 isContentBlock: true,
@@ -89,8 +87,12 @@ export default class Chat extends Block {
                 class: 'menu-button',
             },
         });
+        const changeChatAvatarModal = new Modal({
+            content: new ChangeChatAvatarForm(),
+        });
         super('main', {
             props: {
+                changeChatAvatarModal,
                 isAnyChatSelected: false,
                 addUserToChatModal,
                 deleteUserFormChatModal,
@@ -99,7 +101,12 @@ export default class Chat extends Block {
                 chatMenu,
                 chatInputForm: new ChatInputForm(),
                 currentChat: {},
-                avatar,
+                avatar: new Avatar({
+                    props: { src: undefined },
+                    attrs: {
+                        class: 'chat-header__avatar',
+                    },
+                }),
             },
         });
 
@@ -111,20 +118,24 @@ export default class Chat extends Block {
                 return;
             }
 
-            if (newChat.id === currentChat?.id) {
+            if (isEqual(newChat, currentChat ?? {})) {
                 return;
             }
 
             currentChat = newChat;
+
             this.setProps({
                 props: {
                     currentChat: newChat,
                     isAnyChatSelected: true,
-                },
-            });
-            avatar.setProps({
-                props: {
-                    src: currentChat.avatar ? createResourceURL(currentChat.avatar) : undefined,
+                    avatar: new Avatar({
+                        props: {
+                            src: newChat.avatar ? createResourceURL(newChat.avatar) : undefined,
+                        },
+                        attrs: {
+                            class: 'chat-header__avatar',
+                        },
+                    }),
                 },
             });
         });

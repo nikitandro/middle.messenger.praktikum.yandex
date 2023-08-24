@@ -88,3 +88,5 @@ export type DeleteChatByIdResponseModel = {
     userId: number;
     result: ChatModel;
 };
+
+export type ChangeChatAvatarResponseModel = ChatModel;

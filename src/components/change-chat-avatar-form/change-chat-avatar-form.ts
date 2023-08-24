@@ -1,12 +1,13 @@
+import ChatController from '../../controllers/chat-controller';
+import Store from '../../utils/store';
 import Block from '../block';
 import Button from '../button';
-import changeAvatarFormTmpl from './change-avatar-form.tmpl';
-import './change-avatar-form.scss';
-import ValidatedInput from '../validated-input/validated-input';
-import UserController from '../../controllers/user-controller';
+import changeAvatarFormTmpl from '../change-avatar-form/change-avatar-form.tmpl';
+import ValidatedInput from '../validated-input';
 
-export default class ChangeAvatarForm extends Block {
+export default class ChangeChatAvatarForm extends Block {
     constructor() {
+        const store = new Store();
         const input = new ValidatedInput({
             attrs: {
                 type: 'file',
@@ -14,10 +15,9 @@ export default class ChangeAvatarForm extends Block {
                 class: 'change-avatar-form-input__input',
             },
         });
-
         super('form', {
             props: {
-                input: input,
+                input,
                 button: new Button({
                     props: { content: 'Поменять' },
                     attrs: { class: 'button change-avatar-form__button', type: 'submit' },
@@ -38,8 +38,9 @@ export default class ChangeAvatarForm extends Block {
                     } else {
                         input.validate('avatar', files[0]);
                         const formData = new FormData(this.getContent() as HTMLFormElement);
+                        formData.set('chatId', store.getState().selectedChatId);
 
-                        UserController.changeUserAvatar(formData);
+                        ChatController.changeChatAvatar(formData);
                     }
                 },
             },

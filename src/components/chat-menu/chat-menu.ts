@@ -6,6 +6,7 @@ import chatMenuTmpl from './chat-menu.tmpl';
 import './chat-menu.scss';
 import { ChatMenuInputParams } from './types';
 import redCrossIcon from '../../assets/icons/red-cross-icon.svg';
+import avatarChangeIcon from '../../assets/icons/avatar-change-icon.svg';
 
 export default class ChatMenu extends Block {
     constructor(inputParams: ChatMenuInputParams) {
@@ -36,6 +37,19 @@ export default class ChatMenu extends Block {
                 click: inputParams.props?.onDeleteUserButtonClick,
             },
         });
+        const changeAvatarButton = new MenuButton({
+            props: {
+                icon: new CustomImage({
+                    attrs: {
+                        src: avatarChangeIcon,
+                    },
+                }),
+                text: 'Изменить аватар',
+            },
+            events: {
+                click: inputParams.props?.onChangeAvatarButtonClick,
+            },
+        });
         const deleteChatButton = new MenuButton({
             props: {
                 icon: new CustomImage({
@@ -57,6 +71,7 @@ export default class ChatMenu extends Block {
                 addUserButton,
                 deleteUserButton,
                 deleteChatButton,
+                changeAvatarButton,
             },
             attrs: {
                 ...inputParams.attrs,

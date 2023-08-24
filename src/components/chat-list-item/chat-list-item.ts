@@ -4,6 +4,7 @@ import './chat-list-item.scss';
 import { IChatListItemInputParams } from './types';
 import Store from '../../utils/store';
 import Avatar from '../avatar';
+import { createResourceURL } from '../../services/api';
 
 export default class ChatListItem extends Block {
     constructor(inputParams: IChatListItemInputParams) {
@@ -13,7 +14,7 @@ export default class ChatListItem extends Block {
             props: {
                 ...props,
                 avatar: new Avatar({
-                    props: { src: props?.avatar },
+                    props: { src: props?.avatar ? createResourceURL(props.avatar) : undefined },
                     attrs: { class: 'chat-list-item__avatar' },
                 }),
             },

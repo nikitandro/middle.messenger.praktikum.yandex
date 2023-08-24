@@ -2,6 +2,7 @@ export default /*hbs*/ `
         {{#if isAnyChatSelected}}
             {{{addUserToChatModal}}}
             {{{deleteUserFormChatModal}}}
+            {{{changeChatAvatarModal}}}
             <div class="chat">
                 <header class="chat-header">
                     <div class="chat-header__content">

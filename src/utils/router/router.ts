@@ -1,3 +1,4 @@
+import { Redirect } from '.';
 import Block from '../../components/block';
 import Route from '../route';
 
@@ -8,6 +9,7 @@ export default class Router {
     public _currentRoute: Route | null = null;
     public _rootQuery: string = '';
     public defaultRoute: Route | null = null;
+    public redirects: Redirect[] = [];
 
     constructor(rootQuery: string) {
         if (Router._instance) {
@@ -37,6 +39,11 @@ export default class Router {
         return this;
     }
 
+    public useRedirect(from: string, to: string) {
+        this.redirects.push(new Redirect(from, to));
+        return this;
+    }
+
     public default(block: new (...args: any[]) => Block) {
         this.defaultRoute = new Route('/', block, { rootQuery: this._rootQuery });
 
@@ -55,6 +62,10 @@ export default class Router {
         return { start: this.start.bind(this) };
     }
 
+    public getRedirect(pathname: string) {
+        return this.redirects.find((redirect) => redirect.hasMatch(pathname));
+    }
+
     public start() {
         window.onpopstate = (event) => {
             // @ts-ignore из-за плохой типизации currentTarget
@@ -65,6 +76,14 @@ export default class Router {
     }
 
     public _onRoute(pathname: string) {
+        const redirect = this.getRedirect(pathname);
+        console.log(pathname);
+
+        if (redirect) {
+            this.go(redirect.to);
+            return;
+        }
+
         let route = this.getRoute(pathname);
         if (!route) {
             if (this.defaultRoute) {
@@ -101,6 +120,10 @@ export default class Router {
 
     public clearRoutes() {
         this.routes = [];
+    }
+
+    public clearRedirects() {
+        this.redirects = [];
     }
 
     public hasRoute(pathname: string) {

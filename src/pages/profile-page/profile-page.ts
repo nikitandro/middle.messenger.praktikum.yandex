@@ -36,7 +36,6 @@ class ProfilePage extends Block {
                     props: {
                         text: 'Выйти',
                         isDanger: true,
-                        to: '/',
                     },
                     events: {
                         click: () => {

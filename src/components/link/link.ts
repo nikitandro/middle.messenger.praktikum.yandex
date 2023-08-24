@@ -16,8 +16,6 @@ export default class Link extends Block {
                     event.preventDefault();
                     if (props?.to) {
                         navigate.go(props?.to);
-                    } else {
-                        throw new Error('Link must have a "to" value.');
                     }
 
                     if (events?.click) {

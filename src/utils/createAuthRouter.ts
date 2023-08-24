@@ -3,14 +3,12 @@ import SignUpPage from '../pages/sign-up-page';
 import Router from './router';
 
 export default function createAuthRouter() {
+    const router = new Router('#app');
     if (Router.instance) {
-        const router = new Router('#app');
+        router.clearRedirects();
         router.clearRoutes();
     }
+    console.log('auth router created');
 
-    const router = new Router('#app');
-
-    router.use('/', SignInPage).use('/sign-up', SignUpPage)
-        .defaultRedirect('/')
-        .start();
+    router.use('/', SignInPage).use('/sign-up', SignUpPage).defaultRedirect('/').start();
 }

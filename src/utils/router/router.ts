@@ -77,7 +77,6 @@ export default class Router {
 
     public _onRoute(pathname: string) {
         const redirect = this.getRedirect(pathname);
-        console.log(pathname);
 
         if (redirect) {
             this.go(redirect.to);

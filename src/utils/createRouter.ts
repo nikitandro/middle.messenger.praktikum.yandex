@@ -12,7 +12,6 @@ export default function createRouter() {
         router.clearRedirects();
         router.clearRoutes();
     }
-    console.log('regular router created');
     router
         .use('/settings', ProfilePage)
         .use('/settings/edit-password', ProfileEditPasswordPage)

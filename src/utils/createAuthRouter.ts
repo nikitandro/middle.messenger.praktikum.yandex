@@ -8,7 +8,6 @@ export default function createAuthRouter() {
         router.clearRedirects();
         router.clearRoutes();
     }
-    console.log('auth router created');
 
     router.use('/', SignInPage).use('/sign-up', SignUpPage).defaultRedirect('/').start();
 }

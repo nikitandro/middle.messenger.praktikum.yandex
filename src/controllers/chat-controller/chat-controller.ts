@@ -29,17 +29,23 @@ export default class ChatController {
         ChatAPI.getOldMessages(this._currentSocket, limit);
     }
 
-    private static _addSocketEventListeners(socket: WebSocket) {
-        socket.addEventListener('open', () => {
+    private static _addSocketEventListeners() {
+        this._currentSocket.addEventListener('open', () => {
+            if (this._currentSocket.readyState === this._currentSocket.CONNECTING) {
+                return;
+            }
             this.getOldMessages(0);
         });
-        socket.addEventListener('message', (ev) => {
+        this._currentSocket.addEventListener('message', (ev) => {
             const data = JSON.parse(ev.data);
             if (Array.isArray(data)) {
                 this._store.set('messages', data);
             } else if (data.type === 'message') {
                 this._store.set('messages', [data, ...this._store.getState().messages]);
             }
+        });
+        this._currentSocket.addEventListener('close', () => {
+            ChatController.connectToChat();
         });
     }
 
@@ -70,11 +76,11 @@ export default class ChatController {
         const selectedChatId = this._store.getState().selectedChatId;
 
         if (!selectedChatId) {
-            throw new Error('No chat id.');
+            return;
         }
 
         if (!userId) {
-            throw new Error('No user id.');
+            return;
         }
 
         if (this._currentSocket) {
@@ -84,7 +90,7 @@ export default class ChatController {
         const socket = await ChatAPI.connectToChat(selectedChatId, userId);
         this._currentSocket = socket;
 
-        this._addSocketEventListeners(socket);
+        this._addSocketEventListeners();
 
         return socket;
     }

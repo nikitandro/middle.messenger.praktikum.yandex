@@ -4,12 +4,10 @@
     // position: absolute;
     // right: 0;
     min-width: max-content;
-
     background: $secondary-surface-color;
     padding: 15px;
     border-radius: 12px;
-
-    box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.14);
+    box-shadow: 0 0 6px 0 rgb(0 0 0 / 14%);
 }
 
 .chat-menu-button-list {

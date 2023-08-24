@@ -1,6 +1,7 @@
 @import '../../vars';
+
 .modal-form {
-    padding: 30px 30px;
+    padding: 30px;
     background: $primary-surface-color;
     border-radius: $surface-border-radius;
 
@@ -27,7 +28,6 @@
     &__input {
         position: absolute;
         z-index: -1;
-
         opacity: 0;
     }
 }

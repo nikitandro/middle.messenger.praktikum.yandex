@@ -25,7 +25,6 @@ export default class ChatsPage extends Block {
     constructor() {
         const store = new Store();
         let chatListItems: ChatListItem[] = [];
-        let selectedChatId: number;
         const chats: ChatModel[] = [];
         const chatList = new ChatList({ props: { chats: chatListItems } });
         const chatMenu = new ChatMenu({

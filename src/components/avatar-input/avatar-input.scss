@@ -4,11 +4,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
     position: relative;
     width: 130px;
     height: 130px;
     border-radius: 130px;
+
     // background-color: #606468;
     background-color: transparent;
     background-repeat: no-repeat;
@@ -28,7 +28,7 @@
             height: 100%;
             left: 0;
             top: 0;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgb(0 0 0 / 50%);
             content: 'Поменять аватар';
             color: $primary-text-color;
             border-radius: 130px;

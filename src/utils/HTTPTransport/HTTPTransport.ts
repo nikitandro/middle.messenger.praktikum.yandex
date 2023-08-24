@@ -87,8 +87,8 @@ class HTTPTransport {
             xhr.withCredentials = options.withCredentials
                 ? options.withCredentials
                 : this.config.withCredentials
-                ? this.config.withCredentials
-                : false;
+                    ? this.config.withCredentials
+                    : false;
             xhr.timeout = timeout;
             xhr.ontimeout = reject;
 

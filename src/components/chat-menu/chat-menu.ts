@@ -4,8 +4,6 @@ import plusIcon from '../../assets/icons/plus-icon.svg';
 import CustomImage from '../custom-image';
 import chatMenuTmpl from './chat-menu.tmpl';
 import './chat-menu.scss';
-import AddUserToChatForm from '../add-user-to-chat-form';
-import Modal from '../modal';
 import { ChatMenuInputParams } from './types';
 
 export default class ChatMenu extends Block {

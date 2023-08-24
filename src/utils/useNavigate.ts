@@ -2,8 +2,8 @@ import Router from './router';
 
 export interface Navigation {
     go: (pathname: string) => void;
-    forward: (pathname: string) => void;
-    back: (pathname: string) => void;
+    forward: () => void;
+    back: () => void;
 }
 
 export default function useNavigate(): Navigation {

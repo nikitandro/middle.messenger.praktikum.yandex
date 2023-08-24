@@ -10,5 +10,7 @@ export default function createAuthRouter() {
 
     const router = new Router('#app');
 
-    router.use('/', SignInPage).use('/sign-up', SignUpPage).defaultRedirect('/').start();
+    router.use('/', SignInPage).use('/sign-up', SignUpPage)
+        .defaultRedirect('/')
+        .start();
 }

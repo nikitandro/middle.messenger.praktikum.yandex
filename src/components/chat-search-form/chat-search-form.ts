@@ -3,7 +3,7 @@ import Input from '../input';
 import chatSearchFormTmpl from './chat-search-form.tmpl';
 import './chat-search-form.scss';
 
-export default class ChatSearchForm extends Form {
+export default class ChatSearchForm extends Form<unknown> {
     constructor() {
         super(chatSearchFormTmpl, {
             props: {

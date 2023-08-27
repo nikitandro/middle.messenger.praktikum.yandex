@@ -1,16 +1,8 @@
 import './style.scss';
-import render from './utils/render';
-import SignInPage from './pages/sign-in-page';
-import SignUpPage from './pages/sign-up-page';
-import NoAsideLayout from './layouts/no-aside-layout';
-import DebugPage from './pages/debug-page';
-import ErrorPage from './pages/error-page';
-import ProfilePage from './pages/profile-page';
-import ProfileEditDataPage from './pages/profile-edit-data-page';
-import ProfileEditPasswordPage from './pages/profile-edit-password-page';
-import ChatsPage from './pages/chats-page';
 import Handlebars from 'handlebars';
-import AsideLayout from './layouts/aside-layout';
+import Store from './utils/store';
+import AuthController from './controllers/auth-controller';
+import authGuard from './utils/authGuard';
 
 Handlebars.registerHelper('formatDateToHoursAndMinutes', function (string: string): string {
     const date = new Date(string);
@@ -19,66 +11,21 @@ Handlebars.registerHelper('formatDateToHoursAndMinutes', function (string: strin
     return formatDate.format(date);
 });
 
+Handlebars.registerHelper('moreThanZero', function (value: number) {
+    return value > 0;
+});
+
 document.addEventListener('DOMContentLoaded', () => {
-    let page;
-
-    switch (window.location.pathname) {
-        case '/':
-            window.location.replace('/sign-in');
-            break;
-        case '/sign-in':
-            page = new NoAsideLayout({ props: { page: new SignInPage() } });
-            break;
-        case '/sign-up':
-            page = new NoAsideLayout({ props: { page: new SignUpPage() } });
-            break;
-        case '/debug':
-            page = new NoAsideLayout({ props: { page: new DebugPage() } });
-            break;
-        case '/profile':
-            page = new NoAsideLayout({ props: { page: new ProfilePage() } });
-            break;
-        case '/profile-edit-data':
-            page = new NoAsideLayout({ props: { page: new ProfileEditDataPage() } });
-            break;
-        case '/profile-edit-password':
-            page = new NoAsideLayout({ props: { page: new ProfileEditPasswordPage() } });
-            break;
-        case '/500':
-            page = new NoAsideLayout({
-                props: {
-                    page: new ErrorPage({
-                        props: {
-                            statusCode: 500,
-                            comment: 'Мы уже фиксим',
-                            linkHref: '/chats',
-                            linkText: 'Назад к чатам',
-                        },
-                    }),
-                },
-            });
-            break;
-        case '/chats':
-            page = new ChatsPage();
-            break;
-        case '/aside':
-            page = new AsideLayout({ props: { aside: 'asdas', main: 'asdas' } });
-            break;
-        default:
-            page = new NoAsideLayout({
-                props: {
-                    page: new ErrorPage({
-                        props: {
-                            statusCode: 404,
-                            comment: 'Не туда попали',
-                            linkHref: '/chats',
-                            linkText: 'Назад к чатам',
-                        },
-                    }),
-                },
-            });
-            break;
-    }
-
-    page && render('#app', page);
+    const store = new Store();
+    authGuard();
+    AuthController.getUserInfo().then(
+        () => {
+            store.set('isAuth', true);
+        },
+        (res) => {
+            if (res.status === 401) {
+                store.set('isAuth', false);
+            }
+        },
+    );
 });

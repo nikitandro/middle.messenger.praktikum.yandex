@@ -25,8 +25,8 @@
                 "overrides": {
                     "interface": {
                         "multiline": {
-                            "delimiter": "comma",
-                            "requireLast": false
+                            "delimiter": "semi",
+                            "requireLast": true
                         }
                     }
                 }

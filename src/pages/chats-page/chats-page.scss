@@ -29,7 +29,19 @@
 
     &__profile-link-container {
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
+    }
+
+    &__create-chat {
+        background: none;
+        border: none;
+        border-radius: 100px;
+        margin-left: 10px;
+        cursor: pointer;
+    }
+
+    &__create-chat-icon {
+        display: block;
     }
 }
 
@@ -51,12 +63,19 @@
     position: fixed;
     display: flex;
     align-items: center;
-    gap: 10px;
+    justify-content: space-between;
+    gap: 20px;
     height: 55px;
     width: calc(100% - 352px);
     top: 0;
     background: $primary-surface-color;
     border-bottom: $third-party-color 1px solid;
+
+    &__content {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
 
     &__name {
         font-size: 13px;
@@ -65,9 +84,34 @@
         color: $primary-text-color;
     }
 
+    &__avatar {
+        height: 34px;
+        width: 34px;
+    }
+
     .chat-image {
         height: 34px;
         width: 34px;
+    }
+}
+
+.chat-header-actions {
+    position: relative;
+    list-style: none;
+}
+
+.chat-header-actions-item {
+    &__content {
+        display: none;
+        padding-top: 25px;
+        right: 0;
+        position: absolute;
+    }
+
+    &:hover {
+        .chat-header-actions-item__content {
+            display: block;
+        }
     }
 }
 
@@ -78,4 +122,29 @@
     min-height: 100vh;
     padding-top: 55px;
     padding-bottom: 55px;
+}
+
+.menu-button {
+    border: none;
+    background: none;
+    display: block;
+    cursor: pointer;
+
+    &__image {
+        display: block;
+    }
+}
+
+.chat-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin-left: 310px;
+
+    &__text {
+        color: $secondary-text-color;
+        font-weight: 500;
+        font-size: 12px;
+    }
 }

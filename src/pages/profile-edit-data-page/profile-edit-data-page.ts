@@ -1,20 +1,26 @@
-import Block from '../../components/block';
 import ProfileEditDataForm from '../../components/profile-edit-data-form';
-import profileEditDataPageTmpl from './profile-edit-data-page.tmpl';
+import AuthController from '../../controllers/auth-controller/auth-controller';
+import SettingsLayout from '../../layouts/settings-layout';
+import cloneDeep from '../../utils/cloneDeep';
+import isEqual from '../../utils/isEqual';
+import Store from '../../utils/store';
+import { StoreEvents } from '../../utils/store/events';
 
-export default class ProfileEditDataPage extends Block {
+export default class ProfileEditDataPage extends SettingsLayout {
     constructor() {
-        super('div', {
-            props: {
-                form: new ProfileEditDataForm(),
-            },
-            attrs: {
-                class: 'profile-page',
-            },
-        });
-    }
+        let user = {};
+        super({ props: { page: new ProfileEditDataForm(user) } });
 
-    protected render(): Node {
-        return this.compile(profileEditDataPageTmpl, { ...this._props, ...this._children });
+        const store = new Store();
+        AuthController.getUserInfo();
+
+        store.on(StoreEvents.Updated, () => {
+            const newUser = cloneDeep(store.getState().user);
+            if (isEqual(user, newUser)) {
+                return;
+            }
+            this.setProps({ props: { page: new ProfileEditDataForm(newUser) } });
+            user = newUser;
+        });
     }
 }

@@ -1,13 +1,14 @@
 import AuthFormInput from '../auth-form-input';
 import Block from '../block';
-import { BlockLifeCycleEvents, IBlockInputParams } from '../block/types';
+import { BlockLifeCycleEvents } from '../block/types';
 import Input from '../input';
-import ValidatedInput from '../validated-input/validated-input';
+import ValidatedInput from '../validated-input';
+import { IFormInputParams } from './types';
 
-export default class Form extends Block {
+export default class Form<T> extends Block {
     private _template: string;
 
-    constructor(template: string, inputParams: IBlockInputParams) {
+    constructor(template: string, inputParams: IFormInputParams<T>) {
         super('form', inputParams);
         this._template = template;
         this.eventBus().emit(BlockLifeCycleEvents.INIT);
@@ -16,11 +17,16 @@ export default class Form extends Block {
 
     public addValidationOnSubmit() {
         const self = this;
+        const submitEvent = this._events.submit;
+        const getFormValue = this._props.getFormValue;
         this.setProps({
             events: {
                 submit: (event) => {
                     event.preventDefault();
-                    console.log(this.validateAllInputs(self._children));
+                    const formValue = self.validateAllInputs(self._children);
+
+                    getFormValue && getFormValue(formValue);
+                    submitEvent && submitEvent(event);
                 },
             },
         });

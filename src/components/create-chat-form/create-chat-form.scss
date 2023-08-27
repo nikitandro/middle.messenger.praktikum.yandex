@@ -1,0 +1,13 @@
+.create-chat-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__input {
+        margin-top: 40px;
+    }
+
+    &__button {
+        margin-top: 40px;
+    }
+}

@@ -1,6 +1,5 @@
 export default /*hbs*/ `
-                    {{{avatarInput}}}
-                    <h1 class="profile__first-name">{{profile.first_name}}</h1>
+                    {{{avatar}}}
                     <ul class="profile__data profile-list">
                         <li class="profile-list-item">
                             <h2 class="profile-list-item__title">Почта</h2>

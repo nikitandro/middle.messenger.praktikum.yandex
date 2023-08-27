@@ -1,0 +1,14 @@
+.user-list-item {
+    cursor: pointer;
+
+    &__avatar {
+        width: 47px;
+        height: 47px;
+    }
+
+    &:hover {
+        &::before {
+            display: none;
+        }
+    }
+}

@@ -1,20 +1,24 @@
-import Block from '../../components/block';
 import ProfileEditPasswordForm from '../../components/profile-edit-password-form';
-import profileEditPasswordPageTmpl from './profile-edit-password-page.tmpl';
+import SettingsLayout from '../../layouts/settings-layout';
+import cloneDeep from '../../utils/cloneDeep';
+import isEqual from '../../utils/isEqual';
+import Store from '../../utils/store';
+import { StoreEvents } from '../../utils/store/events';
 
-export default class ProfileEditPasswordPage extends Block {
+export default class ProfileEditPasswordPage extends SettingsLayout {
     constructor() {
-        super('div', {
-            props: {
-                form: new ProfileEditPasswordForm(),
-            },
-            attrs: {
-                class: 'profile-page',
-            },
-        });
-    }
+        const store = new Store();
+        let user = store.getState().user ?? {};
+        super({ props: { page: new ProfileEditPasswordForm(user) } });
 
-    protected render(): Node {
-        return this.compile(profileEditPasswordPageTmpl, { ...this._props, ...this._children });
+        store.on(StoreEvents.Updated, () => {
+            const newUser = cloneDeep(store.getState().user);
+
+            if (isEqual(user, newUser)) {
+                return;
+            }
+            this.setProps({ props: { page: new ProfileEditPasswordForm(newUser) } });
+            user = newUser;
+        });
     }
 }

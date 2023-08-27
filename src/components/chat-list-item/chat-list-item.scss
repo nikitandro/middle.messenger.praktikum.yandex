@@ -8,6 +8,11 @@
     height: 71px;
     padding: 12px 0;
 
+    &__avatar {
+        width: 47px;
+        height: 47px;
+    }
+
     &__left-part {
         display: flex;
         align-items: flex-start;
@@ -29,14 +34,21 @@
         color: $primary-text-color;
     }
 
-    &__content {
+    &__preview {
         margin-top: 4px;
         font-size: 12px;
         font-weight: 500;
         line-height: 15px;
-        color: $secondary-text-color;
         max-width: 193px;
         max-height: 30px;
+    }
+
+    &__display-name {
+        color: $primary-text-color;
+    }
+
+    &__content {
+        color: $secondary-text-color;
     }
 
     &__date {

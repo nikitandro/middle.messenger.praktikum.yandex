@@ -15,14 +15,9 @@
 
 ## Страницы:
 
--   [Авторизация](https://deploy--illustrious-biscuit-2e7513.netlify.app/sign-in)
--   [Регистрация](https://deploy--illustrious-biscuit-2e7513.netlify.app/sign-up)
--   [Чаты](https://deploy--illustrious-biscuit-2e7513.netlify.app/chats)
--   [Профиль](https://deploy--illustrious-biscuit-2e7513.netlify.app/profile)
--   [Редактирование профиля](https://deploy--illustrious-biscuit-2e7513.netlify.app/profile-edit)
--   [Редактирование пароля](https://deploy--illustrious-biscuit-2e7513.netlify.app/profile-edit-password)
--   [500](https://deploy--illustrious-biscuit-2e7513.netlify.app/500)
--   [404](https://deploy--illustrious-biscuit-2e7513.netlify.app/asdasd)
+Так как приложение уже подвязано к серверу, посмотреть все страницы не получится без регистрации.
+
+[**Ссылка на приложение**](https://deploy--illustrious-biscuit-2e7513.netlify.app/)
 
 ## Компонентный подход:
 

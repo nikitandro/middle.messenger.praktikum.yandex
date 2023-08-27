@@ -4,9 +4,14 @@ import AuthFormInput from '../../components/auth-form-input';
 import Button from '../../components/button';
 import Link from '../../components/link';
 import AuthForm from '../../components/auth-form';
+import { SignUpRequestModel } from '../../services/auth-api/types.ts';
+import AuthController from '../../controllers/auth-controller/auth-controller.ts';
 
 export default class SignUpPage extends Block {
     constructor() {
+        const getFormValue = (formValue: SignUpRequestModel) => {
+            AuthController.signUp(formValue);
+        };
         const inputs = [
             new AuthFormInput({
                 attrs: {
@@ -45,14 +50,14 @@ export default class SignUpPage extends Block {
             }),
             new AuthFormInput({
                 attrs: {
-                    type: 'text',
+                    type: 'password',
                     name: 'password',
                     placeholder: 'Пароль',
                 },
             }),
             new AuthFormInput({
                 attrs: {
-                    type: 'text',
+                    type: 'password',
                     name: 'password',
                     placeholder: 'Пароль (ещё раз)',
                 },
@@ -60,6 +65,7 @@ export default class SignUpPage extends Block {
         ];
         const form = new AuthForm({
             props: {
+                getFormValue: getFormValue,
                 inputs: inputs,
                 actions: [
                     new Button({
@@ -74,9 +80,7 @@ export default class SignUpPage extends Block {
                     new Link({
                         props: {
                             text: 'Войти',
-                        },
-                        attrs: {
-                            href: '/sign-in',
+                            to: '/',
                         },
                     }),
                 ],

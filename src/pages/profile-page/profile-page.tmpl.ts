@@ -1,7 +1,7 @@
-import leftArrowIcon from '../../assets/icons/arrow-in-circle-left.svg';
 // language=handlebars
 export default /*hbs*/ `
-            <div class="profile-page__go-back-area"><img src="${leftArrowIcon}" alt=""></div>
+            {{{modal}}}
+            {{{goBackArea}}}
             <div class="profile-page__profile">
                 <form class="profile">
                     {{{avatarInput}}}
@@ -25,7 +25,7 @@ export default /*hbs*/ `
                         </li>
                         <li class="profile-list-item">
                             <h2 class="profile-list-item__title">Имя в чате</h2>
-                            <p class="profile-list-item__value">{{profile.first_name}}</p>
+                            <p class="profile-list-item__value">{{profile.display_name}}</p>
                         </li>
                         <li class="profile-list-item">
                             <h2 class="profile-list-item__title">Телефон</h2>

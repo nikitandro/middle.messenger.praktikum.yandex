@@ -16,9 +16,7 @@ export default class ErrorPage extends Block<IErrorPageProps> {
                 link: new Link({
                     props: {
                         text: props ? props?.linkText : '',
-                    },
-                    attrs: {
-                        href: props ? props?.linkHref : '',
+                        to: props ? props?.linkTo : '',
                     },
                 }),
             },

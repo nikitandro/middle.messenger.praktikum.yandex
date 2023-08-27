@@ -22,8 +22,7 @@ export default class AuthFormInput extends Block {
     }
 
     public get element(): HTMLElement {
-        // @ts-ignore
-        return this._children.input.element;
+        return (this._children.input as Block).element;
     }
 
     public setProps = (

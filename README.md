@@ -10,6 +10,7 @@
 -   Запуск проекта в режиме разработки: `npm run dev`
 -   Билд: `npm run build`
 -   Линтинг: `npm run lint`
+-   Тесты: `npm run test`
 
 [**Прототип мессенджера**](https://www.figma.com/file/p5gFCNuVfzzSKmsuMtIpW1/Practicum-Messenger?node-id=12%3A44&mode=dev)
 

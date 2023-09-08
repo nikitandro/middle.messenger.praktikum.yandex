@@ -41,7 +41,10 @@ export default class AuthController {
                 this._store.set('user', value.response);
                 return value;
             })
-            .catch(() => {
+            .catch((value) => {
+                if (value.status === 401) {
+                    this._setIsAuth(false);
+                }
                 throw new Error('Failed to get user info.');
             });
     }
